@@ -6,7 +6,7 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\XML\Constants as C;
+use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 
 /**
