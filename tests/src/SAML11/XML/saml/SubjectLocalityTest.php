@@ -6,7 +6,6 @@ namespace SimpleSAML\Test\SAML11\XML\saml;
 
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\XML\saml\SubjectLocality;
-use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;

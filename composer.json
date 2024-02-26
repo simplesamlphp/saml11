@@ -32,7 +32,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "SimpleSAML\\Test\\SAML11\\": "tests/SAML11/"
+            "SimpleSAML\\Test\\SAML11\\": "tests/src/SAML11/"
         }
     },
     "extra": {

@@ -6,7 +6,6 @@ namespace SimpleSAML\Test\SAML11\XML\saml;
 
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\XML\saml\AuthorityBinding;
-use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
@@ -51,7 +50,11 @@ final class AuthorityBindingTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $ab = new AuthorityBinding('samlp:AttributeQuery', 'urn:x-simplesamlphp:location', 'urn:x-simplesamlphp:binding');
+        $ab = new AuthorityBinding(
+            'samlp:AttributeQuery',
+            'urn:x-simplesamlphp:location',
+            'urn:x-simplesamlphp:binding',
+        );
 
         $this->assertEquals(
             self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),

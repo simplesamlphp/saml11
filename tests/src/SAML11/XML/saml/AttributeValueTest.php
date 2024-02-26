@@ -122,11 +122,8 @@ XML;
      */
     public function testUnmarshallingNameID(): void
     {
-        $document = DOMDocumentFactory::fromString(<<<XML
-<saml:AttributeValue xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion">
-  <saml:NameIdentifier Format="urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified">abcd-some-value-xyz</saml:NameIdentifier>
-</saml:AttributeValue>
-XML
+        $document = DOMDocumentFactory::fromFile(
+            dirname(__FILE__, 5) . '/resources/xml/saml_AttributeValueWithNameID.xml',
         );
 
         $av = AttributeValue::fromXML($document->documentElement);

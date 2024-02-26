@@ -99,7 +99,7 @@ abstract class AbstractAuthorityBindingType extends AbstractSamlElement
     {
         $e = $this->instantiateParentElement($parent);
 
-        $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:samlp', C::NS_PROTOCOL);
+        $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:samlp', C::NS_SAMLP);
 
         $e->setAttribute('AuthorityKind', $this->getAuthorityKind());
         $e->setAttribute('Location', $this->getLocation());

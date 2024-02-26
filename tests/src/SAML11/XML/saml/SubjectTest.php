@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\XML\saml\ConfirmationMethod;
 use SimpleSAML\SAML11\XML\saml\NameIdentifier;
 use SimpleSAML\SAML11\XML\saml\Subject;
