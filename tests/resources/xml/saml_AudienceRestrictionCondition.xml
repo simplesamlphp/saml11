@@ -1,0 +1,3 @@
+<saml:AudienceRestrictionCondition xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion">
+  <saml:Audience>urn:x-simplesamlphp:audience</saml:Audience>
+</saml:AudienceRestrictionCondition>
