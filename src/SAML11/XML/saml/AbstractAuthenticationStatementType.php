@@ -24,13 +24,14 @@ abstract class AbstractAuthenticationStatementType extends AbstractSubjectStatem
     /**
      * Initialize a saml:AuthenticationStatementType from scratch
      *
+     * @param \SimpleSAML\SAML11\XML\saml\Subject $subject
      * @param string $authenticationMethod
      * @param \DateTimeImmutable $authenticationInstant
-     * @param \SimpleSAML\SAML11\XML\saml\Subject $subject
      * @param \SimpleSAML\SAML11\XML\saml\SubjectLocality|null $subjectLocality
      * @param array<\SimpleSAML\SAML11\XML\saml\AuthorityBinding> $authorityBinding
      */
     public function __construct(
+        Subject $subject,
         protected string $authenticationMethod,
         protected DateTimeImmutable $authenticationInstant,
         protected ?SubjectLocality $subjectLocality = null,
@@ -117,9 +118,9 @@ abstract class AbstractAuthenticationStatementType extends AbstractSubjectStatem
         Assert::maxCount($subject, 1, TooManyElementsException::class);
 
         return new static(
+            array_pop($subject),
             self::getAttribute($xml, 'AuthenticationMethod'),
             $authenticationInstant,
-            array_pop($subject),
             array_pop($subjectLocality),
             $authorityBinding,
         );

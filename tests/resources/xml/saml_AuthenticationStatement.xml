@@ -1,5 +1,6 @@
 <saml:AuthenticationStatement xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" AuthenticationMethod="urn:oasis:names:tc:SAML:1.0:am:password" AuthenticationInstant="2023-01-24T09:42:26Z">
   <saml:Subject>
+    <saml:NameIdentifier NameQualifier="TheNameQualifier" Format="urn:the:format">TheNameIDValue</saml:NameIdentifier>
     <saml:SubjectConfirmation>
       <saml:ConfirmationMethod>_Test1</saml:ConfirmationMethod>
       <saml:ConfirmationMethod>_Test2</saml:ConfirmationMethod>
