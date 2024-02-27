@@ -94,7 +94,7 @@ abstract class AbstractStatement extends AbstractStatementType implements Extens
         Assert::subclassOf(
             $handler,
             AbstractStatement::class,
-            'Elements implementing Statement must extend \SimpleSAML\SAML11\XML\saml\AbstractStatement.',
+            'Elements implementing Statement must extend \SimpleSAML\SAML11\XML\saml\AbstractStatementType.',
         );
         return $handler::fromXML($xml);
     }

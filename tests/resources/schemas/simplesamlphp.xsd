@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE schema
+  PUBLIC "-//W3C//DTD XMLSchema 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd"
+ [
+   <!ATTLIST schema 
+     xmlns:ds CDATA #FIXED "urn:x-simplesamlphp:namespace">
+   <!ENTITY ssp 'urn:x-simplesamlphp:namespace'>
+   <!ENTITY % p ''>
+   <!ENTITY % s ''>
+  ]>
+
+<!-- Schema for SimpleSAMLphp dummy classes -->
+
+
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:ssp="urn:x-simplesamlphp:namespace"
+        xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion"
+        targetNamespace="urn:x-simplesamlphp:namespace"
+        version="0.1" elementFormDefault="qualified"> 
+
+<import namespace='urn:oasis:names:tc:SAML:1.0:assertion'
+          schemaLocation='../../../resources/schemas/oasis-sstc-saml-schema-assertion-1.1.xsd'/>
+
+<!-- Start Chunk -->
+
+<element name="Chunk" type="string"/>
+
+<!-- End Chunk -->
+
+<!-- Start CustomStatement -->
+
+<element name="CustomStatement" type="ssp:CustomStatementType"/>
+<complexType name="CustomStatementType">
+    <complexContent>
+        <extension base="saml:StatementAbstractType">
+            <sequence>
+                <element ref="saml:Audience" maxOccurs="unbounded"/>
+            </sequence>
+        </extension>
+    </complexContent>
+</complexType>
+
+<!-- End CustomStatement -->
+
+</schema>
+
