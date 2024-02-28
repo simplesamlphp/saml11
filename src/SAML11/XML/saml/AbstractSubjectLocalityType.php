@@ -9,7 +9,7 @@ use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 
 /**
- *  SAML SubjectLocalityType abstract data type.
+ * SAML SubjectLocalityType abstract data type.
  *
  * @package simplesamlphp/saml11
  */
@@ -46,7 +46,7 @@ abstract class AbstractSubjectLocalityType extends AbstractSamlElement
      *
      * @return string|null
      */
-    public function getDNSAddress(): string|null
+    public function getDNSAddress(): ?string
     {
         return $this->DNSAddress;
     }

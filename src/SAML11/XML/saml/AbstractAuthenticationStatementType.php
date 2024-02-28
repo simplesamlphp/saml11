@@ -15,7 +15,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Exception\TooManyElementsException;
 
 /**
- *  SAML AuthenticationStatementType abstract data type.
+ * SAML AuthenticationStatementType abstract data type.
  *
  * @package simplesamlphp/saml11
  */

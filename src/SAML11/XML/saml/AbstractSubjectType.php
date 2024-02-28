@@ -15,7 +15,6 @@ use SimpleSAML\XML\Exception\TooManyElementsException;
  *
  * @package simplesamlphp/saml11
  */
-
 abstract class AbstractSubjectType extends AbstractSamlElement
 {
     /**

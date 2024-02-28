@@ -12,7 +12,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Exception\TooManyElementsException;
 
 /**
- *  SAML AttributeStatementType abstract data type.
+ * SAML AttributeStatementType abstract data type.
  *
  * @package simplesamlphp/saml11
  */

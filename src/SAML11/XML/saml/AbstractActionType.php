@@ -15,7 +15,6 @@ use SimpleSAML\XML\StringElementTrait;
  *
  * @package simplesamlphp/saml11
  */
-
 abstract class AbstractActionType extends AbstractSamlElement
 {
     use StringElementTrait;

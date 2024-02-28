@@ -10,7 +10,7 @@ use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 
 /**
- *  SAML AuthorityBindingType abstract data type.
+ * SAML AuthorityBindingType abstract data type.
  *
  * @package simplesamlphp/saml11
  */

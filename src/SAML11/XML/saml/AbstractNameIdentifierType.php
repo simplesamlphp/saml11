@@ -14,7 +14,6 @@ use SimpleSAML\XML\StringElementTrait;
  *
  * @package simplesamlphp/saml11
  */
-
 abstract class AbstractNameIdentifierType extends AbstractSamlElement
 {
     use StringElementTrait;

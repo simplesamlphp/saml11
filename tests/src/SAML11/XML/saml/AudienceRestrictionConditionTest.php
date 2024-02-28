@@ -47,7 +47,7 @@ final class AudienceRestrictionConditionTest extends TestCase
 
 
     /**
-     * Test creating an Audience from scratch
+     * Test creating an AudienceRestriction from scratch
      */
     public function testMarshalling(): void
     {

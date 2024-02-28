@@ -14,7 +14,6 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
  *
  * @package simplesamlphp/saml11
  */
-
 abstract class AbstractAttributeType extends AbstractSamlElement
 {
     use AttributeDesignatorTypeTrait;

@@ -17,7 +17,6 @@ use SimpleSAML\XMLSecurity\XML\ds\KeyInfo;
  *
  * @package simplesamlphp/saml11
  */
-
 abstract class AbstractSubjectConfirmationType extends AbstractSamlElement
 {
     /**
