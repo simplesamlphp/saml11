@@ -1,0 +1,9 @@
+<saml:Conditions xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" NotBefore="2023-01-24T09:42:26Z" NotOnOrAfter="2023-01-24T09:47:26Z">
+  <saml:AudienceRestrictionCondition>
+    <saml:Audience>urn:x-simplesamlphp:audience</saml:Audience>
+  </saml:AudienceRestrictionCondition>
+  <saml:DoNotCacheCondition xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" />
+  <saml:Condition xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" xmlns:ssp="urn:x-simplesamlphp:namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ssp:CustomConditionType">
+    <saml:Audience>urn:some:audience</saml:Audience>
+  </saml:Condition>
+</saml:Conditions>

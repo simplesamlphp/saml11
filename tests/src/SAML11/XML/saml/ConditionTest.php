@@ -13,6 +13,7 @@ use SimpleSAML\SAML11\XML\saml\Audience;
 use SimpleSAML\SAML11\XML\saml\UnknownCondition;
 use SimpleSAML\Test\SAML11\CustomCondition;
 use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 
 use function dirname;
@@ -30,6 +31,7 @@ use function strval;
  */
 final class ConditionTest extends TestCase
 {
+    use SchemaValidationTestTrait;
     use SerializableElementTestTrait;
 
 
@@ -44,6 +46,8 @@ final class ConditionTest extends TestCase
         self::$containerBackup = ContainerSingleton::getInstance();
 
         self::$testedClass = CustomCondition::class;
+
+        self::$schemaFile = dirname(__FILE__, 5) . '/resources/schemas/simplesamlphp.xsd';
 
         self::$xmlRepresentation = DOMDocumentFactory::fromFile(
             dirname(__FILE__, 5) . '/resources/xml/saml_Condition.xml',
