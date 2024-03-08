@@ -42,6 +42,21 @@
 
 <!-- End CustomStatement -->
 
+<!-- Start CustomSubjectStatement -->
+
+<element name="CustomSubjectStatement" type="ssp:CustomSubjectStatementType"/>
+<complexType name="CustomSubjectStatementType">
+    <complexContent>
+        <extension base="saml:SubjectStatementAbstractType">
+            <sequence>
+                <element ref="saml:Audience" maxOccurs="unbounded"/>
+            </sequence>
+        </extension>
+    </complexContent>
+</complexType>
+
+<!-- End CustomSubjectStatement -->
+
 <!-- Start CustomCondition -->
 
 <element name="CustomCondition" type="ssp:CustomConditionType"/>

@@ -153,12 +153,12 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
 
 
     /**
-     * @return \SimpleSAML\SAML11\XML\saml\SubjectStatement[]
+     * @return \SimpleSAML\SAML11\XML\saml\AbstractSubjectStatement[]
      */
     public function getSubjectStatements(): array
     {
         return array_values(array_filter($this->statements, function ($statement) {
-            return $statement instanceof SubjectStatement;
+            return $statement instanceof AbstractSubjectStatement;
         }));
     }
 
@@ -256,7 +256,7 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
         );
 
         $statements = AbstractStatement::getChildrenOfClass($xml);
-        $subjectStatement = SubjectStatement::getChildrenOfClass($xml);
+        $subjectStatement = AbstractSubjectStatement::getChildrenOfClass($xml);
         $authnStatement = AuthenticationStatement::getChildrenOfClass($xml);
         $authzDecisionStatement = AuthorizationDecisionStatement::getChildrenOfClass($xml);
         $attrStatement = AttributeStatement::getChildrenOfClass($xml);

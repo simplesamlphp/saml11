@@ -8,7 +8,6 @@ use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\XML\saml\AbstractStatementType;
 use SimpleSAML\SAML11\XML\saml\Subject;
-use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 use SimpleSAML\XML\Exception\MissingElementException;
 use SimpleSAML\XML\Exception\TooManyElementsException;

@@ -1,4 +1,4 @@
-<saml:SubjectStatement xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion">
+<saml:SubjectStatement xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" xmlns:ssp="urn:x-simplesamlphp:namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xsi:type="ssp:CustomSubjectStatementType">
   <saml:Subject>
     <saml:NameIdentifier NameQualifier="TheNameQualifier" Format="urn:the:format">TheNameIDValue</saml:NameIdentifier>
     <saml:SubjectConfirmation>
@@ -15,4 +15,5 @@
       </ds:KeyInfo>
     </saml:SubjectConfirmation>
   </saml:Subject>
+  <saml:Audience>urn:x-simplesamlphp:audience</saml:Audience>
 </saml:SubjectStatement>

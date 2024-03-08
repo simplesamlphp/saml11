@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\SAML11\Compat\AbstractContainer;
+use SimpleSAML\SAML11\Compat\ContainerSingleton;
+use SimpleSAML\SAML11\XML\saml\Audience;
 use SimpleSAML\SAML11\XML\saml\ConfirmationMethod;
 use SimpleSAML\SAML11\XML\saml\NameIdentifier;
 use SimpleSAML\SAML11\XML\saml\Subject;
 use SimpleSAML\SAML11\XML\saml\SubjectConfirmation;
 use SimpleSAML\SAML11\XML\saml\SubjectConfirmationData;
-use SimpleSAML\SAML11\XML\saml\SubjectStatement;
+use SimpleSAML\Test\SAML11\CustomSubjectStatement;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
@@ -27,7 +30,8 @@ use function strval;
 /**
  * Tests for SubjectStatement elements.
  *
- * @covers \SimpleSAML\SAML11\XML\saml\SubjectStatement
+ * @covers \SimpleSAML\SAML11\XML\saml\UnknownSubjectStatement
+ * @covers \SimpleSAML\SAML11\XML\saml\AbstractSubjectStatement
  * @covers \SimpleSAML\SAML11\XML\saml\AbstractSubjectStatementType
  * @covers \SimpleSAML\SAML11\XML\saml\AbstractStatementType
  * @covers \SimpleSAML\SAML11\XML\saml\AbstractSamlElement
@@ -44,12 +48,17 @@ final class SubjectStatementTest extends TestCase
     /** @var string[] */
     private static array $certData;
 
+    /** @var \SimpleSAML\SAML11\Compat\AbstractContainer */
+    private static AbstractContainer $containerBackup;
+
 
     /**
      */
     public static function setUpBeforeClass(): void
     {
-        self::$testedClass = SubjectStatement::class;
+        self::$containerBackup = ContainerSingleton::getInstance();
+
+        self::$testedClass = CustomSubjectStatement::class;
 
         self::$xmlRepresentation = DOMDocumentFactory::fromFile(
             dirname(__FILE__, 5) . '/resources/xml/saml_SubjectStatement.xml',
@@ -78,6 +87,18 @@ final class SubjectStatementTest extends TestCase
         self::$certData = openssl_x509_parse(
             PEMCertificatesMock::getPlainCertificate(PEMCertificatesMock::SELFSIGNED_CERTIFICATE),
         );
+
+        $container = clone self::$containerBackup;
+        $container->registerExtensionHandler(CustomSubjectStatement::class);
+        ContainerSingleton::setContainer($container);
+    }
+
+
+    /**
+     */
+    public static function tearDownAfterClass(): void
+    {
+        ContainerSingleton::setContainer(self::$containerBackup);
     }
 
 
@@ -120,7 +141,8 @@ final class SubjectStatementTest extends TestCase
         );
 
         $subject = new Subject($sc, $nameIdentifier);
-        $subjectStatement = new SubjectStatement($subject);
+        $audience = new Audience('urn:x-simplesamlphp:audience');
+        $subjectStatement = new CustomSubjectStatement($subject, [$audience]);
 
         $this->assertEquals(
             self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
