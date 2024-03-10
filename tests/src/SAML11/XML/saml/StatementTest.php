@@ -7,6 +7,7 @@ namespace SimpleSAML\Test\SAML11\XML\saml;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Compat\AbstractContainer;
 use SimpleSAML\SAML11\Compat\ContainerSingleton;
+use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\XML\saml\AbstractStatement;
 use SimpleSAML\SAML11\XML\saml\Audience;
 use SimpleSAML\SAML11\XML\saml\UnknownStatement;

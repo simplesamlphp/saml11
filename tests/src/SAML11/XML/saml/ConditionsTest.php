@@ -9,7 +9,6 @@ use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\XML\saml\Audience;
 use SimpleSAML\SAML11\XML\saml\AudienceRestrictionCondition;
-use SimpleSAML\SAML11\XML\saml\Condition;
 use SimpleSAML\SAML11\XML\saml\Conditions;
 use SimpleSAML\SAML11\XML\saml\DoNotCacheCondition;
 use SimpleSAML\Test\SAML11\CustomCondition;
