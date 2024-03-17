@@ -198,6 +198,17 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
 
 
     /**
+     * Set the XML element.
+     *
+     * @param \DOMElement $xml
+     */
+    private function setOriginalXML(DOMElement $xml): void
+    {
+        $this->xml = $xml;
+    }
+
+
+    /**
      * @return \DOMElement
      */
     protected function getOriginalXML(): DOMElement
@@ -276,7 +287,7 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
 
         if (!empty($signature)) {
             $assertion->setSignature($signature[0]);
-            $assertion->setXML($xml);
+            $assertion->setOriginalXML($xml);
         }
 
         return $assertion;
