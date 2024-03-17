@@ -63,8 +63,8 @@ abstract class AbstractAttributeType extends AbstractSamlElement
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
 
         $attributeValue = AttributeValue::getChildrenOfClass($xml);
-        $AttributeName = self::getOptionalAttribute($xml, 'AttributeName');
-        $AttributeNamespace = self::getOptionalAttribute($xml, 'AttributeNamespace');
+        $AttributeName = self::getAttribute($xml, 'AttributeName');
+        $AttributeNamespace = self::getAttribute($xml, 'AttributeNamespace');
 
         return new static($AttributeName, $AttributeNamespace, $attributeValue);
     }
@@ -79,14 +79,8 @@ abstract class AbstractAttributeType extends AbstractSamlElement
     public function toXML(DOMElement $parent = null): DOMElement
     {
         $e = $this->instantiateParentElement($parent);
-
-        if ($this->getAttributeName() !== null) {
-            $e->setAttribute('AttributeName', $this->getAttributeName());
-        }
-
-        if ($this->getAttributeNamespace() !== null) {
-            $e->setAttribute('AttributeNamespace', $this->getAttributeNamespace());
-        }
+        $e->setAttribute('AttributeName', $this->getAttributeName());
+        $e->setAttribute('AttributeNamespace', $this->getAttributeNamespace());
 
         foreach ($this->getAttributeValue() as $av) {
             $av->toXML($e);
