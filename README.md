@@ -1,10 +1,9 @@
 # SimpleSAMLphp SAML 1.1 library
 
-![CI](https://github.com/simplesamlphp/saml11/workflows/CI/badge.svg?branch=master)
+![CI](https://github.com/simplesamlphp/saml11/actions/workflows/php.yml/badge.svg?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/simplesamlphp/saml11/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/simplesamlphp/saml11/?branch=master)
 [![Coverage Status](https://codecov.io/gh/simplesamlphp/saml11/branch/master/graph/badge.svg)](https://codecov.io/gh/simplesamlphp/saml11)
-[![Type coverage](https://shepherd.dev/github/simplesamlphp/saml11/coverage.svg)](https://shepherd.dev/github/simplesamlphp/saml11)
-[![Psalm Level](https://shepherd.dev/github/simplesamlphp/saml11/level.svg)](https://shepherd.dev/github/simplesamlphp/saml11)
+![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)
 
 A PHP library for SAML 1.1 related functionality.
 
