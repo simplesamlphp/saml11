@@ -17,7 +17,7 @@ use function strval;
  * Tests for DoNotCacheCondition elements.
  *
  * @covers \SimpleSAML\SAML11\XML\saml\DoNotCacheCondition
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractConditionType
+ * @covers \SimpleSAML\SAML11\XML\saml\AbstractDoNotCacheConditionType
  * @covers \SimpleSAML\SAML11\XML\saml\AbstractSamlElement
  *
  * @package simplesamlphp/saml11

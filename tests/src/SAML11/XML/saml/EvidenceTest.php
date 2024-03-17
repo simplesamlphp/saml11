@@ -50,8 +50,8 @@ final class EvidenceTest extends TestCase
     /** @var \DOMDocument $conditions */
     private static DOMDocument $conditions;
 
-    /** @var \DOMDocument $action */
-    private static DOMDocument $action;
+    /** @var \DOMDocument $advice */
+    //private static DOMDocument $advice;
 
     /** @var \DOMDocument $statement */
     private static DOMDocument $statement;
@@ -63,7 +63,7 @@ final class EvidenceTest extends TestCase
     private static DOMDocument $authnStatement;
 
     /** @var \DOMDocument $authzDecisionStatement */
-    private static DOMDocument $authzDecisionStatement;
+    //private static DOMDocument $authzDecisionStatement;
 
     /** @var \DOMDocument $attributeStatement */
     private static DOMDocument $attributeStatement;

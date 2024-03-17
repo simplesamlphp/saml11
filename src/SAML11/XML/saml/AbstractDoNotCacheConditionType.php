@@ -6,11 +6,12 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\XML\saml\AbstractConditionType;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 
 /**
- * @package simplesamlphp\saml11
+ * Class representing a saml:DoNotCacheConditionType.
+ *
+ * @package simplesamlphp/saml11
  */
 abstract class AbstractDoNotCacheConditionType extends AbstractConditionType
 {

@@ -178,7 +178,7 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
     /**
      * @return \SimpleSAML\SAML11\XML\saml\AuthorizationDecisionStatement[]
      */
-    public function getAuthorizationStatements(): array
+    public function getAuthorizationDecisionStatements(): array
     {
         return array_values(array_filter($this->statements, function ($statement) {
             return $statement instanceof AuthorizationDecisionStatement;

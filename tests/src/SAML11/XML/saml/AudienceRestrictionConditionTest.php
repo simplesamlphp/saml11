@@ -18,7 +18,7 @@ use function strval;
  * Tests for AudienceRestictionCondition elements.
  *
  * @covers \SimpleSAML\SAML11\XML\saml\AudienceRestrictionCondition
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractConditionType
+ * @covers \SimpleSAML\SAML11\XML\saml\AbstractAudienceRestrictionConditionType
  * @covers \SimpleSAML\SAML11\XML\saml\AbstractSamlElement
  *
  * @package simplesamlphp/saml11

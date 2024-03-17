@@ -9,22 +9,19 @@ use DOMDocument;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Compat\AbstractContainer;
 use SimpleSAML\SAML11\Compat\ContainerSingleton;
-use SimpleSAML\SAML11\XML\saml\AbstractAttributeStatementType;
-use SimpleSAML\SAML11\XML\saml\AbstractAuthenticationStatementType;
-use SimpleSAML\SAML11\XML\saml\AbstractAuthorizationDecisionStatementType;
 use SimpleSAML\SAML11\XML\saml\AbstractStatement;
-use SimpleSAML\SAML11\XML\saml\AbstractStatementType;
 use SimpleSAML\SAML11\XML\saml\AbstractSubjectStatement;
-use SimpleSAML\SAML11\XML\saml\AbstractSubjectStatementType;
 use SimpleSAML\SAML11\XML\saml\Advice;
 use SimpleSAML\SAML11\XML\saml\Assertion;
+use SimpleSAML\SAML11\XML\saml\AssertionIDReference;
 use SimpleSAML\SAML11\XML\saml\AttributeStatement;
 use SimpleSAML\SAML11\XML\saml\AuthenticationStatement;
-use SimpleSAML\SAML11\XML\saml\AuthorizationDecisionStatement;
+//use SimpleSAML\SAML11\XML\saml\AuthorizationDecisionStatement;
 use SimpleSAML\SAML11\XML\saml\Conditions;
 use SimpleSAML\Test\SAML11\CustomCondition;
 use SimpleSAML\Test\SAML11\CustomStatement;
 use SimpleSAML\Test\SAML11\CustomSubjectStatement;
+use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
@@ -33,31 +30,27 @@ use function dirname;
 use function strval;
 
 /**
- * Tests for Assertion elements.
+ * Class \SimpleSAML\SAML11\XML\saml\AdviceTest
  *
- * @covers \SimpleSAML\SAML11\XML\saml\Assertion
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractAssertionType
+ * @covers \SimpleSAML\SAML11\XML\saml\Advice
+ * @covers \SimpleSAML\SAML11\XML\saml\AbstractAdviceType
  * @covers \SimpleSAML\SAML11\XML\saml\AbstractSamlElement
  *
  * @package simplesamlphp/saml11
  */
-final class AssertionTest extends TestCase
+final class AdviceTest extends TestCase
 {
     use SchemaValidationTestTrait;
     use SerializableElementTestTrait;
 
-
     /** @var \SimpleSAML\SAML11\Compat\AbstractContainer */
     private static AbstractContainer $containerBackup;
 
+    /** @var \SimpleSAML\XML\Chunk $chunk */
+    private static Chunk $chunk;
+
     /** @var \DOMDocument $conditions */
     private static DOMDocument $conditions;
-
-    /** @var \DOMDocument $action */
-    //private static DOMDocument $action;
-
-    /** @var \DOMDocument $advice */
-    private static DOMDocument $advice;
 
     /** @var \DOMDocument $statement */
     private static DOMDocument $statement;
@@ -69,7 +62,7 @@ final class AssertionTest extends TestCase
     private static DOMDocument $authnStatement;
 
     /** @var \DOMDocument $authzDecisionStatement */
-    private static DOMDocument $authzDecisionStatement;
+//    private static DOMDocument $authzDecisionStatement;
 
     /** @var \DOMDocument $attributeStatement */
     private static DOMDocument $attributeStatement;
@@ -83,24 +76,14 @@ final class AssertionTest extends TestCase
 
         self::$schemaFile = dirname(__FILE__, 5) . '/resources/schemas/simplesamlphp.xsd';
 
-        self::$testedClass = Assertion::class;
+        self::$testedClass = Advice::class;
 
         self::$xmlRepresentation = DOMDocumentFactory::fromFile(
-            dirname(__FILE__, 5) . '/resources/xml/saml_Assertion.xml',
+            dirname(__FILE__, 5) . '/resources/xml/saml_Advice.xml',
         );
-
-        $container = clone self::$containerBackup;
-        $container->registerExtensionHandler(CustomCondition::class);
-        $container->registerExtensionHandler(CustomStatement::class);
-        $container->registerExtensionHandler(CustomSubjectStatement::class);
-        ContainerSingleton::setContainer($container);
 
         self::$conditions = DOMDocumentFactory::fromFile(
             dirname(__FILE__, 5) . '/resources/xml/saml_Conditions.xml',
-        );
-
-        self::$advice = DOMDocumentFactory::fromFile(
-            dirname(__FILE__, 5) . '/resources/xml/saml_Advice.xml',
         );
 
         self::$statement = DOMDocumentFactory::fromFile(
@@ -115,13 +98,24 @@ final class AssertionTest extends TestCase
             dirname(__FILE__, 5) . '/resources/xml/saml_AuthenticationStatement.xml',
         );
 
-        self::$authzDecisionStatement = DOMDocumentFactory::fromFile(
-            dirname(__FILE__, 5) . '/resources/xml/saml_AuthorizationDecisionStatement.xml',
-        );
+//        self::$authzDecisionStatement = DOMDocumentFactory::fromFile(
+//            dirname(__FILE__, 5) . '/resources/xml/saml_AuthorizationDecisionStatement.xml',
+//        );
 
         self::$attributeStatement = DOMDocumentFactory::fromFile(
             dirname(__FILE__, 5) . '/resources/xml/saml_AttributeStatement.xml',
         );
+
+        self::$chunk = new Chunk(DOMDocumentFactory::fromString(
+            '<ssp:Chunk xmlns:ssp="urn:x-simplesamlphp:namespace">some</ssp:Chunk>'
+        )->documentElement);
+
+
+        $container = clone self::$containerBackup;
+        $container->registerExtensionHandler(CustomCondition::class);
+        $container->registerExtensionHandler(CustomStatement::class);
+        $container->registerExtensionHandler(CustomSubjectStatement::class);
+        ContainerSingleton::setContainer($container);
     }
 
 
@@ -133,64 +127,69 @@ final class AssertionTest extends TestCase
     }
 
 
-    // marshalling
-
-
     /**
-     * Test creating an Assertion from scratch
      */
     public function testMarshalling(): void
     {
+        $assertionIDReference = new AssertionIDReference('_Test');
+
         $assertion = new Assertion(
             '_abc123',
             'urn:x-simplesamlphp:phpunit',
             new DateTimeImmutable('2023-01-24T09:42:26Z'),
             Conditions::fromXML(self::$conditions->documentElement),
-            Advice::fromXML(self::$advice->documentElement),
+            null, // null
             [
                 AbstractStatement::fromXML(self::$statement->documentElement),
                 AbstractSubjectStatement::fromXML(self::$subjectStatement->documentElement),
                 AuthenticationStatement::fromXML(self::$authnStatement->documentElement),
-                AuthorizationDecisionStatement::fromXML(self::$authzDecisionStatement->documentElement),
+                //null, // authzDecisionStatement
                 AttributeStatement::fromXML(self::$attributeStatement->documentElement),
             ],
         );
 
+        $advice = new Advice(
+            [$assertionIDReference],
+            [$assertion],
+            [self::$chunk],
+        );
+
+        $assertion = new Assertion(
+            '_abc123',
+            'urn:x-simplesamlphp:phpunit',
+            new DateTimeImmutable('2023-01-24T09:42:26Z'),
+            Conditions::fromXML(self::$conditions->documentElement),
+            $advice,
+            [
+                AbstractStatement::fromXML(self::$statement->documentElement),
+                AbstractSubjectStatement::fromXML(self::$subjectStatement->documentElement),
+                AuthenticationStatement::fromXML(self::$authnStatement->documentElement),
+                //null, // authzDecisionStatement
+                AttributeStatement::fromXML(self::$attributeStatement->documentElement),
+            ],
+        );
+
+        $advice = new Advice(
+            [$assertionIDReference],
+            [$assertion],
+            [self::$chunk],
+        );
+
         $this->assertEquals(
             self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($assertion),
+            strval($advice),
         );
     }
 
-
     /**
-     * Test getters for diffent types of statements
      */
-    public function testStatementGetters(): void
+    public function testMarshallingEmpty(): void
     {
-        $assertion = Assertion::fromXML(self::$xmlRepresentation->documentElement);
-
-        $statements = $assertion->getStatements();
-        $this->assertContainsOnlyInstancesOf(AbstractStatementType::class, $statements);
-        $this->assertCount(1, $statements);
-
-        $subjectStatements = $assertion->getSubjectStatements();
-        $this->assertContainsOnlyInstancesOf(AbstractSubjectStatementType::class, $subjectStatements);
-        $this->assertCount(1, $subjectStatements);
-
-        $authnStatements = $assertion->getAuthenticationStatements();
-        $this->assertContainsOnlyInstancesOf(AbstractAuthenticationStatementType::class, $authnStatements);
-        $this->assertCount(1, $authnStatements);
-
-        $authzDecisionStatements = $assertion->getAuthorizationDecisionStatements();
-        $this->assertContainsOnlyInstancesOf(
-            AbstractAuthorizationDecisionStatementType::class,
-            $authzDecisionStatements,
+        $advice = new Advice();
+        $this->assertEquals(
+            '<saml:Advice xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion"/>',
+            strval($advice),
         );
-        $this->assertCount(1, $authzDecisionStatements);
-
-        $attrStatements = $assertion->getattributeStatements();
-        $this->assertContainsOnlyInstancesOf(AbstractAttributeStatementType::class, $attrStatements);
-        $this->assertCount(1, $attrStatements);
+        $this->assertTrue($advice->isEmptyElement());
     }
 }

@@ -7,12 +7,18 @@ namespace SimpleSAML\Test\SAML11\XML\saml;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Compat\AbstractContainer;
 use SimpleSAML\SAML11\Compat\ContainerSingleton;
+use SimpleSAML\SAML11\Constants as C;
+use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
+use SimpleSAML\SAML11\XML\saml\AbstractStatementType;
+use SimpleSAML\SAML11\XML\saml\AbstractSubjectStatement;
+use SimpleSAML\SAML11\XML\saml\AbstractSubjectStatementType;
 use SimpleSAML\SAML11\XML\saml\Audience;
 use SimpleSAML\SAML11\XML\saml\ConfirmationMethod;
 use SimpleSAML\SAML11\XML\saml\NameIdentifier;
 use SimpleSAML\SAML11\XML\saml\Subject;
 use SimpleSAML\SAML11\XML\saml\SubjectConfirmation;
 use SimpleSAML\SAML11\XML\saml\SubjectConfirmationData;
+use SimpleSAML\SAML11\XML\saml\UnknownSubjectStatement;
 use SimpleSAML\Test\SAML11\CustomSubjectStatement;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\DOMDocumentFactory;
@@ -148,5 +154,49 @@ final class SubjectStatementTest extends TestCase
             self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
             strval($subjectStatement),
         );
+    }
+
+
+    /**
+     * Test unmarshalling a registered class
+     */
+    public function testUnmarshalling(): void
+    {
+        $subjectStatement = CustomSubjectStatement::fromXML(self::$xmlRepresentation->documentElement);
+        $this->assertInstanceOf(CustomSubjectStatement::class, $subjectStatement);
+
+        $this->assertEquals('ssp:CustomSubjectStatementType', $subjectStatement->getXsiType());
+        $audience = $subjectStatement->getAudience();
+        $this->assertCount(1, $audience);
+        $this->assertEquals('urn:x-simplesamlphp:audience', $audience[0]->getContent());
+
+        $this->assertEquals(
+            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
+            strval($subjectStatement),
+        );
+    }
+
+
+    /**
+     */
+    public function testUnmarshallingUnregistered(): void
+    {
+        $element = clone self::$xmlRepresentation->documentElement;
+        $element->setAttributeNS(C::NS_XSI, 'xsi:type', 'ssp:UnknownSubjectStatementType');
+
+        $subjectStatement = AbstractSubjectStatement::fromXML($element);
+
+        $this->assertInstanceOf(UnknownSubjectStatement::class, $subjectStatement);
+        $this->assertEquals(
+            'urn:x-simplesamlphp:namespace:UnknownSubjectStatementType',
+            $subjectStatement->getXsiType(),
+        );
+
+        $chunk = $subjectStatement->getRawSubjectStatement();
+        $this->assertEquals('saml', $chunk->getPrefix());
+        $this->assertEquals('SubjectStatement', $chunk->getLocalName());
+        $this->assertEquals(C::NS_SAML, $chunk->getNamespaceURI());
+
+        $this->assertEquals($element->ownerDocument?->saveXML($element), strval($subjectStatement));
     }
 }
