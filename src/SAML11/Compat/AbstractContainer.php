@@ -23,6 +23,21 @@ abstract class AbstractContainer
     /** @var array */
     protected array $registry = [];
 
+    /** @var array|null */
+    protected ?array $blacklistedEncryptionAlgorithms;
+
+
+    /**
+     * Get the list of algorithms that are blacklisted for any encryption operation.
+     *
+     * @return string[]|null An array with all algorithm identifiers that are blacklisted, or null if we want to use the
+     * defaults.
+     */
+    public function getBlacklistedEncryptionAlgorithms(): ?array
+    {
+        return $this->blacklistedEncryptionAlgorithms;
+    }
+
 
     /**
      * Register a class that can handle given extension points of the standard.
