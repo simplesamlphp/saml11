@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\saml;
 
-enum DecisionTypeEnum
+enum DecisionTypeEnum: string
 {
-    case Deny;
-    case Indeterminate;
-    case Permit;
+    case Deny = 'Deny';
+    case Indeterminate = 'Indeterminate';
+    case Permit = 'Permit';
 }

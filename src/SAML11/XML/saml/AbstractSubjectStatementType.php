@@ -42,30 +42,6 @@ abstract class AbstractSubjectStatementType extends AbstractStatementType
 
 
     /**
-     * Convert XML into a SubjectStatement
-     *
-     * @param \DOMElement $xml The XML element we should load
-     * @return static
-     *
-     * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
-     *   if the qualified name of the supplied element is wrong
-     */
-    public static function fromXML(DOMElement $xml): static
-    {
-        Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
-        Assert::same($xml->namespaceURI, static::getNamespaceURI(), InvalidDOMElementException::class);
-
-        $subject = Subject::getChildrenOfClass($xml);
-        Assert::minCount($subject, 1, MissingElementException::class);
-        Assert::maxCount($subject, 1, TooManyElementsException::class);
-
-        return new static(
-            array_pop($subject),
-        );
-    }
-
-
-    /**
      * Convert this SubjectStatement to XML.
      *
      * @param \DOMElement $parent The element we are converting to XML.

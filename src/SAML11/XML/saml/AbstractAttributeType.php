@@ -26,7 +26,7 @@ abstract class AbstractAttributeType extends AbstractSamlElement
      * @param string $AttributeNamespace
      * @param array<\SimpleSAML\SAML11\XML\saml\AttributeValue> $attributeValue
      */
-    public function __construct(
+    final public function __construct(
         protected string $AttributeName,
         protected string $AttributeNamespace,
         protected array $attributeValue,

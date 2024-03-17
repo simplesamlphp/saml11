@@ -27,7 +27,7 @@ abstract class AbstractAuthorizationDecisionStatementType extends AbstractSubjec
      * @param array<\SimpleSAML\SAML11\XML\saml\Action> $action
      * @param \SimpleSAML\SAML11\XML\saml\Evidence|null $evidence
      */
-    public function __construct(
+    final public function __construct(
         Subject $subject,
         protected string $resource,
         protected DecisionTypeEnum $decision,

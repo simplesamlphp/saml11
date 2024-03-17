@@ -11,6 +11,7 @@ use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\ExtendableElementTrait;
+use SimpleSAML\XML\XsNamespace as NS;
 
 /**
  * SAML AdviceType abstract data type.
@@ -37,9 +38,9 @@ abstract class AbstractAdviceType extends AbstractSamlElement
         protected array $assertion = [],
         array $elements = [],
     ) {
-        Assert::maxCount($assertionIDRef, C::UNBOUNDED_LIMIT);
+        Assert::maxCount($assertionIDReference, C::UNBOUNDED_LIMIT);
         Assert::maxCount($assertion, C::UNBOUNDED_LIMIT);
-        Assert::allIsInstanceOf($assertionIDRef, AssertionIDRef::class, SchemaViolationException::class);
+        Assert::allIsInstanceOf($assertionIDReference, AssertionIDReference::class, SchemaViolationException::class);
         Assert::allIsInstanceOf($assertion, Assertion::class, SchemaViolationException::class);
 
         $this->setElements($elements);

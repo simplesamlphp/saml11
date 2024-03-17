@@ -26,7 +26,7 @@ abstract class AbstractSubjectConfirmationType extends AbstractSamlElement
      * @param \SimpleSAML\SAML11\XML\saml\SubjectConfirmationData|null $subjectConfirmationData
      * @param \SimpleSAML\XMLSecurity\XML\ds\KeyInfo|null $keyInfo
      */
-    public function __construct(
+    final public function __construct(
         protected array $confirmationMethod,
         protected ?SubjectConfirmationData $subjectConfirmationData = null,
         protected ?KeyInfo $keyInfo = null,

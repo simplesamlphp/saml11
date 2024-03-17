@@ -26,7 +26,7 @@ abstract class AbstractNameIdentifierType extends AbstractSamlElement
      * @param string|null $Format
      * @param string|null $NameQualifier
      */
-    public function __construct(
+    final public function __construct(
         string $value,
         protected ?string $NameQualifier = null,
         protected ?string $Format = null,

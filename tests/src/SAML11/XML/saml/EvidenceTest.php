@@ -48,12 +48,6 @@ final class EvidenceTest extends TestCase
     /** @var \SimpleSAML\SAML11\Compat\AbstractContainer */
     private static AbstractContainer $containerBackup;
 
-    /** @var string */
-    private static string $certificate;
-
-    /** @var string[] */
-    private static array $certData;
-
     /** @var \DOMDocument $conditions */
     private static DOMDocument $conditions;
 
@@ -88,30 +82,6 @@ final class EvidenceTest extends TestCase
 
         self::$xmlRepresentation = DOMDocumentFactory::fromFile(
             dirname(__FILE__, 5) . '/resources/xml/saml_Evidence.xml',
-        );
-
-        self::$certificate = str_replace(
-            [
-                '-----BEGIN CERTIFICATE-----',
-                '-----END CERTIFICATE-----',
-                '-----BEGIN RSA PUBLIC KEY-----',
-                '-----END RSA PUBLIC KEY-----',
-                "\r\n",
-                "\n",
-            ],
-            [
-                '',
-                '',
-                '',
-                '',
-                "\n",
-                ''
-            ],
-            PEMCertificatesMock::getPlainCertificate(PEMCertificatesMock::SELFSIGNED_CERTIFICATE),
-        );
-
-        self::$certData = openssl_x509_parse(
-            PEMCertificatesMock::getPlainCertificate(PEMCertificatesMock::SELFSIGNED_CERTIFICATE),
         );
 
         $container = clone self::$containerBackup;

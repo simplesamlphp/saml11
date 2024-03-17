@@ -89,11 +89,11 @@ jobs:
 
       - name: PHPStan
         run: |
-          phpstan analyze -c phpstan.neon
+          phpstan analyze -c phpstan.neon -vv
 
       - name: PHPStan (testsuite)
         run: |
-          phpstan analyze -c phpstan-dev.neon
+          phpstan analyze -c phpstan-dev.neon -vv
 
   security:
     name: Security checks

@@ -24,7 +24,7 @@ abstract class AbstractAttributeStatementType extends AbstractSubjectStatementTy
      * @param \SimpleSAML\SAML11\XML\saml\Subject $subject
      * @param array<\SimpleSAML\SAML11\XML\saml\Attribute> $attribute
      */
-    public function __construct(
+    final public function __construct(
         Subject $subject,
         protected array $attribute = [],
     ) {

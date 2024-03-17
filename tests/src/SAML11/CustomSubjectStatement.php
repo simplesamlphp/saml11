@@ -11,6 +11,8 @@ use SimpleSAML\SAML11\XML\saml\AbstractSubjectStatement;
 use SimpleSAML\SAML11\XML\saml\Audience;
 use SimpleSAML\SAML11\XML\saml\Subject;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
+use SimpleSAML\XML\Exception\MissingElementException;
+use SimpleSAML\XML\Exception\TooManyElementsException;
 
 /**
  * Example class to demonstrate how SubjectStatement can be extended.

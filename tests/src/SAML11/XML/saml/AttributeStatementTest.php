@@ -160,7 +160,7 @@ final class AttributeStatementTest extends TestCase
         $this->assertCount(1, $attributeStatementElements);
 
         // Test ordering of AttributeStatement contents
-        /** @psalm-var \DOMElement[] $authnStatementElements */
+        /** @var \DOMElement[] $attributeStatementElements */
         $attributeStatementElements = XPath::xpQuery(
             $attributeStatementElement,
             './saml_assertion:Subject/following-sibling::*',

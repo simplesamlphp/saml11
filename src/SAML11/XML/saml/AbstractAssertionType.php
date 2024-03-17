@@ -7,6 +7,7 @@ namespace SimpleSAML\SAML11\XML\saml;
 use DateTimeImmutable;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
+use SimpleSAML\SAML11\Compat\ContainerSingleton;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\Exception\ProtocolViolationException;
 use SimpleSAML\SAML11\Utils\XPath;
@@ -57,7 +58,7 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
      * @param \SimpleSAML\SAML11\XML\saml\Advice|null $advice
      * @param array<\SimpleSAML\SAML11\XML\saml\AbstractStatementType> $statements
      */
-    public function __construct(
+    final public function __construct(
         protected string $assertionID,
         protected string $issuer,
         protected DateTimeImmutable $issueInstant,
@@ -322,10 +323,10 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
         if ($this->isSigned() === true && $this->signer === null) {
             // We already have a signed document and no signer was set to re-sign it
             if ($parent === null) {
-                return $this->getXML();
+                return $this->getOriginalXML();
             }
 
-            $node = $parent->ownerDocument?->importNode($this->getXML(), true);
+            $node = $parent->ownerDocument?->importNode($this->getOriginalXML(), true);
             $parent->appendChild($node);
             return $parent;
         }
@@ -341,7 +342,7 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
                 './saml_assertion/following-sibling::*[position() = last()]',
                 XPath::getXPath($signedXML),
             );
-            $last = array_pop($messageElements);
+            $last = array_pop($assertionElements);
 
             if ($last !== null) {
                 $signedXML->insertBefore($this->signature?->toXML($signedXML), $last->nextSibling);

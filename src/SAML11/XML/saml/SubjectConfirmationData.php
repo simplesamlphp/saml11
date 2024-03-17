@@ -36,7 +36,7 @@ class SubjectConfirmationData extends AbstractSamlElement
      *
      * @throws \SimpleSAML\Assert\AssertionFailedException if the supplied value is neither a string or a DOMElement
      */
-    public function __construct(
+    final public function __construct(
         protected string|int|null|AbstractElement $value,
     ) {
     }

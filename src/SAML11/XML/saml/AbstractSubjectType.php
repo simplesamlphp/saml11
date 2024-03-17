@@ -23,7 +23,7 @@ abstract class AbstractSubjectType extends AbstractSamlElement
      * @param \SimpleSAML\SAML11\XML\saml\SubjectConfirmation|null $subjectConfirmation
      * @param \SimpleSAML\SAML11\XML\saml\NameIdentifier|null $nameIdentifier
      */
-    public function __construct(
+    final public function __construct(
         protected ?SubjectConfirmation $subjectConfirmation = null,
         protected ?NameIdentifier $nameIdentifier = null,
     ) {

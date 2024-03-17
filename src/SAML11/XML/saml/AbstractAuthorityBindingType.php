@@ -23,7 +23,7 @@ abstract class AbstractAuthorityBindingType extends AbstractSamlElement
      * @param string $Location
      * @param string $Binding
      */
-    public function __construct(
+    final public function __construct(
         protected string $AuthorityKind,
         protected string $Location,
         protected string $Binding,

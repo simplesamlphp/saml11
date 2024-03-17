@@ -30,7 +30,7 @@ abstract class AbstractAuthenticationStatementType extends AbstractSubjectStatem
      * @param \SimpleSAML\SAML11\XML\saml\SubjectLocality|null $subjectLocality
      * @param array<\SimpleSAML\SAML11\XML\saml\AuthorityBinding> $authorityBinding
      */
-    public function __construct(
+    final public function __construct(
         Subject $subject,
         protected string $authenticationMethod,
         protected DateTimeImmutable $authenticationInstant,

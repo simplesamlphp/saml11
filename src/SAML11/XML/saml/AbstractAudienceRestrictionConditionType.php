@@ -22,7 +22,7 @@ abstract class AbstractAudienceRestrictionConditionType extends AbstractConditio
      *
      * @param \SimpleSAML\SAML11\XML\saml\Audience[] $audience
      */
-    public function __construct(
+    final public function __construct(
         protected array $audience,
     ) {
         Assert::allIsInstanceOf($audience, Audience::class, SchemaViolationException::class);
