@@ -5,14 +5,8 @@ declare(strict_types=1);
 namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
-use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\XML\saml\AbstractStatementType;
 use SimpleSAML\SAML11\XML\saml\Subject;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Exception\MissingElementException;
-use SimpleSAML\XML\Exception\TooManyElementsException;
-
-use function array_pop;
 
 /**
  * @package simplesamlphp\saml11
