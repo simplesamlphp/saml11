@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
 use SimpleSAML\SAML11\XML\saml\AssertionIDReference;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
@@ -16,11 +18,10 @@ use function strval;
 /**
  * Class \SimpleSAML\SAML11\XML\saml\AssertionIDReferenceTest
  *
- * @covers \SimpleSAML\SAML11\XML\saml\AssertionIDReference
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractSamlElement
- *
  * @package simplesamlphp/saml11
  */
+#[CoversClass(AssertionIDReference::class)]
+#[CoversClass(AbstractSamlElement::class)]
 final class AssertionIDReferenceTest extends TestCase
 {
     use SchemaValidationTestTrait;

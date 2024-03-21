@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Compat\AbstractContainer;
 use SimpleSAML\SAML11\Compat\ContainerSingleton;
 use SimpleSAML\SAML11\Constants as C;
+use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
 use SimpleSAML\SAML11\XML\saml\AbstractStatement;
+use SimpleSAML\SAML11\XML\saml\AbstractStatementType;
 use SimpleSAML\SAML11\XML\saml\Audience;
 use SimpleSAML\SAML11\XML\saml\UnknownStatement;
 use SimpleSAML\Test\SAML11\CustomStatement;
@@ -22,12 +25,12 @@ use function strval;
 /**
  * Class \SimpleSAML\SAML11\XML\saml\StatementTest
  *
- * @covers \SimpleSAML\SAML11\XML\saml\UnknownStatement
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractStatement
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractStatementType
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractSamlElement
  * @package simplesamlphp/saml11
  */
+#[CoversClass(UnknownStatement::class)]
+#[CoversClass(AbstractStatement::class)]
+#[CoversClass(AbstractStatementType::class)]
+#[CoversClass(AbstractSamlElement::class)]
 final class StatementTest extends TestCase
 {
     use SchemaValidationTestTrait;

@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
+use SimpleSAML\SAML11\XML\saml\AbstractSubjectType;
 use SimpleSAML\SAML11\XML\saml\ConfirmationMethod;
 use SimpleSAML\SAML11\XML\saml\NameIdentifier;
 use SimpleSAML\SAML11\XML\saml\Subject;
@@ -27,12 +30,11 @@ use function strval;
 /**
  * Tests for Subject elements.
  *
- * @covers \SimpleSAML\SAML11\XML\saml\Subject
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractSubjectType
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractSamlElement
- *
  * @package simplesamlphp/saml11
  */
+#[CoversClass(Subject::class)]
+#[CoversClass(AbstractSubjectType::class)]
+#[CoversClass(AbstractSamlElement::class)]
 final class SubjectTest extends TestCase
 {
     use SchemaValidationTestTrait;

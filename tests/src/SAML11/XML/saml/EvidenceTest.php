@@ -6,9 +6,12 @@ namespace SimpleSAML\Test\SAML11\XML\saml;
 
 use DateTimeImmutable;
 use DOMDocument;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Compat\AbstractContainer;
 use SimpleSAML\SAML11\Compat\ContainerSingleton;
+use SimpleSAML\SAML11\XML\saml\AbstractEvidenceType;
+use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
 use SimpleSAML\SAML11\XML\saml\AbstractStatement;
 use SimpleSAML\SAML11\XML\saml\AbstractSubjectStatement;
 //use SimpleSAML\SAML11\XML\saml\Advice;
@@ -32,12 +35,11 @@ use function strval;
 /**
  * Tests for Evidence elements.
  *
- * @covers \SimpleSAML\SAML11\XML\saml\Evidence
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractEvidenceType
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractSamlElement
- *
  * @package simplesamlphp/saml11
  */
+#[CoversClass(Evidence::class)]
+#[CoversClass(AbstractEvidenceType::class)]
+#[CoversClass(AbstractSamlElement::class)]
 final class EvidenceTest extends TestCase
 {
     use SchemaValidationTestTrait;

@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
+use SimpleSAML\SAML11\XML\saml\AbstractSubjectLocalityType;
 use SimpleSAML\SAML11\XML\saml\SubjectLocality;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
@@ -16,12 +19,11 @@ use function strval;
 /**
  * Tests for SubjectLocality elements.
  *
- * @covers \SimpleSAML\SAML11\XML\saml\SubjectLocality
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractSubjectLocalityType
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractSamlElement
- *
  * @package simplesamlphp/saml11
  */
+#[CoversClass(SubjectLocality::class)]
+#[CoversClass(AbstractSubjectLocalityType::class)]
+#[CoversClass(AbstractSamlElement::class)]
 final class SubjectLocalityTest extends TestCase
 {
     use SchemaValidationTestTrait;

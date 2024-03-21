@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
 use DateTimeImmutable;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\Utils\XPath;
+use SimpleSAML\SAML11\XML\saml\AbstractAuthenticationStatementType;
+use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
 use SimpleSAML\SAML11\XML\saml\AuthenticationStatement;
 use SimpleSAML\SAML11\XML\saml\AuthorityBinding;
 use SimpleSAML\SAML11\XML\saml\ConfirmationMethod;
@@ -33,12 +36,11 @@ use function strval;
 /**
  * Tests for AuthenticationStatement elements.
  *
- * @covers \SimpleSAML\SAML11\XML\saml\AuthenticationStatement
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractAuthenticationStatementType
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractSamlElement
- *
  * @package simplesamlphp/saml11
  */
+#[CoversClass(AuthenticationStatement::class)]
+#[CoversClass(AbstractAuthenticationStatementType::class)]
+#[CoversClass(AbstractSamlElement::class)]
 final class AuthenticationStatementTest extends TestCase
 {
     use SchemaValidationTestTrait;

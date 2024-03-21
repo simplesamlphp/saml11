@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
 use DOMDocument;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Compat\AbstractContainer;
 use SimpleSAML\SAML11\Compat\ContainerSingleton;
+use SimpleSAML\SAML11\XML\saml\AbstractAuthorizationDecisionStatementType;
+use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
 use SimpleSAML\SAML11\XML\saml\Action;
 use SimpleSAML\SAML11\XML\saml\AuthorizationDecisionStatement;
 use SimpleSAML\SAML11\XML\saml\DecisionTypeEnum;
@@ -26,12 +29,11 @@ use function strval;
 /**
  * Tests for AuthorizationDecisionStatement elements.
  *
- * @covers \SimpleSAML\SAML11\XML\saml\AuthorizationDecisionStatement
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractAuthorizationDecisionStatementType
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractSamlElement
- *
  * @package simplesamlphp/saml11
  */
+#[CoversClass(AuthorizationDecisionStatement::class)]
+#[CoversClass(AbstractAuthorizationDecisionStatementType::class)]
+#[CoversClass(AbstractSamlElement::class)]
 final class AuthorizationDecisionStatementTest extends TestCase
 {
     use SchemaValidationTestTrait;

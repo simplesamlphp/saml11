@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Compat\AbstractContainer;
 use SimpleSAML\SAML11\Compat\ContainerSingleton;
@@ -36,14 +37,12 @@ use function strval;
 /**
  * Tests for SubjectStatement elements.
  *
- * @covers \SimpleSAML\SAML11\XML\saml\UnknownSubjectStatement
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractSubjectStatement
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractSubjectStatementType
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractStatementType
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractSamlElement
- *
  * @package simplesamlphp/saml11
  */
+#[CoversClass(AbstractSubjectStatement::class)]
+#[CoversClass(AbstractSubjectStatementType::class)]
+#[CoversClass(AbstractStatementType::class)]
+#[CoversClass(AbstractSamlElement::class)]
 final class SubjectStatementTest extends TestCase
 {
     use SerializableElementTestTrait;

@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Constants as C;
+use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
 use SimpleSAML\SAML11\XML\saml\AttributeValue;
 use SimpleSAML\SAML11\XML\saml\NameIdentifier;
 use SimpleSAML\XML\DOMDocumentFactory;
@@ -18,11 +20,10 @@ use function strval;
 /**
  * Tests for AttributeValue elements.
  *
- * @covers \SimpleSAML\SAML11\XML\saml\AttributeValue
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractSamlElement
- *
  * @package simplesamlphp/saml11
  */
+#[CoversClass(AttributeValue::class)]
+#[CoversClass(AbstractSamlElement::class)]
 final class AttributeValueTest extends TestCase
 {
     use SchemaValidationTestTrait;

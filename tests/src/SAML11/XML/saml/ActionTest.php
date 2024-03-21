@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\SAML11\XML\saml\AbstractActionType;
+use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
 use SimpleSAML\SAML11\XML\saml\Action;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
@@ -16,12 +19,11 @@ use function strval;
 /**
  * Tests for Action elements.
  *
- * @covers \SimpleSAML\SAML11\XML\saml\Action
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractActionType
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractSamlElement
- *
  * @package simplesamlphp/saml11
  */
+#[CoversClass(Action::class)]
+#[CoversClass(AbstractActionType::class)]
+#[CoversClass(AbstractSamlElement::class)]
 final class ActionTest extends TestCase
 {
     use SchemaValidationTestTrait;

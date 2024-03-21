@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Compat\AbstractContainer;
 use SimpleSAML\SAML11\Compat\ContainerSingleton;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\XML\saml\AbstractCondition;
+use SimpleSAML\SAML11\XML\saml\AbstractConditionType;
+use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
 use SimpleSAML\SAML11\XML\saml\Audience;
 use SimpleSAML\SAML11\XML\saml\UnknownCondition;
 use SimpleSAML\Test\SAML11\CustomCondition;
@@ -22,13 +25,12 @@ use function strval;
 /**
  * Class \SimpleSAML\SAML11\XML\saml\ConditionTest
  *
- * @covers \SimpleSAML\SAML11\XML\saml\UnknownCondition
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractCondition
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractConditionType
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractSamlElement
- *
  * @package simplesamlphp/saml11
  */
+#[CoversClass(UnknownCondition::class)]
+#[CoversClass(AbstractCondition::class)]
+#[CoversClass(AbstractConditionType::class)]
+#[CoversClass(AbstractSamlElement::class)]
 final class ConditionTest extends TestCase
 {
     use SchemaValidationTestTrait;

@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
 use DateTimeImmutable;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Constants as C;
+use SimpleSAML\SAML11\XML\saml\AbstractConditionsType;
+use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
 use SimpleSAML\SAML11\XML\saml\Audience;
 use SimpleSAML\SAML11\XML\saml\AudienceRestrictionCondition;
 use SimpleSAML\SAML11\XML\saml\Conditions;
@@ -22,12 +25,11 @@ use function strval;
 /**
  * Tests for Conditions elements.
  *
- * @covers \SimpleSAML\SAML11\XML\saml\Conditions
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractConditionsType
- * @covers \SimpleSAML\SAML11\XML\saml\AbstractSamlElement
- *
  * @package simplesamlphp/saml11
  */
+#[CoversClass(Conditions::class)]
+#[CoversClass(AbstractConditionsType::class)]
+#[CoversClass(AbstractSamlElement::class)]
 final class ConditionsTest extends TestCase
 {
     use SchemaValidationTestTrait;
