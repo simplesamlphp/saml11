@@ -16,13 +16,13 @@
         "ext-pcre": "*",
 
         "psr/clock": "^1.0",
+        "psr/log": "^2.0 | ^3.0",
         "simplesamlphp/assert": "^1.0",
         "simplesamlphp/xml-common": "^1.14",
         "simplesamlphp/xml-security": "^1.6"
     },
     "require-dev": {
         "beste/clock": "^3.0",
-        "psr/log": "^2.0 | ^3.0",
         "simplesamlphp/simplesamlphp-test-framework": "^1.5"
     },
     "autoload": {
