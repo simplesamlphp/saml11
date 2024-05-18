@@ -80,7 +80,7 @@ final class AuthenticationStatementTest extends TestCase
                 '',
                 '',
                 "\n",
-                ''
+                '',
             ],
             PEMCertificatesMock::getPlainCertificate(PEMCertificatesMock::SELFSIGNED_CERTIFICATE),
         );

@@ -78,7 +78,7 @@ final class AttributeStatementTest extends TestCase
                 '',
                 '',
                 "\n",
-                ''
+                '',
             ],
             PEMCertificatesMock::getPlainCertificate(PEMCertificatesMock::SELFSIGNED_CERTIFICATE),
         );

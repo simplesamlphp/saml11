@@ -74,7 +74,7 @@ final class SubjectTest extends TestCase
                 '',
                 '',
                 "\n",
-                ''
+                '',
             ],
             PEMCertificatesMock::getPlainCertificate(PEMCertificatesMock::SELFSIGNED_CERTIFICATE),
         );
