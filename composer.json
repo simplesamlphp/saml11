@@ -23,7 +23,7 @@
     },
     "require-dev": {
         "beste/clock": "^3.0",
-        "simplesamlphp/simplesamlphp-test-framework": "^1.5"
+        "simplesamlphp/simplesamlphp-test-framework": "^1.7"
     },
     "autoload": {
         "psr-4": {

@@ -55,7 +55,7 @@ final class AttributeTest extends TestCase
         $attribute = new Attribute(
             'TheName',
             'https://example.org/',
-            [new AttributeValue('FirstValue'), new AttributeValue('SecondValue')]
+            [new AttributeValue('FirstValue'), new AttributeValue('SecondValue')],
         );
 
         $this->assertEquals(

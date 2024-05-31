@@ -109,7 +109,7 @@ final class AttributeStatementTest extends TestCase
                     ],
                 ),
                 new Chunk(DOMDocumentFactory::fromString(
-                    '<ssp:Chunk xmlns:ssp="urn:x-simplesamlphp:namespace">some</ssp:Chunk>'
+                    '<ssp:Chunk xmlns:ssp="urn:x-simplesamlphp:namespace">some</ssp:Chunk>',
                 )->documentElement),
             ],
             'fed654',
@@ -132,7 +132,7 @@ final class AttributeStatementTest extends TestCase
         $attribute = new Attribute(
             'TheName',
             'https://example.org/',
-            [new AttributeValue('FirstValue'), new AttributeValue('SecondValue')]
+            [new AttributeValue('FirstValue'), new AttributeValue('SecondValue')],
         );
 
         $attributeStatement = new AttributeStatement(

@@ -23,7 +23,7 @@ final class Audience extends AbstractSamlElement
      * @param string $value
      */
     public function __construct(
-        protected string $value
+        protected string $value,
     ) {
         $this->setContent($value);
     }

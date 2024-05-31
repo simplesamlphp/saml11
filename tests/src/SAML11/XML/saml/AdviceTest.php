@@ -109,7 +109,7 @@ final class AdviceTest extends TestCase
         );
 
         self::$chunk = new Chunk(DOMDocumentFactory::fromString(
-            '<ssp:Chunk xmlns:ssp="urn:x-simplesamlphp:namespace">some</ssp:Chunk>'
+            '<ssp:Chunk xmlns:ssp="urn:x-simplesamlphp:namespace">some</ssp:Chunk>',
         )->documentElement);
 
 
