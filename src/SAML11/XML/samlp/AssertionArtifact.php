@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace SimpleSAML\SAML11\XML\saml;
+namespace SimpleSAML\SAML11\XML\samlp;
 
 use SimpleSAML\XML\StringElementTrait;
 
 /**
- * SAML Audience element.
+ * SAML AssertionArtifact element.
  *
  * @package simplesamlphp/saml11
  */
 
-final class Audience extends AbstractSamlElement
+final class AssertionArtifact extends AbstractSamlpElement
 {
     use StringElementTrait;
 
 
     /**
-     * Initialize a saml:Audience from scratch
+     * Initialize a saml:AssertionArtifac from scratch
      *
      * @param string $value
      */
