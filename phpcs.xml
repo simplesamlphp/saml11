@@ -18,5 +18,6 @@
     <!-- Lines can be a little bit longer before they break the build -->
     <rule ref="Generic.Files.LineLength">
         <exclude-pattern>tests/src/SAML11/XML/saml/AttributeValueTest.php</exclude-pattern>
+        <exclude-pattern>tests/src/SAML11/XML/samlp/StatusDetailTest.php</exclude-pattern>
     </rule>
 </ruleset>
