@@ -6,6 +6,7 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
+use SimpleSAML\SAML11\Assert\Assert as SAMLAssert;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 use SimpleSAML\XML\Exception\MissingElementException;
 use SimpleSAML\XML\Exception\SchemaViolationException;
@@ -34,7 +35,7 @@ abstract class AbstractAuthorizationDecisionStatementType extends AbstractSubjec
         protected array $action = [],
         protected ?Evidence $evidence = null,
     ) {
-        Assert::validURI($resource);
+        SAMLAssert::validURI($resource);
         Assert::minCount($action, 1, MissingElementException::class);
         Assert::allIsInstanceOf($action, Action::class, SchemaViolationException::class);
 

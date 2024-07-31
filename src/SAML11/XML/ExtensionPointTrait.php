@@ -6,6 +6,7 @@ namespace SimpleSAML\SAML11\XML;
 
 use RuntimeException;
 use SimpleSAML\Assert\Assert;
+use SimpleSAML\SAML11\Assert\Assert as SAMLAssert;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 
 /**
@@ -48,7 +49,7 @@ trait ExtensionPointTrait
             RuntimeException::class,
         );
 
-        Assert::validURI(static::XSI_TYPE_NAMESPACE, SchemaViolationException::class);
+        SAMLAssert::validURI(static::XSI_TYPE_NAMESPACE, SchemaViolationException::class);
         return static::XSI_TYPE_NAMESPACE;
     }
 

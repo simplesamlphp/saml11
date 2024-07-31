@@ -7,6 +7,7 @@ namespace SimpleSAML\SAML11\XML\saml;
 use DateTimeImmutable;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
+use SimpleSAML\SAML11\Assert\Assert as SAMLAssert;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\Exception\ProtocolViolationException;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
@@ -37,7 +38,7 @@ abstract class AbstractAuthenticationStatementType extends AbstractSubjectStatem
         protected ?SubjectLocality $subjectLocality = null,
         protected array $authorityBinding = [],
     ) {
-        Assert::validURI($authenticationMethod);
+        SAMLAssert::validURI($authenticationMethod);
         Assert::allIsInstanceOf($authorityBinding, AuthorityBinding::class, SchemaViolationException::class);
 
         parent::__construct($subject);
@@ -106,7 +107,7 @@ abstract class AbstractAuthenticationStatementType extends AbstractSubjectStatem
         // Strip sub-seconds - See paragraph 1.2.2 of SAML core specifications
         $authenticationInstant = preg_replace('/([.][0-9]+Z)$/', 'Z', $authenticationInstant, 1);
 
-        Assert::validDateTimeZulu($authenticationInstant, ProtocolViolationException::class);
+        SAMLAssert::validDateTime($authenticationInstant, ProtocolViolationException::class);
         $authenticationInstant = new DateTimeImmutable($authenticationInstant);
 
         $authorityBinding = AuthorityBinding::getChildrenOfClass($xml);
