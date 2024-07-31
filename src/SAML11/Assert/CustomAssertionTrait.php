@@ -63,6 +63,8 @@ trait CustomAssertionTrait
 
         try {
             BaseAssert::notWhitespaceOnly($value, $message ?: '%s is not a SAML1.1-compliant URI');
+            // If it doesn't have a scheme, it's not an absolute URI
+            BaseAssert::regex($value, self::$scheme_regex, $message ?: '%s is not a SAML1.1-compliant URI');
         } catch (AssertionFailedException $e) {
             throw new ProtocolViolationException($e->getMessage());
         }
