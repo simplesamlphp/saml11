@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\Exception;
 
-use RuntimeException;
-
 /**
  * This exception may be raised when a violation of the SAML 1.1 specification is detected
  *
