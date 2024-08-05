@@ -115,7 +115,7 @@ final class AuthorizationDecisionStatementTest extends TestCase
 
         $authzDecisionStatement = new AuthorizationDecisionStatement(
             $subject,
-            'resource',
+            'urn:x-simplesamlphp:resource',
             DecisionTypeEnum::Permit,
             [$action],
             $evidence,
