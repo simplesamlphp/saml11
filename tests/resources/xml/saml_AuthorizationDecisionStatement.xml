@@ -1,4 +1,4 @@
-<saml:AuthorizationDecisionStatement xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" Resource="resource" Decision="Permit">
+<saml:AuthorizationDecisionStatement xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" Resource="urn:x-simplesamlphp:resource" Decision="Permit">
   <saml:Subject>
     <saml:NameIdentifier NameQualifier="TheNameQualifier" Format="urn:the:format">TheNameIDValue</saml:NameIdentifier>
     <saml:SubjectConfirmation>
