@@ -1,6 +1,6 @@
 # SimpleSAMLphp SAML 1.1 library
 
-![CI](https://github.com/simplesamlphp/saml11/actions/workflows/php.yml/badge.svg?branch=master)
+![CI](https://github.com/simplesamlphp/saml11/actions/actions/workflows/php.yml/badge.svg)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/simplesamlphp/saml11/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/simplesamlphp/saml11/?branch=master)
 [![Coverage Status](https://codecov.io/gh/simplesamlphp/saml11/branch/master/graph/badge.svg)](https://codecov.io/gh/simplesamlphp/saml11)
 ![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)
