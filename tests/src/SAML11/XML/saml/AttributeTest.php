@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
+use DateTimeImmutable;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\XML\saml\AbstractAttributeType;
@@ -23,6 +24,7 @@ use function strval;
  * @package simplesamlphp/saml11
  */
 #[CoversClass(Attribute::class)]
+#[CoversClass(AttributeValue::class)]
 #[CoversClass(AbstractAttributeType::class)]
 #[CoversClass(AbstractSamlElement::class)]
 final class AttributeTest extends TestCase
@@ -55,7 +57,12 @@ final class AttributeTest extends TestCase
         $attribute = new Attribute(
             'TheName',
             'https://example.org/',
-            [new AttributeValue('FirstValue'), new AttributeValue('SecondValue')],
+            [
+                new AttributeValue('FirstValue'),
+                new AttributeValue('SecondValue'),
+                new AttributeValue(3),
+                new AttributeValue(new DateTimeImmutable('2024-04-04T04:44:44Z')),
+            ],
         );
 
         $this->assertEquals(

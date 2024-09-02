@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
+use DateTimeImmutable;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Constants as C;
@@ -13,6 +14,7 @@ use SimpleSAML\SAML11\XML\saml\NameIdentifier;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use TypeError;
 
 use function dirname;
 use function strval;
@@ -76,16 +78,45 @@ final class AttributeValueTest extends TestCase
 
 
     /**
+     * Test creating an AttributeValue from scratch using an integer.
      */
-    public function testMarshallingNull(): void
+    public function testMarshallingInteger(): void
     {
-        $av = new AttributeValue(null);
-        $this->assertNull($av->getValue());
-        $this->assertEquals('xs:nil', $av->getXsiType());
+        $av = new AttributeValue(3);
+
+        $this->assertEquals(3, $av->getValue());
+        $this->assertEquals('xs:integer', $av->getXsiType());
+
         $nssaml = C::NS_SAML;
+        $nsxs = C::NS_XS;
         $nsxsi = C::NS_XSI;
         $xml = <<<XML
-<saml:AttributeValue xmlns:saml="{$nssaml}" xmlns:xsi="{$nsxsi}" xsi:nil="1"/>
+<saml:AttributeValue xmlns:saml="{$nssaml}" xmlns:xsi="{$nsxsi}" xmlns:xs="{$nsxs}" xsi:type="xs:integer">3</saml:AttributeValue>
+XML;
+        $this->assertEquals(
+            $xml,
+            strval($av),
+        );
+    }
+
+
+    /**
+     * Test creating an AttributeValue from scratch using an dateTime.
+     */
+    public function testMarshallingDateTime(): void
+    {
+        $av = new AttributeValue(new DateTimeImmutable("2024-04-04T04:44:44Z"));
+
+        /** @var \DateTimeInterface $value */
+        $value = $av->getValue();
+        $this->assertEquals('2024-04-04T04:44:44Z', $value->format(C::DATETIME_FORMAT));
+        $this->assertEquals('xs:dateTime', $av->getXsiType());
+
+        $nssaml = C::NS_SAML;
+        $nsxs = C::NS_XS;
+        $nsxsi = C::NS_XSI;
+        $xml = <<<XML
+<saml:AttributeValue xmlns:saml="{$nssaml}" xmlns:xsi="{$nsxsi}" xmlns:xs="{$nsxs}" xsi:type="xs:dateTime">2024-04-04T04:44:44Z</saml:AttributeValue>
 XML;
         $this->assertEquals(
             $xml,
@@ -135,5 +166,25 @@ XML;
         $this->assertEquals('abcd-some-value-xyz', $value->getContent());
         $this->assertEquals('urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified', $value->getFormat());
         $this->assertXmlStringEqualsXmlString($document->saveXML(), $av->toXML()->ownerDocument?->saveXML());
+    }
+
+
+    /**
+     * Verifies that we cannot create an AttributeValue that is nullable, like SAML2 allows, but SAML1.1 does not.
+     *
+     * @return void
+     */
+    public function testUnmarshallingNil(): void
+    {
+        $nssaml = C::NS_SAML;
+        $nsxsi = C::NS_XSI;
+
+        $xml = <<<XML
+<saml:AttributeValue xmlns:saml="{$nssaml}" xmlns:xsi="{$nsxsi}" xsi:nil="1"/>
+XML;
+
+        $document = DOMDocumentFactory::fromString($xml);
+        $this->expectException(TypeError::class);
+        AttributeValue::fromXML($document->documentElement);
     }
 }
