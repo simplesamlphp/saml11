@@ -72,6 +72,28 @@ class Constants extends \SimpleSAML\XMLSecurity\Constants
     public const DATETIME_FORMAT = 'Y-m-d\\TH:i:sp';
 
     /**
+     * Email address NameID format.
+     */
+    public const NAMEID_EMAIL_ADDRESS = 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress';
+
+    /**
+     * Unspecified NameID format.
+     */
+    public const NAMEID_UNSPECIFIED = 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified';
+
+
+    /**
+     * Windows Domain Qualifier Name NameID format.
+     */
+    public const NAMEID_WINDOWS_DOMAIN_QUALIFIED_NAME =
+        'urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName';
+
+    /**
+     * X509 Subject Name NameID format.
+     */
+    public const NAMEID_X509_SUBJECT_NAME = 'urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName';
+
+    /**
      * The namespace for the SAML 1.1 assertions.
      */
     public const NS_SAML = 'urn:oasis:names:tc:SAML:1.0:assertion';
