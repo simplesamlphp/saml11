@@ -1,0 +1,3 @@
+<samlp:StatusCode xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol" Value="samlp:Responder">
+  <samlp:StatusCode Value="samlp:RequestDenied"/>
+</samlp:StatusCode>

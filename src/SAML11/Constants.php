@@ -81,7 +81,6 @@ class Constants extends \SimpleSAML\XMLSecurity\Constants
      */
     public const NAMEID_UNSPECIFIED = 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified';
 
-
     /**
      * Windows Domain Qualifier Name NameID format.
      */
@@ -102,4 +101,80 @@ class Constants extends \SimpleSAML\XMLSecurity\Constants
      * The namespace for the SAML 1.1 protocol.
      */
     public const NS_SAMLP = 'urn:oasis:names:tc:SAML:1.0:protocol';
+
+    /**
+     * The SAML responder or SAML authority is able to process the request but has chosen not to respond.
+     * This status code MAY be used when there is concern about the security context of the request message or
+     * the sequence of request messages received from a particular requester.
+     *
+     * Second-level status code.
+     */
+    public const STATUS_REQUEST_DENIED = 'samlp:RequestDenied';
+
+    /**
+     * The SAML responder cannot process any requests with the protocol version specified in the request.
+     *
+     * Second-level status code.
+     */
+    public const STATUS_REQUEST_VERSION_DEPRECATED = 'samlp:RequestVersionDeprecated';
+
+    /**
+     * The SAML responder cannot process the request because the protocol version specified in the request message
+     * is a major upgrade from the highest protocol version supported by the responder.
+     *
+     * Second-level status code.
+     */
+    public const STATUS_REQUEST_VERSION_TOO_HIGH = 'samlp:RequestVersionTooHigh';
+
+    /**
+     * The SAML responder cannot process the request because the protocol version specified in the request message
+     * is too low.
+     *
+     * Second-level status code.
+     */
+    public const STATUS_REQUEST_VERSION_TOO_LOW = 'samlp:RequestVersionTooLow';
+
+    /**
+     * The request could not be performed due to an error on the part of the requester.
+     *
+     * Top-level status code.
+     */
+    public const STATUS_REQUESTER = 'samlp:Requester';
+
+    /**
+     * The resource value provided in the request message is invalid or unrecognized.
+     *
+     * Second-level status code.
+     */
+    public const STATUS_RESOURCE_NOT_RECOGNIZED = 'samlp:ResourceNotRecognized';
+
+    /**
+     * The request could not be performed due to an error on the part of the SAML responder or SAML authority.
+     *
+     * Top-level status code.
+     */
+    public const STATUS_RESPONDER = 'samlp:Responder';
+
+    /**
+     * Top-level status code indicating successful processing of the request.
+     * The request succeeded. Additional information MAY be returned in the <StatusMessage>
+     * and/or <StatusDetail> elements.
+     *
+     * Top-level status code.
+     */
+    public const STATUS_SUCCESS = 'samlp:Success';
+
+    /**
+     * The response message would contain more elements than the SAML responder is able to return.
+     *
+     * Second-level status code.
+     */
+    public const STATUS_TOO_MANY_RESPONSES = 'samlp:TooManyResponses';
+
+    /**
+     * The SAML responder could not process the request because the version of the request message was incorrect.
+     *
+     * Top-level status code.
+     */
+    public const STATUS_VERSION_MISMATCH = 'samlp:VersionMismatch';
 }
