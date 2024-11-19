@@ -1,0 +1,9 @@
+<samlp:Status xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol">
+  <samlp:StatusCode Value="samlp:Responder">
+    <samlp:StatusCode Value="samlp:RequestDenied"/>
+  </samlp:StatusCode>
+  <samlp:StatusMessage>Something went wrong</samlp:StatusMessage>
+  <samlp:StatusDetail>
+    <ssp:Cause xmlns:ssp="urn:custom:ssp">org.sourceid.websso.profiles.idp.FailedAuthnSsoException</ssp:Cause>
+  </samlp:StatusDetail>
+</samlp:Status>
