@@ -67,6 +67,11 @@ class Constants extends \SimpleSAML\XMLSecurity\Constants
     public const AC_UNSPECIFIED = 'urn:oasis:names:tc:SAML:1.0:am:unspecified';
 
     /**
+     * Bearer subject confirmation method.
+     */
+    public const CM_BEARER = 'urn:oasis:names:tc:SAML:1.0:cm:bearer';
+
+    /**
      * The format to express a timestamp in SAML 1.1
      */
     public const DATETIME_FORMAT = 'Y-m-d\\TH:i:sp';
