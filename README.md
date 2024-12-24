@@ -7,13 +7,13 @@
 
 A PHP library for SAML 1.1 related functionality.
 
-It is used by the ADFS-module of [SimpleSAMLphp](https://www.simplesamlphp.org).
+It is used by the ADFS-module and CASserver-module of [SimpleSAMLphp](https://www.simplesamlphp.org).
 
 ## Before you use it
 
 **DO NOT USE THIS LIBRARY UNLESS YOU ARE INTIMATELY FAMILIAR WITH THE SAML 1.1 SPECIFICATION.**
 
-If you are not familiar with the SAML 1,1 specification you should probably not use this library.
+If you are not familiar with the SAML 1.1 specification you should probably not use this library.
 
 ## Usage
 
