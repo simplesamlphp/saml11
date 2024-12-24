@@ -14,11 +14,8 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
  *
  * @package simplesamlphp/saml11
  */
-abstract class AbstractAttributeType extends AbstractSamlElement
+abstract class AbstractAttributeType extends AbstractAttributeDesignatorType
 {
-    use AttributeDesignatorTypeTrait;
-
-
     /**
      * Initialize a saml:AttributeType from scratch
      *
@@ -27,13 +24,13 @@ abstract class AbstractAttributeType extends AbstractSamlElement
      * @param array<\SimpleSAML\SAML11\XML\saml\AttributeValue> $attributeValue
      */
     final public function __construct(
-        protected string $AttributeName,
-        protected string $AttributeNamespace,
+        string $AttributeName,
+        string $AttributeNamespace,
         protected array $attributeValue,
     ) {
-        Assert::nullOrNotWhitespaceOnly($AttributeName, SchemaViolationException::class);
-        Assert::nullOrValidURI($AttributeNamespace, SchemaViolationException::class); // Covers the empty string
         Assert::allIsInstanceOf($attributeValue, AttributeValue::class, SchemaViolationException::class);
+
+        parent::__construct($AttributeName, $AttributeNamespace);
     }
 
 
@@ -76,11 +73,9 @@ abstract class AbstractAttributeType extends AbstractSamlElement
      * @param \DOMElement $parent The element we are converting to XML.
      * @return \DOMElement The XML element after adding the data corresponding to this AttributeType.
      */
-    public function toXML(DOMElement $parent = null): DOMElement
+    public function toXML(?DOMElement $parent = null): DOMElement
     {
-        $e = $this->instantiateParentElement($parent);
-        $e->setAttribute('AttributeName', $this->getAttributeName());
-        $e->setAttribute('AttributeNamespace', $this->getAttributeNamespace());
+        $e = parent::toXML($parent);
 
         foreach ($this->getAttributeValue() as $av) {
             $av->toXML($e);
