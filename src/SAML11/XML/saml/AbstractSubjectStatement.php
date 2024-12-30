@@ -114,7 +114,7 @@ abstract class AbstractSubjectStatement extends AbstractSubjectStatementType imp
      * @param \DOMElement $parent The element we are converting to XML.
      * @return \DOMElement The XML element after adding the data corresponding to this SubjectStatement.
      */
-    public function toXML(DOMElement $parent = null): DOMElement
+    public function toXML(?DOMElement $parent = null): DOMElement
     {
         $e = parent::toXML($parent);
         $e->setAttributeNS(

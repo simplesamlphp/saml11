@@ -5,22 +5,22 @@ declare(strict_types=1);
 namespace SimpleSAML\SAML11\Exception;
 
 /**
- * This exception may be raised when a violation of the SAML11 specification is detected
+ * This exception may be raised when a message with a wrong version is received.
  *
  * @package simplesamlphp/saml11
  */
-class ProtocolViolationException extends RuntimeException
+class VersionMismatchException extends RuntimeException
 {
     /**
      * @param string $message
      */
-    public function __construct(string $message = null)
+    public function __construct(string $message = '')
     {
-        if ($message === null) {
+        if ($message === '') {
             if (defined('static::DEFAULT_MESSAGE')) {
                 $message = static::DEFAULT_MESSAGE;
             } else {
-                $message = 'A violation of the SAML11 protocol occurred.';
+                $message = 'A message with the wrong version was received.';
             }
         }
 

@@ -136,7 +136,7 @@ class SubjectConfirmationData extends AbstractSamlElement
      *
      * @return \DOMElement The generated SubjectConfirmationData element.
      */
-    public function toXML(DOMElement $parent = null): DOMElement
+    public function toXML(?DOMElement $parent = null): DOMElement
     {
         $e = parent::instantiateParentElement($parent);
 

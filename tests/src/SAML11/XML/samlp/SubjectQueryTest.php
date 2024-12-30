@@ -171,7 +171,7 @@ final class SubjectQueryTest extends TestCase
 
         // Normalize the DOMElement by importing it into a clean empty document
         $newDoc = DOMDocumentFactory::create();
-        /** @var \DOMElement $node */
+        /** @var \DOMElement $element */
         $element = $newDoc->appendChild($newDoc->importNode($element, true));
 
         $subjectQuery = AbstractSubjectQuery::fromXML($element);

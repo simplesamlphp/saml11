@@ -100,7 +100,7 @@ abstract class AbstractStatusType extends AbstractSamlpElement
 
         $statusCode = StatusCode::getChildrenOfClass($xml);
         Assert::minCount($statusCode, 1, MissingElementException::class);
-        Assert::count($statusCode, 1, TooManyElementsException::class);
+        Assert::maxCount($statusCode, 1, TooManyElementsException::class);
 
         $statusMessage = StatusMessage::getChildrenOfClass($xml);
         Assert::maxCount($statusMessage, 1, TooManyElementsException::class);
@@ -121,7 +121,7 @@ abstract class AbstractStatusType extends AbstractSamlpElement
      * @param \DOMElement|null $parent The element we are converting to XML.
      * @return \DOMElement The XML element after adding the data corresponding to this Status.
      */
-    public function toXML(DOMElement $parent = null): DOMElement
+    public function toXML(?DOMElement $parent = null): DOMElement
     {
         $e = $this->instantiateParentElement($parent);
 
