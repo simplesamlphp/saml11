@@ -17,6 +17,15 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 trait ExtensionPointTrait
 {
     /**
+     * @inheritDoc
+     */
+    public function getXsiType(): string
+    {
+        return $this->type;
+    }
+
+
+    /**
      * Get the local name for the element's xsi:type.
      *
      * @return string

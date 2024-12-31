@@ -28,7 +28,7 @@ abstract class AbstractActionType extends AbstractSamlElement
      */
     final public function __construct(
         protected string $value,
-        protected string|null $Namespace = null,
+        protected ?string $Namespace = null,
     ) {
         Assert::nullOrValidURI($Namespace, SchemaViolationException::class); // Covers the empty string
         $this->setContent($value);
@@ -72,7 +72,7 @@ abstract class AbstractActionType extends AbstractSamlElement
      * @param \DOMElement $parent The element we are converting to XML.
      * @return \DOMElement The XML element after adding the data corresponding to this ActionType.
      */
-    public function toXML(DOMElement $parent = null): DOMElement
+    public function toXML(?DOMElement $parent = null): DOMElement
     {
         $e = $this->instantiateParentElement($parent);
         $e->textContent = $this->getContent();

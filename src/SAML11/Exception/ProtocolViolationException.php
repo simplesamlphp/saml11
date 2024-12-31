@@ -14,9 +14,9 @@ class ProtocolViolationException extends RuntimeException
     /**
      * @param string $message
      */
-    public function __construct(string $message = null)
+    public function __construct(string $message = '')
     {
-        if ($message === null) {
+        if ($message === '') {
             if (defined('static::DEFAULT_MESSAGE')) {
                 $message = static::DEFAULT_MESSAGE;
             } else {

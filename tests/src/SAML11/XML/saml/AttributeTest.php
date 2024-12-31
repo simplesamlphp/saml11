@@ -7,6 +7,7 @@ namespace SimpleSAML\Test\SAML11\XML\saml;
 use DateTimeImmutable;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\SAML11\XML\saml\AbstractAttributeDesignatorType;
 use SimpleSAML\SAML11\XML\saml\AbstractAttributeType;
 use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
 use SimpleSAML\SAML11\XML\saml\Attribute;
@@ -26,6 +27,7 @@ use function strval;
 #[CoversClass(Attribute::class)]
 #[CoversClass(AttributeValue::class)]
 #[CoversClass(AbstractAttributeType::class)]
+#[CoversClass(AbstractAttributeDesignatorType::class)]
 #[CoversClass(AbstractSamlElement::class)]
 final class AttributeTest extends TestCase
 {

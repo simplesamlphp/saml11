@@ -15,11 +15,15 @@
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
         xmlns:ssp="urn:x-simplesamlphp:namespace"
         xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion"
+        xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol"
         targetNamespace="urn:x-simplesamlphp:namespace"
         version="0.1" elementFormDefault="qualified"> 
 
 <import namespace='urn:oasis:names:tc:SAML:1.0:assertion'
           schemaLocation='../../../resources/schemas/oasis-sstc-saml-schema-assertion-1.1.xsd'/>
+
+<import namespace='urn:oasis:names:tc:SAML:1.0:protocol'
+          schemaLocation='../../../resources/schemas/oasis-sstc-saml-schema-protocol-1.1.xsd'/>
 
 <!-- Start Chunk -->
 
@@ -71,5 +75,35 @@
 </complexType>
 
 <!-- End CustomCondition -->
+
+<!-- Start CustomQuery -->
+
+<element name="CustomQuery" type="ssp:CustomQueryType"/>
+<complexType name="CustomQueryType">
+    <complexContent>
+        <extension base="samlp:QueryAbstractType">
+            <sequence>
+                <element ref="samlp:StatusMessage" maxOccurs="unbounded"/>
+            </sequence>
+        </extension>
+    </complexContent>
+</complexType>
+
+<!-- End CustomQuery -->
+
+<!-- Start CustomSubjectQuery -->
+
+<element name="CustomSubjectQuery" type="ssp:CustomSubjectQueryType"/>
+<complexType name="CustomSubjectQueryType">
+    <complexContent>
+        <extension base="samlp:SubjectQueryAbstractType">
+            <sequence>
+                <element ref="samlp:StatusMessage" maxOccurs="unbounded"/>
+            </sequence>
+        </extension>
+    </complexContent>
+</complexType>
+
+<!-- End CustomSubjectQuery -->
 
 </schema>

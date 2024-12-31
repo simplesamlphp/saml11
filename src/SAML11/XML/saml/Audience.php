@@ -18,7 +18,7 @@ final class Audience extends AbstractSamlElement
 
 
     /**
-     * Initialize a saml:Action from scratch
+     * Initialize a saml:Audience from scratch
      *
      * @param string $value
      */

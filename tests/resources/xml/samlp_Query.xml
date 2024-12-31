@@ -1,0 +1,3 @@
+<samlp:Query xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol" xmlns:ssp="urn:x-simplesamlphp:namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ssp:CustomQueryType">
+  <samlp:StatusMessage>urn:some:audience</samlp:StatusMessage>
+</samlp:Query>
