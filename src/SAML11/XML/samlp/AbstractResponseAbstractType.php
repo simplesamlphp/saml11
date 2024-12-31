@@ -57,7 +57,7 @@ abstract class AbstractResponseAbstractType extends AbstractMessage
     protected function toUnsignedXML(?DOMElement $parent = null): DOMElement
     {
         $e = parent::toUnsignedXML($parent);
-        $e->setAttribute($e, 'ResponseID', $this->getId());
+        $e->setAttribute('ResponseID', $this->getId());
 
         return $e;
     }
