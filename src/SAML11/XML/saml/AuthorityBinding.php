@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\saml;
 
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
+
 /**
  * Class representing a saml:AuthorityBinding element.
  *
  * @package simplesamlphp/saml11
  */
-final class AuthorityBinding extends AbstractAuthorityBindingType
+final class AuthorityBinding extends AbstractAuthorityBindingType implements SchemaValidatableElementInterface
 {
+    use SchemaValidatableElementTrait;
 }

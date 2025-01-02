@@ -7,14 +7,18 @@ namespace SimpleSAML\SAML11\XML\saml;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
 
 /**
  * Class representing a saml:AttributeDesignator element.
  *
  * @package simplesamlphp/saml11
  */
-final class AttributeDesignator extends AbstractAttributeDesignatorType
+final class AttributeDesignator extends AbstractAttributeDesignatorType implements SchemaValidatableElementInterface
 {
+    use SchemaValidatableElementTrait;
+
     /**
      * Convert XML into an AttributeDesignatorType
      *

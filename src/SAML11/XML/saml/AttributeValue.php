@@ -12,6 +12,8 @@ use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
 
 use function class_exists;
 use function explode;
@@ -25,8 +27,10 @@ use function strval;
  *
  * @package simplesamlphp/saml11
  */
-class AttributeValue extends AbstractSamlElement
+class AttributeValue extends AbstractSamlElement implements SchemaValidatableElementInterface
 {
+    use SchemaValidatableElementTrait;
+
     /**
      * Create an AttributeValue.
      *

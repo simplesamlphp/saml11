@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\saml;
 
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
 use SimpleSAML\XML\StringElementTrait;
 
 /**
@@ -11,9 +13,9 @@ use SimpleSAML\XML\StringElementTrait;
  *
  * @package simplesamlphp/saml11
  */
-
-final class Audience extends AbstractSamlElement
+final class Audience extends AbstractSamlElement implements SchemaValidatableElementInterface
 {
+    use SchemaValidatableElementTrait;
     use StringElementTrait;
 
 

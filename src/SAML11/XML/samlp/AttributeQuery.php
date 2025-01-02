@@ -11,6 +11,8 @@ use SimpleSAML\SAML11\XML\saml\Subject;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 use SimpleSAML\XML\Exception\MissingElementException;
 use SimpleSAML\XML\Exception\TooManyElementsException;
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
 
 use function array_pop;
 
@@ -19,8 +21,10 @@ use function array_pop;
  *
  * @package simplesaml/saml11
  */
-final class AttributeQuery extends AbstractAttributeQueryType
+final class AttributeQuery extends AbstractAttributeQueryType implements SchemaValidatableElementInterface
 {
+    use SchemaValidatableElementTrait;
+
     /**
      * Convert XML into a AttributeQuery
      *

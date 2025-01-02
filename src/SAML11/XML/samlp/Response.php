@@ -15,6 +15,8 @@ use SimpleSAML\SAML11\XML\samlp\Status;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 use SimpleSAML\XML\Exception\MissingElementException;
 use SimpleSAML\XML\Exception\TooManyElementsException;
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
 
 use function array_pop;
 
@@ -23,8 +25,10 @@ use function array_pop;
  *
  * @package simplesaml/xml-saml11
  */
-final class Response extends AbstractResponseType
+final class Response extends AbstractResponseType implements SchemaValidatableElementInterface
 {
+    use SchemaValidatableElementTrait;
+
     /**
      * Convert XML into Response
      *

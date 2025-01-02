@@ -112,7 +112,7 @@ final class AttributeStatementTest extends TestCase
                     '<ssp:Chunk xmlns:ssp="urn:x-simplesamlphp:namespace">some</ssp:Chunk>',
                 )->documentElement),
             ],
-            'fed654',
+            'AttributeStatementID',
         );
 
         $sc = new SubjectConfirmation(

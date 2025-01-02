@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\samlp;
 
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
+
 /**
  * Class representing a samlp:Status element.
  *
  * @package simplesaml/saml11
  */
-final class Status extends AbstractStatusType
+final class Status extends AbstractStatusType implements SchemaValidatableElementInterface
 {
+    use SchemaValidatableElementTrait;
 }
