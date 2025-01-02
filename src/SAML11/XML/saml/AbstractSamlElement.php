@@ -19,4 +19,7 @@ abstract class AbstractSamlElement extends AbstractElement
 
     /** @var string */
     public const NS_PREFIX = 'saml';
+
+    /** @var string */
+    public const SCHEMA = 'resources/schemas/oasis-sstc-saml-schema-assertion-1.1.xsd';
 }
