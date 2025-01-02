@@ -1,0 +1,48 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    'urn:oasis:names:tc:SAML:1.0:assertion' => [
+        'Action' => '\SimpleSAML\SAML11\XML\saml\Action',
+        'Advice' => '\SimpleSAML\SAML11\XML\saml\Advice',
+        'AssertionIDReference' => '\SimpleSAML\SAML11\XML\saml\AssertionIDReference',
+        'Asserion' => '\SimpleSAML\SAML11\XML\saml\Assertion',
+        'Attribute' => '\SimpleSAML\SAML11\XML\saml\Attribute',
+        'AttributeDesignator' => '\SimpleSAML\SAML11\XML\saml\AttributeDesignator',
+        'AttributeStatement' => '\SimpleSAML\SAML11\XML\saml\AttributeStatement',
+        'AttributeValue' => '\SimpleSAML\SAML11\XML\saml\AttributeValue',
+        'Audience' => '\SimpleSAML\SAML11\XML\saml\Audience',
+        'AudienceRestrictionCondition' => '\SimpleSAML\SAML11\XML\saml\AudienceRestrictionCondition',
+        'AuthenticationStatement' => '\SimpleSAML\SAML11\XML\saml\AuthenticationStatement',
+        'AuthorityBinding' => '\SimpleSAML\SAML11\XML\saml\AuthorityBinding',
+        'AuthorizationDecisionStatement' => '\SimpleSAML\SAML11\XML\saml\AuthorizationDecisionStatement',
+        'Condition' => '\SimpleSAML\SAML11\XML\saml\Condition',
+        'Conditions' => '\SimpleSAML\SAML11\XML\saml\Conditions',
+        'ConfirmationMethod' => '\SimpleSAML\SAML11\XML\saml\ConfirmationMethod',
+        'DoNotCacheCondition' => '\SimpleSAML\SAML11\XML\saml\DoNotCacheCondition',
+        'Evidence' => '\SimpleSAML\SAML11\XML\saml\Evidence',
+        'NameIdentifier' => '\SimpleSAML\SAML11\XML\saml\NameIdentifier',
+        'Statement' => '\SimpleSAML\SAML11\XML\saml\Statement',
+        'SubjectStatement' => '\SimpleSAML\SAML11\XML\saml\SubjectStatement',
+        'Subject' => '\SimpleSAML\SAML11\XML\saml\Subject',
+        'SubjectConfirmation' => '\SimpleSAML\SAML11\XML\saml\SubjectConfirmation',
+        'SubjectConfirmationData' => '\SimpleSAML\SAML11\XML\saml\SubjectConfirmationData',
+        'SubjectLocality' => '\SimpleSAML\SAML11\XML\saml\SubjectLocality',
+    ],
+    'urn:oasis:names:tc:SAML:1.0:protocol' => [
+        'AssertionArtifact' => '\SimpleSAML\SAML11\XML\samlp\AssertionArtifact',
+        'AttributeQuery' => '\SimpleSAML\SAML11\XML\samlp\AttributeQuery',
+        'AuthenticationQuery' => '\SimpleSAML\SAML11\XML\samlp\AuthenticationQuery',
+        'AuthorizationDecisionQuery' => '\SimpleSAML\SAML11\XML\samlp\AuthorizationDecisionQuery',
+        'Query' => '\SimpleSAML\SAML11\XML\samlp\Query',
+        'Request' => '\SimpleSAML\SAML11\XML\samlp\Request',
+        'RespondWith' => '\SimpleSAML\SAML11\XML\samlp\RespondWith',
+        'Response' => '\SimpleSAML\SAML11\XML\samlp\Response',
+        'Status' => '\SimpleSAML\SAML11\XML\samlp\Status',
+        'StatusCode' => '\SimpleSAML\SAML11\XML\samlp\StatusCode',
+        'StatusDetail' => '\SimpleSAML\SAML11\XML\samlp\StatusDetail',
+        'StatusMessage' => '\SimpleSAML\SAML11\XML\samlp\StatusMessage',
+        'SubjectQuery' => '\SimpleSAML\SAML11\XML\samlp\SubjectQuery',
+    ],
+];
