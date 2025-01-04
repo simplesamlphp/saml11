@@ -1,5 +1,6 @@
 /.phpunit.cache/ export-ignore
 /build/ export-ignore
+/resources/specification/ export-ignore
 /tests/SAML11/ export-ignore
 /tools/ export-ignore
 codecov.yml export-ignore
