@@ -6,10 +6,10 @@ namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
+use SimpleSAML\SAML11\XML\StringElementTrait;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 use SimpleSAML\XML\SchemaValidatableElementInterface;
 use SimpleSAML\XML\SchemaValidatableElementTrait;
-use SimpleSAML\XML\StringElementTrait;
 
 /**
  * Class representing a samlp:StatusMessage element.

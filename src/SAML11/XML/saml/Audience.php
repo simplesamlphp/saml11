@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\saml;
 
+use SimpleSAML\SAML11\XML\URIElementTrait;
 use SimpleSAML\XML\SchemaValidatableElementInterface;
 use SimpleSAML\XML\SchemaValidatableElementTrait;
-use SimpleSAML\XML\StringElementTrait;
 
 /**
  * SAML Audience element.
@@ -16,7 +16,7 @@ use SimpleSAML\XML\StringElementTrait;
 final class Audience extends AbstractSamlElement implements SchemaValidatableElementInterface
 {
     use SchemaValidatableElementTrait;
-    use StringElementTrait;
+    use URIElementTrait;
 
 
     /**

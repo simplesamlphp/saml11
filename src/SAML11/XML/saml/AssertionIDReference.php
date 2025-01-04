@@ -6,11 +6,11 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
+use SimpleSAML\SAML11\XML\StringElementTrait;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\SchemaValidatableElementInterface;
 use SimpleSAML\XML\SchemaValidatableElementTrait;
-use SimpleSAML\XML\StringElementTrait;
 
 /**
  * Class representing a saml:AssertionIDReference element.

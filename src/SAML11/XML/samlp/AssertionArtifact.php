@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\samlp;
 
+use SimpleSAML\SAML11\XML\StringElementTrait;
 use SimpleSAML\XML\SchemaValidatableElementInterface;
 use SimpleSAML\XML\SchemaValidatableElementTrait;
-use SimpleSAML\XML\StringElementTrait;
 
 /**
  * SAML AssertionArtifact element.
@@ -21,7 +21,7 @@ final class AssertionArtifact extends AbstractSamlpElement implements SchemaVali
 
 
     /**
-     * Initialize a saml:AssertionArtifac from scratch
+     * Initialize a saml:AssertionArtifact from scratch
      *
      * @param string $value
      */
