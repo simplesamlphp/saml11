@@ -86,10 +86,10 @@ abstract class AbstractRequestType extends AbstractRequestAbstractType
     {
         $e = parent::toUnsignedXML($parent);
 
-        $request = $this->getRequest();
-        $request = is_array($request) ? $request : [$request];
+        $requests = $this->getRequest();
+        $requests = is_array($requests) ? $requests : [$requests];
 
-        foreach ($this->getRequest() as $request) {
+        foreach ($requests as $request) {
             $request->toXML($e);
         }
 
