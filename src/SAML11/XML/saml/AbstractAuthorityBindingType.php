@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
-use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Assert\Assert as SAMLAssert;
+use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 
@@ -30,8 +29,8 @@ abstract class AbstractAuthorityBindingType extends AbstractSamlElement
         protected string $Binding,
     ) {
         Assert::validQName($AuthorityKind);
-        SAMLAssert::validURI($Location);
-        SAMLAssert::validURI($Binding);
+        Assert::validURI($Location);
+        Assert::validURI($Binding);
     }
 
 

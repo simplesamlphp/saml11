@@ -7,6 +7,7 @@ namespace SimpleSAML\SAML11\Test\Assert;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\SAML11\Assert\Assert as SAML11Assert;
 use SimpleSAML\SAML11\Exception\ProtocolViolationException;
 use SimpleSAML\XML\Exception\SchemaViolationException;
@@ -29,7 +30,7 @@ final class DateTimeTest extends TestCase
         try {
             SAML11Assert::validDateTime($timestamp);
             $this->assertTrue($shouldPass);
-        } catch (ProtocolViolationException | SchemaViolationException $e) {
+        } catch (AssertionFailedException | ProtocolViolationException | SchemaViolationException $e) {
             $this->assertFalse($shouldPass);
         }
     }

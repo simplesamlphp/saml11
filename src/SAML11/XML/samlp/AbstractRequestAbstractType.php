@@ -6,7 +6,7 @@ namespace SimpleSAML\SAML11\XML\samlp;
 
 use DateTimeImmutable;
 use DOMElement;
-use SimpleSAML\Assert\Assert;
+use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Utils\XPath;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 

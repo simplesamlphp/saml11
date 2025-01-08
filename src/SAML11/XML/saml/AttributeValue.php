@@ -7,7 +7,7 @@ namespace SimpleSAML\SAML11\XML\saml;
 use DateTimeImmutable;
 use DateTimeInterface;
 use DOMElement;
-use SimpleSAML\Assert\Assert;
+use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\Chunk;
