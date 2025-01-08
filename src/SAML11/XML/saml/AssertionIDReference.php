@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
-use SimpleSAML\Assert\Assert;
+use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\XML\StringElementTrait;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 use SimpleSAML\XML\Exception\SchemaViolationException;
