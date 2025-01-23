@@ -6,7 +6,10 @@ namespace SimpleSAML\SAML11\XML;
 
 use RuntimeException;
 use SimpleSAML\SAML11\Assert\Assert;
-use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\XML\Type\{AnyURIValue, NCNameValue, QNameValue};
+
+use function constant;
+use function defined;
 
 /**
  * Trait for several extension points objects.
@@ -16,9 +19,9 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 trait ExtensionPointTrait
 {
     /**
-     * @inheritDoc
+     * @return \SimpleSAML\XML\Type\QNameValue
      */
-    public function getXsiType(): string
+    public function getXsiType(): QNameValue
     {
         return $this->type;
     }
@@ -27,9 +30,9 @@ trait ExtensionPointTrait
     /**
      * Get the local name for the element's xsi:type.
      *
-     * @return string
+     * @return \SimpleSAML\XML\Type\NCNameValue
      */
-    public static function getXsiTypeName(): string
+    public static function getXsiTypeName(): NCNameValue
     {
         Assert::true(
             defined('static::XSI_TYPE_NAME'),
@@ -38,17 +41,16 @@ trait ExtensionPointTrait
             RuntimeException::class,
         );
 
-        Assert::validNCName(static::XSI_TYPE_NAME, SchemaViolationException::class);
-        return static::XSI_TYPE_NAME;
+        return NCNameValue::fromString(constant('static::XSI_TYPE_NAME'));
     }
 
 
     /**
      * Get the namespace for the element's xsi:type.
      *
-     * @return string
+     * @return \SimpleSAML\XML\Type\AnyURIValue
      */
-    public static function getXsiTypeNamespaceURI(): string
+    public static function getXsiTypeNamespaceURI(): AnyURIValue
     {
         Assert::true(
             defined('static::XSI_TYPE_NAMESPACE'),
@@ -57,17 +59,16 @@ trait ExtensionPointTrait
             RuntimeException::class,
         );
 
-        Assert::validURI(static::XSI_TYPE_NAMESPACE, SchemaViolationException::class);
-        return static::XSI_TYPE_NAMESPACE;
+        return AnyURIValue::fromString(constant('static::XSI_TYPE_NAMESPACE'));
     }
 
 
     /**
      * Get the namespace-prefix for the element's xsi:type.
      *
-     * @return string
+     * @return \SimpleSAML\XML\Type\NCNameValue
      */
-    public static function getXsiTypePrefix(): string
+    public static function getXsiTypePrefix(): NCNameValue
     {
         Assert::true(
             defined('static::XSI_TYPE_PREFIX'),
@@ -78,7 +79,6 @@ trait ExtensionPointTrait
             RuntimeException::class,
         );
 
-        Assert::validNCName(static::XSI_TYPE_PREFIX, SchemaViolationException::class);
-        return static::XSI_TYPE_PREFIX;
+        return NCNameValue::fromString(constant('static::XSI_TYPE_PREFIX'));
     }
 }

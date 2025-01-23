@@ -7,12 +7,9 @@ namespace SimpleSAML\Test\SAML11;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\XML\saml\AbstractSubjectStatement;
-use SimpleSAML\SAML11\XML\saml\Audience;
-use SimpleSAML\SAML11\XML\saml\Subject;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Exception\MissingElementException;
-use SimpleSAML\XML\Exception\TooManyElementsException;
+use SimpleSAML\SAML11\XML\saml\{AbstractSubjectStatement, Audience, Subject};
+use SimpleSAML\XML\Exception\{InvalidDOMElementException, MissingElementException, TooManyElementsException};
+use SimpleSAML\XML\Type\QNameValue;
 
 /**
  * Example class to demonstrate how SubjectStatement can be extended.
@@ -43,7 +40,12 @@ final class CustomSubjectStatement extends AbstractSubjectStatement
     ) {
         Assert::allIsInstanceOf($audience, Audience::class);
 
-        parent::__construct(self::XSI_TYPE_PREFIX . ':' . self::XSI_TYPE_NAME, $subject);
+        parent::__construct(
+            QNameValue::fromString(
+                '{' . self::XSI_TYPE_NAMESPACE . '}' . self::XSI_TYPE_PREFIX . ':' . self::XSI_TYPE_NAME,
+            ),
+            $subject,
+        );
     }
 
 

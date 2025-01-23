@@ -8,9 +8,7 @@ use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\Exception\ProtocolViolationException;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Exception\MissingElementException;
-use SimpleSAML\XML\Exception\TooManyElementsException;
+use SimpleSAML\XML\Exception\{InvalidDOMElementException, MissingElementException, TooManyElementsException};
 
 use function array_pop;
 
@@ -34,13 +32,8 @@ abstract class AbstractStatusType extends AbstractSamlpElement
         protected ?StatusDetail $statusDetail = null,
     ) {
         Assert::oneOf(
-            $statusCode->getValue(),
-            [
-                C::STATUS_SUCCESS,
-                C::STATUS_REQUESTER,
-                C::STATUS_RESPONDER,
-                C::STATUS_VERSION_MISMATCH,
-            ],
+            $statusCode->getValue()->getValue(),
+            C::$STATUS_CODES,
             'Invalid top-level status code:  %s',
             ProtocolViolationException::class,
         );

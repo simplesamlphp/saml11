@@ -4,27 +4,18 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\samlp;
 
-use SimpleSAML\XML\QNameElementTrait;
+use SimpleSAML\XML\Type\QNameValue;
+use SimpleSAML\XML\TypedTextContentTrait;
 
 /**
  * Class representing a samlp:RespondWith element.
  *
- * @package simplesaml/xml-saml11
+ * @package simplesaml/saml11
  */
 final class RespondWith extends AbstractSamlpElement
 {
-    use QNameElementTrait;
+    use TypedTextContentTrait;
 
-
-    /**
-     * Initialize a samlp:RespondWith
-     *
-     * @param string $qname
-     * @param string|null $namespaceUri
-     */
-    public function __construct(string $qname, ?string $namespaceUri = null)
-    {
-        $this->setContent($qname);
-        $this->setContentNamespaceUri($namespaceUri);
-    }
+    /** @var string */
+    public const TEXTCONTENT_TYPE = QNameValue::class;
 }

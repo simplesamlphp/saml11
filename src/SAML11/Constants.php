@@ -182,4 +182,18 @@ class Constants extends \SimpleSAML\XMLSecurity\Constants
      * Top-level status code.
      */
     public const STATUS_VERSION_MISMATCH = 'samlp:VersionMismatch';
+
+    /** @var string[] */
+    public static array $STATUS_CODES = [
+        self::STATUS_REQUEST_DENIED,
+        self::STATUS_REQUEST_VERSION_DEPRECATED,
+        self::STATUS_REQUEST_VERSION_TOO_HIGH,
+        self::STATUS_REQUEST_VERSION_TOO_LOW,
+        self::STATUS_REQUESTER,
+        self::STATUS_RESOURCE_NOT_RECOGNIZED,
+        self::STATUS_RESPONDER,
+        self::STATUS_SUCCESS,
+        self::STATUS_TOO_MANY_RESPONSES,
+        self::STATUS_VERSION_MISMATCH,
+    ];
 }

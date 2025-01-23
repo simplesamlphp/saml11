@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\saml;
 
-use SimpleSAML\SAML11\XML\URIElementTrait;
-use SimpleSAML\XML\SchemaValidatableElementInterface;
-use SimpleSAML\XML\SchemaValidatableElementTrait;
+use SimpleSAML\SAML11\Type\AnyURIValue;
+use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
+use SimpleSAML\XML\TypedTextContentTrait;
 
 /**
  * SAML Audience element.
@@ -16,17 +16,8 @@ use SimpleSAML\XML\SchemaValidatableElementTrait;
 final class Audience extends AbstractSamlElement implements SchemaValidatableElementInterface
 {
     use SchemaValidatableElementTrait;
-    use URIElementTrait;
+    use TypedTextContentTrait;
 
-
-    /**
-     * Initialize a saml:Audience from scratch
-     *
-     * @param string $value
-     */
-    public function __construct(
-        protected string $value,
-    ) {
-        $this->setContent($value);
-    }
+    /** @var string */
+    public const TEXTCONTENT_TYPE = AnyURIValue::class;
 }

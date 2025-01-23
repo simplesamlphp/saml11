@@ -4,25 +4,21 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\samlp;
 
-use DateTimeImmutable;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Assert\Assert as SAMLAssert;
-use SimpleSAML\SAML11\Exception\ProtocolViolationException;
-use SimpleSAML\SAML11\Exception\VersionMismatchException;
+use SimpleSAML\SAML11\Exception\{ProtocolViolationException, VersionMismatchException};
+use SimpleSAML\SAML11\Type\DateTimeValue;
 use SimpleSAML\SAML11\XML\saml\AssertionIDReference;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Exception\MissingElementException;
-use SimpleSAML\XML\Exception\TooManyElementsException;
+use SimpleSAML\XML\Exception\{InvalidDOMElementException, MissingElementException, TooManyElementsException};
+use SimpleSAML\XML\Type\{IDValue, NonNegativeIntegerValue};
 
 use function array_merge;
 use function array_pop;
-use function preg_replace;
 
 /**
  * Class representing a samlp:Request element.
  *
- * @package simplesaml/xml-saml11
+ * @package simplesaml/saml11
  */
 final class Request extends AbstractRequestType
 {
@@ -80,22 +76,17 @@ final class Request extends AbstractRequestType
             MissingElementException::class,
         );
 
-        $majorVersion = self::getIntegerAttribute($xml, 'MajorVersion');
-        Assert::same($majorVersion, 1, VersionMismatchException::class);
+        $majorVersion = self::getAttribute($xml, 'MajorVersion', NonNegativeIntegerValue::class);
+        Assert::same($majorVersion->getValue(), '1', VersionMismatchException::class);
 
-        $minorVersion = self::getIntegerAttribute($xml, 'MinorVersion');
-        Assert::same($minorVersion, 1, VersionMismatchException::class);
+        $minorVersion = self::getAttribute($xml, 'MinorVersion', NonNegativeIntegerValue::class);
+        Assert::same($minorVersion->getValue(), '1', VersionMismatchException::class);
 
-        $issueInstant = self::getAttribute($xml, 'IssueInstant');
-        // Strip sub-seconds - See paragraph 1.3.3 of SAML core specifications
-        $issueInstant = preg_replace('/([.][0-9]+Z)$/', 'Z', $issueInstant, 1);
-
-        SAMLAssert::validDateTime($issueInstant, ProtocolViolationException::class);
-        $issueInstant = new DateTimeImmutable($issueInstant);
+        $issueInstant = self::getAttribute($xml, 'IssueInstant', DateTimeValue::class);
 
         return new static(
             $assertionIdReference ?: $assertionArtifact ?: array_pop($query),
-            self::getAttribute($xml, 'RequestID'),
+            self::getAttribute($xml, 'RequestID', IDValue::class),
             $majorVersion,
             $minorVersion,
             $issueInstant,

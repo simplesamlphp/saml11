@@ -6,7 +6,10 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
+use SimpleSAML\SAML11\Type\StringValue;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
+
+use function strval;
 
 /**
  * SAML SubjectLocalityType abstract data type.
@@ -18,24 +21,22 @@ abstract class AbstractSubjectLocalityType extends AbstractSamlElement
     /**
      * Initialize a saml:SubjectLocalityType from scratch
      *
-     * @param string|null $IPAddress
-     * @param string|null $DNSAddress
+     * @param \SimpleSAML\SAML11\Type\StringValue|null $IPAddress
+     * @param \SimpleSAML\SAML11\Type\StringValue|null $DNSAddress
      */
     final public function __construct(
-        protected ?string $IPAddress = null,
-        protected ?string $DNSAddress = null,
+        protected ?StringValue $IPAddress = null,
+        protected ?StringValue $DNSAddress = null,
     ) {
-        Assert::nullOrNotWhitespaceOnly($IPAddress);
-        Assert::nullOrNotWhitespaceOnly($DNSAddress);
     }
 
 
     /**
      * Collect the value of the IPAddress-property
      *
-     * @return string|null
+     * @return \SimpleSAML\SAML11\Type\StringValue|null
      */
-    public function getIPAddress(): ?string
+    public function getIPAddress(): ?StringValue
     {
         return $this->IPAddress;
     }
@@ -44,9 +45,9 @@ abstract class AbstractSubjectLocalityType extends AbstractSamlElement
     /**
      * Collect the value of the DNSAddress-property
      *
-     * @return string|null
+     * @return \SimpleSAML\SAML11\Type\StringValue|null
      */
-    public function getDNSAddress(): ?string
+    public function getDNSAddress(): ?StringValue
     {
         return $this->DNSAddress;
     }
@@ -78,8 +79,8 @@ abstract class AbstractSubjectLocalityType extends AbstractSamlElement
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
 
-        $IPAddress = self::getOptionalAttribute($xml, 'IPAddress');
-        $DNSAddress = self::getOptionalAttribute($xml, 'DNSAddress');
+        $IPAddress = self::getOptionalAttribute($xml, 'IPAddress', StringValue::class);
+        $DNSAddress = self::getOptionalAttribute($xml, 'DNSAddress', StringValue::class);
 
         return new static($IPAddress, $DNSAddress);
     }
@@ -96,11 +97,11 @@ abstract class AbstractSubjectLocalityType extends AbstractSamlElement
         $e = $this->instantiateParentElement($parent);
 
         if ($this->getIPAddress() !== null) {
-            $e->setAttribute('IPAddress', $this->getIPAddress());
+            $e->setAttribute('IPAddress', strval($this->getIPAddress()));
         }
 
         if ($this->getDNSAddress() !== null) {
-            $e->setAttribute('DNSAddress', $this->getDNSAddress());
+            $e->setAttribute('DNSAddress', strval($this->getDNSAddress()));
         }
 
         return $e;

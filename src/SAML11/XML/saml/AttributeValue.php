@@ -4,21 +4,19 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\saml;
 
-use DateTimeImmutable;
-use DateTimeInterface;
 use DOMElement;
 use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
+use SimpleSAML\SAML11\Type\{DateTimeValue, StringValue};
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\SchemaValidatableElementInterface;
-use SimpleSAML\XML\SchemaValidatableElementTrait;
+use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
+use SimpleSAML\XML\Type\{IntegerValue, ValueTypeInterface};
 
 use function class_exists;
 use function explode;
 use function gettype;
-use function intval;
 use function str_contains;
 use function strval;
 
@@ -34,16 +32,11 @@ class AttributeValue extends AbstractSamlElement implements SchemaValidatableEle
     /**
      * Create an AttributeValue.
      *
-     * The value of this element. Can be one of:
-     *  - string
-     *  - int
-     *  - \SimpleSAML\XML\AbstractElement
-     *
-     * @param string|int|\DateTimeInterface|\SimpleSAML\XML\AbstractElement $value
+     * @param \SimpleSAML\XML\Type\ValueTypeInterface|\SimpleSAML\XML\AbstractElement $value
      * @throws \SimpleSAML\Assert\AssertionFailedException if the supplied value is neither a string or a DOMElement
      */
     final public function __construct(
-        protected string|int|DateTimeInterface|AbstractElement $value,
+        protected StringValue|IntegerValue|DateTimeValue|AbstractElement $value,
     ) {
     }
 
@@ -56,23 +49,17 @@ class AttributeValue extends AbstractSamlElement implements SchemaValidatableEle
     public function getXsiType(): string
     {
         $value = $this->getValue();
-        $type = gettype($value);
 
-        switch ($type) {
-            case "integer":
-                return "xs:integer";
-            case "object":
-                if ($value instanceof DateTimeInterface) {
-                    return 'xs:dateTime';
-                }
-
-                return sprintf(
-                    '%s:%s',
-                    $this->value::getNamespacePrefix(),
-                    AbstractElement::getClassName(get_class($value)),
-                );
-            default:
-                return "xs:string";
+        if ($value === null) {
+            return 'xs:nil';
+        } elseif ($value instanceof ValueTypeInterface) {
+            return $value::SCHEMA_TYPE;
+        } else {
+            return sprintf(
+                '%s:%s',
+                $value::getNamespacePrefix(),
+                $value::getLocalName(),
+            );
         }
     }
 
@@ -121,10 +108,8 @@ class AttributeValue extends AbstractSamlElement implements SchemaValidatableEle
             $xml->hasAttributeNS(C::NS_XSI, "type") &&
             $xml->getAttributeNS(C::NS_XSI, "type") === "xs:integer"
         ) {
-            Assert::numeric($xml->textContent);
-
             // we have an integer as value
-            $value = intval($xml->textContent);
+            $value = IntegerValue::fromString($xml->textContent);
         } elseif (
             $xml->hasAttributeNS(C::NS_XSI, "nil") &&
             ($xml->getAttributeNS(C::NS_XSI, "nil") === "1" || $xml->getAttributeNS(C::NS_XSI, "nil") === "true")
@@ -135,12 +120,10 @@ class AttributeValue extends AbstractSamlElement implements SchemaValidatableEle
             $xml->hasAttributeNS(C::NS_XSI, "type") &&
             $xml->getAttributeNS(C::NS_XSI, "type") === "xs:dateTime"
         ) {
-            Assert::validDateTime($xml->textContent);
-
             // we have a dateTime as value
-            $value = new DateTimeImmutable($xml->textContent);
+            $value = DateTimeValue::fromString($xml->textContent);
         } else {
-            $value = $xml->textContent;
+            $value = StringValue::fromString($xml->textContent);
         }
 
         return new static($value);
@@ -162,7 +145,7 @@ class AttributeValue extends AbstractSamlElement implements SchemaValidatableEle
         $type = gettype($value);
 
         switch ($type) {
-            case "integer":
+            case IntegerValue::class:
                 // make sure that the xs namespace is available in the AttributeValue
                 $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', C::NS_XSI);
                 $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xs', C::NS_XS);
@@ -170,17 +153,24 @@ class AttributeValue extends AbstractSamlElement implements SchemaValidatableEle
                 $e->textContent = strval($value);
                 break;
             case "object":
-                if ($value instanceof DateTimeInterface) {
+                if ($value instanceof DateTimeValue) {
                     $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', C::NS_XSI);
                     $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xs', C::NS_XS);
                     $e->setAttributeNS(C::NS_XSI, 'xsi:type', 'xs:dateTime');
-                    $e->textContent = $value->format(C::DATETIME_FORMAT);
+                    $e->textContent = strval($value);
+                } elseif ($value instanceof ValueTypeInterface) {
+                    if ($value instanceof IntegerValue) {
+                        $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', C::NS_XSI);
+                        $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xs', C::NS_XS);
+                        $e->setAttributeNS(C::NS_XSI, 'xsi:type', 'xs:integer');
+                    }
+                    $e->textContent = strval($value);
                 } else {
                     $value->toXML($e);
                 }
                 break;
             default: // string
-                $e->textContent = $value;
+                $e->textContent = strval($value);
                 break;
         }
 

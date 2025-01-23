@@ -6,8 +6,11 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\SAML11\Assert\Assert;
-use SimpleSAML\SAML11\Constants as C;
+use SimpleSAML\SAML11\Type\AnyURIValue;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
+use SimpleSAML\XML\Type\QNameValue;
+
+use function strval;
 
 /**
  * SAML AuthorityBindingType abstract data type.
@@ -19,27 +22,24 @@ abstract class AbstractAuthorityBindingType extends AbstractSamlElement
     /**
      * Initialize a saml:AuthorityBindingType from scratch
      *
-     * @param string $AuthorityKind
-     * @param string $Location
-     * @param string $Binding
+     * @param \SimpleSAML\XML\Type\QNameValue $AuthorityKind
+     * @param \SimpleSAML\SAML11\Type\AnyURIValue $Location
+     * @param \SimpleSAML\SAML11\Type\AnyURIValue $Binding
      */
     final public function __construct(
-        protected string $AuthorityKind,
-        protected string $Location,
-        protected string $Binding,
+        protected QNameValue $AuthorityKind,
+        protected AnyURIValue $Location,
+        protected AnyURIValue $Binding,
     ) {
-        Assert::validQName($AuthorityKind);
-        Assert::validURI($Location);
-        Assert::validURI($Binding);
     }
 
 
     /**
      * Collect the value of the AuthorityKind-property
      *
-     * @return string
+     * @return \SimpleSAML\XML\Type\QNameValue
      */
-    public function getAuthorityKind(): string
+    public function getAuthorityKind(): QNameValue
     {
         return $this->AuthorityKind;
     }
@@ -48,9 +48,9 @@ abstract class AbstractAuthorityBindingType extends AbstractSamlElement
     /**
      * Collect the value of the Location-property
      *
-     * @return string
+     * @return \SimpleSAML\SAML11\Type\AnyURIValue
      */
-    public function getLocation(): string
+    public function getLocation(): AnyURIValue
     {
         return $this->Location;
     }
@@ -59,9 +59,9 @@ abstract class AbstractAuthorityBindingType extends AbstractSamlElement
     /**
      * Collect the value of the Binding-property
      *
-     * @return string
+     * @return \SimpleSAML\SAML11\Type\AnyURIValue
      */
-    public function getBinding(): string
+    public function getBinding(): AnyURIValue
     {
         return $this->Binding;
     }
@@ -81,9 +81,9 @@ abstract class AbstractAuthorityBindingType extends AbstractSamlElement
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
 
-        $AuthorityKind = self::getAttribute($xml, 'AuthorityKind');
-        $Location = self::getAttribute($xml, 'Location');
-        $Binding = self::getAttribute($xml, 'Binding');
+        $AuthorityKind = self::getAttribute($xml, 'AuthorityKind', QNameValue::class);
+        $Location = self::getAttribute($xml, 'Location', AnyURIValue::class);
+        $Binding = self::getAttribute($xml, 'Binding', AnyURIValue::class);
 
         return new static($AuthorityKind, $Location, $Binding);
     }
@@ -99,11 +99,17 @@ abstract class AbstractAuthorityBindingType extends AbstractSamlElement
     {
         $e = $this->instantiateParentElement($parent);
 
-        $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:samlp', C::NS_SAMLP);
+        if (!$e->lookupPrefix($this->getAuthorityKind()->getNamespaceURI()->getValue())) {
+            $e->setAttributeNS(
+                'http://www.w3.org/2000/xmlns/',
+                'xmlns:' . $this->getAuthorityKind()->getNamespacePrefix()->getValue(),
+                $this->getAuthorityKind()->getNamespaceURI()->getValue(),
+            );
+        }
 
-        $e->setAttribute('AuthorityKind', $this->getAuthorityKind());
-        $e->setAttribute('Location', $this->getLocation());
-        $e->setAttribute('Binding', $this->getBinding());
+        $e->setAttribute('AuthorityKind', strval($this->getAuthorityKind()));
+        $e->setAttribute('Location', strval($this->getLocation()));
+        $e->setAttribute('Binding', strval($this->getBinding()));
 
         return $e;
     }

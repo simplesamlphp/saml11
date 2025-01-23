@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\samlp;
 
-use DateTimeImmutable;
 use DOMElement;
-use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Exception\ProtocolViolationException;
 use SimpleSAML\SAML11\Utils;
-use SimpleSAML\SAML11\XML\SignableElementTrait;
-use SimpleSAML\SAML11\XML\SignedElementTrait;
-use SimpleSAML\XMLSecurity\XML\SignableElementInterface;
-use SimpleSAML\XMLSecurity\XML\SignedElementInterface;
+use SimpleSAML\SAML11\Type\DateTimeValue;
+use SimpleSAML\SAML11\XML\{SignableElementTrait, SignedElementTrait};
+use SimpleSAML\XML\Type\NonNegativeIntegerValue;
+use SimpleSAML\XMLSecurity\XML\{SignableElementInterface, SignedElementInterface};
 
 use function strval;
 
@@ -47,27 +44,26 @@ abstract class AbstractMessage extends AbstractSamlpElement implements SignableE
     /**
      * Initialize a message.
      *
-     * @param int $majorVersion
-     * @param int $minorVersion
-     * @param \DateTimeImmutable $issueInstant
+     * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $majorVersion
+     * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $minorVersion
+     * @param \SimpleSAML\SAML11\Type\DateTimeValue $issueInstant
      *
      * @throws \Exception
      */
     protected function __construct(
-        protected int $majorVersion,
-        protected int $minorVersion,
-        protected ?DateTimeImmutable $issueInstant,
+        protected NonNegativeIntegerValue $majorVersion,
+        protected NonNegativeIntegerValue $minorVersion,
+        protected ?DateTimeValue $issueInstant,
     ) {
-        Assert::nullOrSame($issueInstant?->getTimeZone()->getName(), 'Z', ProtocolViolationException::class);
     }
 
 
     /**
      * Retrieve the major version of this message.
      *
-     * @return int The major version of this message
+     * @return \SimpleSAML\XML\Type\NonNegativeIntegerValue The major version of this message
      */
-    public function getMajorVersion(): int
+    public function getMajorVersion(): NonNegativeIntegerValue
     {
         return $this->majorVersion;
     }
@@ -76,9 +72,9 @@ abstract class AbstractMessage extends AbstractSamlpElement implements SignableE
     /**
      * Retrieve the minor version of this message.
      *
-     * @return int The minor version of this message
+     * @return \SimpleSAML\XML\Type\NonNegativeIntegerValue The minor version of this message
      */
-    public function getMinorVersion(): int
+    public function getMinorVersion(): NonNegativeIntegerValue
     {
         return $this->minorVersion;
     }
@@ -87,12 +83,12 @@ abstract class AbstractMessage extends AbstractSamlpElement implements SignableE
     /**
      * Retrieve the issue timestamp of this message.
      *
-     * @return \DateTimeImmutable The issue timestamp of this message, as an UNIX timestamp
+     * @return \SimpleSAML\SAML11\Type\DateTimeValue The issue timestamp of this message
      */
-    public function getIssueInstant(): DateTimeImmutable
+    public function getIssueInstant(): DateTimeValue
     {
         if ($this->issueInstant === null) {
-            return Utils::getContainer()->getClock()->now();
+            return DateTimeValue::fromDateTime(Utils::getContainer()->getClock()->now());
         }
 
         return $this->issueInstant;
@@ -157,7 +153,7 @@ abstract class AbstractMessage extends AbstractSamlpElement implements SignableE
 
         $e->setAttribute('MajorVersion', strval($this->getMajorVersion()));
         $e->setAttribute('MinorVersion', strval($this->getMinorVersion()));
-        $e->setAttribute('IssueInstant', $this->getIssueInstant()->format(C::DATETIME_FORMAT));
+        $e->setAttribute('IssueInstant', strval($this->getIssueInstant()));
 
         return $e;
     }

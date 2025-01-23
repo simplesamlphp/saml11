@@ -8,11 +8,9 @@ use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\XML\saml\Subject;
-use SimpleSAML\SAML11\XML\samlp\AbstractSubjectQuery;
-use SimpleSAML\SAML11\XML\samlp\StatusMessage;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Exception\MissingElementException;
-use SimpleSAML\XML\Exception\TooManyElementsException;
+use SimpleSAML\SAML11\XML\samlp\{AbstractSubjectQuery, StatusMessage};
+use SimpleSAML\XML\Exception\{InvalidDOMElementException, MissingElementException, TooManyElementsException};
+use SimpleSAML\XML\Type\QNameValue;
 
 use function array_pop;
 
@@ -44,7 +42,12 @@ final class CustomSubjectQuery extends AbstractSubjectQuery
     ) {
         Assert::allIsInstanceOf($statusMessage, StatusMessage::class);
 
-        parent::__construct(self::XSI_TYPE_PREFIX . ':' . self::XSI_TYPE_NAME, $subject);
+        parent::__construct(
+            QNameValue::fromString(
+                '{' . self::XSI_TYPE_NAMESPACE . '}' . self::XSI_TYPE_PREFIX . ':' . self::XSI_TYPE_NAME,
+            ),
+            $subject,
+        );
     }
 
 
@@ -79,8 +82,8 @@ final class CustomSubjectQuery extends AbstractSubjectQuery
             InvalidDOMElementException::class,
         );
 
-        $type = $xml->getAttributeNS(C::NS_XSI, 'type');
-        Assert::same($type, self::XSI_TYPE_PREFIX . ':' . self::XSI_TYPE_NAME);
+        $type = QNameValue::fromDocument($xml->getAttributeNS(C::NS_XSI, 'type'), $xml);
+        Assert::same($type->getValue(), self::XSI_TYPE_PREFIX . ':' . self::XSI_TYPE_NAME);
 
         $statusMessage = StatusMessage::getChildrenOfClass($xml);
 

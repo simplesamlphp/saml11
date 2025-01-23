@@ -33,12 +33,11 @@ final class AnyURITest extends TestCase
             $this->assertFalse($shouldPass);
         } finally {
         }
-
     }
 
 
     /**
-     * @return array<AnyURI, array{0: bool, 1: string}>
+     * @return array<string, array{0: bool, 1: string}>
      */
     public static function provideAnyURI(): array
     {

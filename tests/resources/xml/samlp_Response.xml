@@ -1,4 +1,4 @@
-<samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol" xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" MajorVersion="1" MinorVersion="1" IssueInstant="2023-01-24T09:42:26Z" ResponseID="def456">
+<samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol" MajorVersion="1" MinorVersion="1" IssueInstant="2023-01-24T09:42:26Z" ResponseID="def456">
   <samlp:Status>
     <samlp:StatusCode Value="samlp:Responder">
       <samlp:StatusCode Value="samlp:RequestDenied"/>
@@ -30,7 +30,7 @@
         </saml:SubjectConfirmation>
       </saml:Subject>
       <saml:SubjectLocality IPAddress="127.0.0.1" DNSAddress="simplesamlphp.org" />
-      <saml:AuthorityBinding xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol" AuthorityKind="samlp:AttributeQuery" Location="urn:x-simplesamlphp:location" Binding="urn:x-simplesamlphp:binding" />
+      <saml:AuthorityBinding AuthorityKind="samlp:AttributeQuery" Location="urn:x-simplesamlphp:location" Binding="urn:x-simplesamlphp:binding" />
     </saml:AuthenticationStatement>
   </saml:Assertion>
 </samlp:Response>

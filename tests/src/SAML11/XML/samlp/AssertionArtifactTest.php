@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Simplesamlp\Test\SAML11\XML\samlp;
 
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\XML\samlp\AbstractSamlpElement;
-use SimpleSAML\SAML11\XML\samlp\AssertionArtifact;
+use SimpleSAML\SAML11\Type\StringValue;
+use SimpleSAML\SAML11\XML\samlp\{AbstractSamlpElement, AssertionArtifact};
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
-use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
 
 use function dirname;
 use function strval;
@@ -20,6 +19,7 @@ use function strval;
  *
  * @package simplesamlpphp/saml11
  */
+#[Group('samlp')]
 #[CoversClass(AssertionArtifact::class)]
 #[CoversClass(AbstractSamlpElement::class)]
 final class AssertionArtifactTest extends TestCase
@@ -32,8 +32,6 @@ final class AssertionArtifactTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        self::$schemaFile = dirname(__FILE__, 6) . '/resources/schemas/oasis-sstc-saml-schema-protocol-1.1.xsd';
-
         self::$testedClass = AssertionArtifact::class;
 
         self::$xmlRepresentation = DOMDocumentFactory::fromFile(
@@ -50,7 +48,9 @@ final class AssertionArtifactTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $assertionArtifact = new AssertionArtifact('AAEbuqrPjR1XORIHk5YAV8I4sM0nKP2CLV+h1CMiWbnkaWvvlJ0g4Ess');
+        $assertionArtifact = new AssertionArtifact(
+            StringValue::fromString('AAEbuqrPjR1XORIHk5YAV8I4sM0nKP2CLV+h1CMiWbnkaWvvlJ0g4Ess'),
+        );
 
         $this->assertEquals(
             self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),

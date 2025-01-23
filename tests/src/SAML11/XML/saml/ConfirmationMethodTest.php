@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
-use SimpleSAML\SAML11\XML\saml\ConfirmationMethod;
+use SimpleSAML\SAML11\Type\AnyURIValue;
+use SimpleSAML\SAML11\XML\saml\{AbstractSamlElement, ConfirmationMethod};
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
-use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
 
 use function dirname;
 use function strval;
@@ -20,6 +19,7 @@ use function strval;
  *
  * @package simplesamlphp/saml11
  */
+#[Group('saml')]
 #[CoversClass(ConfirmationMethod::class)]
 #[CoversClass(AbstractSamlElement::class)]
 final class ConfirmationMethodTest extends TestCase
@@ -31,8 +31,6 @@ final class ConfirmationMethodTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        self::$schemaFile = dirname(__FILE__, 6) . '/resources/schemas/oasis-sstc-saml-schema-assertion-1.1.xsd';
-
         self::$testedClass = ConfirmationMethod::class;
 
         self::$xmlRepresentation = DOMDocumentFactory::fromFile(
@@ -45,7 +43,9 @@ final class ConfirmationMethodTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $confirmationMethod = new ConfirmationMethod('_Test');
+        $confirmationMethod = new ConfirmationMethod(
+            AnyURIValue::fromString('_Test'),
+        );
 
         $this->assertEquals(
             self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),

@@ -6,14 +6,10 @@ namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\XML\saml\Action;
-use SimpleSAML\SAML11\XML\saml\Evidence;
-use SimpleSAML\SAML11\XML\saml\Subject;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Exception\MissingElementException;
-use SimpleSAML\XML\Exception\TooManyElementsException;
-use SimpleSAML\XML\SchemaValidatableElementInterface;
-use SimpleSAML\XML\SchemaValidatableElementTrait;
+use SimpleSAML\SAML11\Type\AnyURIValue;
+use SimpleSAML\SAML11\XML\saml\{Action, Evidence, Subject};
+use SimpleSAML\XML\Exception\{InvalidDOMElementException, MissingElementException, TooManyElementsException};
+use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
 
 use function array_pop;
 
@@ -41,7 +37,7 @@ final class AuthorizationDecisionQuery extends AbstractAuthorizationDecisionQuer
         Assert::same($xml->localName, 'AuthorizationDecisionQuery', InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, AuthorizationDecisionQuery::NS, InvalidDOMElementException::class);
 
-        $resource = self::getAttribute($xml, 'Resource');
+        $resource = self::getAttribute($xml, 'Resource', AnyURIValue::class);
 
         $subject = Subject::getChildrenOfClass($xml);
         Assert::minCount($subject, 1, MissingElementException::class);

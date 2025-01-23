@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\saml;
 
-use DateTimeImmutable;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Assert\Assert as SAMLAssert;
-use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Exception\ProtocolViolationException;
+use SimpleSAML\SAML11\Type\DateTimeValue;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
+
+use function strval;
 
 /**
  * SAML ConditionsType abstract data type.
@@ -25,15 +24,15 @@ abstract class AbstractConditionsType extends AbstractSamlElement
      * @param array<\SimpleSAML\SAML11\XML\saml\AudienceRestrictionCondition> $audienceRestrictionCondition
      * @param array<\SimpleSAML\SAML11\XML\saml\DoNotCacheCondition> $doNotCacheCondition
      * @param array<\SimpleSAML\SAML11\XML\saml\AbstractCondition> $condition
-     * @param \DateTimeImmutable|null $notBefore
-     * @param \DateTimeImmutable|null $notOnOrAfter
+     * @param \SimpleSAML\SAML11\Type\DateTimeValue|null $notBefore
+     * @param \SimpleSAML\SAML11\Type\DateTimeValue|null $notOnOrAfter
      */
     final public function __construct(
         protected array $audienceRestrictionCondition = [],
         protected array $doNotCacheCondition = [],
         protected array $condition = [],
-        protected ?DateTimeImmutable $notBefore = null,
-        protected ?DateTimeImmutable $notOnOrAfter = null,
+        protected ?DateTimeValue $notBefore = null,
+        protected ?DateTimeValue $notOnOrAfter = null,
     ) {
         Assert::allIsInstanceOf($audienceRestrictionCondition, AudienceRestrictionCondition::class);
         Assert::allIsInstanceOf($doNotCacheCondition, DoNotCacheCondition::class);
@@ -44,9 +43,9 @@ abstract class AbstractConditionsType extends AbstractSamlElement
     /**
      * Collect the value of the notBefore-property
      *
-     * @return \DateTimeImmutable|null
+     * @return \SimpleSAML\SAML11\Type\DateTimeValue|null
      */
-    public function getNotBefore(): ?DateTimeImmutable
+    public function getNotBefore(): ?DateTimeValue
     {
         return $this->notBefore;
     }
@@ -55,9 +54,9 @@ abstract class AbstractConditionsType extends AbstractSamlElement
     /**
      * Collect the value of the notOnOrAfter-property
      *
-     * @return \DateTimeImmutable|null
+     * @return \SimpleSAML\SAML11\Type\DateTimeValue|null
      */
-    public function getNotOnOrAfter(): ?DateTimeImmutable
+    public function getNotOnOrAfter(): ?DateTimeValue
     {
         return $this->notOnOrAfter;
     }
@@ -125,25 +124,13 @@ abstract class AbstractConditionsType extends AbstractSamlElement
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
 
-        $notBefore = self::getOptionalAttribute($xml, 'NotBefore');
-        // Strip sub-seconds - See paragraph 1.2.2 of SAML core specifications
-        $notBefore = preg_replace('/([.][0-9]+Z)$/', 'Z', $notBefore, 1);
-
-        SAMLAssert::validDateTime($notBefore, ProtocolViolationException::class);
-        $notBefore = new DateTimeImmutable($notBefore);
-
-        $notOnOrAfter = self::getOptionalAttribute($xml, 'NotOnOrAfter');
-        // Strip sub-seconds - See paragraph 1.2.2 of SAML core specifications
-        $notOnOrAfter = preg_replace('/([.][0-9]+Z)$/', 'Z', $notOnOrAfter, 1);
-
-        SAMLAssert::validDateTime($notOnOrAfter, ProtocolViolationException::class);
-        $notOnOrAfter = new DateTimeImmutable($notOnOrAfter);
-
-        $audienceRestrictionCondition = AudienceRestrictionCondition::getChildrenOfClass($xml);
-        $doNotCacheCondition = DoNotCacheCondition::getChildrenOfClass($xml);
-        $condition = AbstractCondition::getChildrenOfClass($xml);
-
-        return new static($audienceRestrictionCondition, $doNotCacheCondition, $condition, $notBefore, $notOnOrAfter);
+        return new static(
+            AudienceRestrictionCondition::getChildrenOfClass($xml),
+            DoNotCacheCondition::getChildrenOfClass($xml),
+            AbstractCondition::getChildrenOfClass($xml),
+            self::getOptionalAttribute($xml, 'NotBefore', DateTimeValue::class),
+            self::getOptionalAttribute($xml, 'NotOnOrAfter', DateTimeValue::class),
+        );
     }
 
 
@@ -158,11 +145,11 @@ abstract class AbstractConditionsType extends AbstractSamlElement
         $e = $this->instantiateParentElement($parent);
 
         if ($this->getNotBefore() !== null) {
-            $e->setAttribute('NotBefore', $this->getNotBefore()->format(C::DATETIME_FORMAT));
+            $e->setAttribute('NotBefore', strval($this->getNotBefore()));
         }
 
         if ($this->getNotOnOrAfter() !== null) {
-            $e->setAttribute('NotOnOrAfter', $this->getNotOnOrAfter()->format(C::DATETIME_FORMAT));
+            $e->setAttribute('NotOnOrAfter', strval($this->getNotOnOrAfter()));
         }
 
         foreach ($this->getAudienceRestrictionCondition() as $audienceRestrictionCondition) {
