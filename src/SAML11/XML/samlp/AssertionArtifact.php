@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\samlp;
 
-use SimpleSAML\SAML11\XML\StringElementTrait;
-use SimpleSAML\XML\SchemaValidatableElementInterface;
-use SimpleSAML\XML\SchemaValidatableElementTrait;
+use SimpleSAML\SAML11\Type\StringValue;
+use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
+use SimpleSAML\XML\TypedTextContentTrait;
 
 /**
  * SAML AssertionArtifact element.
@@ -17,17 +17,8 @@ use SimpleSAML\XML\SchemaValidatableElementTrait;
 final class AssertionArtifact extends AbstractSamlpElement implements SchemaValidatableElementInterface
 {
     use SchemaValidatableElementTrait;
-    use StringElementTrait;
+    use TypedTextContentTrait;
 
-
-    /**
-     * Initialize a saml:AssertionArtifact from scratch
-     *
-     * @param string $value
-     */
-    public function __construct(
-        protected string $value,
-    ) {
-        $this->setContent($value);
-    }
+    /** @var string */
+    public const TEXTCONTENT_TYPE = StringValue::class;
 }

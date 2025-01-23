@@ -6,6 +6,7 @@ namespace SimpleSAML\Test\SAML11\Type;
 
 use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\SAML11\Exception\ProtocolViolationException;
 use SimpleSAML\SAML11\Type\AnyURIValue;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 
@@ -27,7 +28,7 @@ final class AnyURIValueTest extends TestCase
         try {
             AnyURIValue::fromString($uri);
             $this->assertTrue($shouldPass);
-        } catch (SchemaViolationException $e) {
+        } catch (ProtocolViolationException | SchemaViolationException $e) {
             $this->assertFalse($shouldPass);
         }
     }

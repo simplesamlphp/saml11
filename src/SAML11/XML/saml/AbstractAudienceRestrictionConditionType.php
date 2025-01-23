@@ -6,11 +6,8 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\XML\saml\AbstractConditionType;
-use SimpleSAML\SAML11\XML\saml\Audience;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Exception\MissingElementException;
-use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\SAML11\XML\saml\{AbstractConditionType, Audience};
+use SimpleSAML\XML\Exception\{InvalidDOMElementException, MissingElementException, SchemaViolationException};
 
 /**
  * @package simplesamlphp\saml11

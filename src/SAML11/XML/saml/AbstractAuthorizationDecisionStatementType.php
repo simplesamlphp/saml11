@@ -6,11 +6,15 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Assert\Assert as SAMLAssert;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Exception\MissingElementException;
-use SimpleSAML\XML\Exception\SchemaViolationException;
-use SimpleSAML\XML\Exception\TooManyElementsException;
+use SimpleSAML\SAML11\Type\{AnyURIValue, StringValue};
+use SimpleSAML\XML\Exception\{
+    InvalidDOMElementException,
+    MissingElementException,
+    SchemaViolationException,
+    TooManyElementsException,
+};
+
+use function strval;
 
 /**
  * SAML AuthorizationDecisionStatementType abstract data type.
@@ -22,20 +26,19 @@ abstract class AbstractAuthorizationDecisionStatementType extends AbstractSubjec
     /**
      * Initialize a saml:AuthorizationDecisionStatementType from scratch
      *
-     * @param string $resource
-     * @param \SimpleSAML\SAML11\XML\saml\DecisionTypeEnum $decision
+     * @param \SimpleSAML\SAML11\Type\AnyURIValue $resource
+     * @param \SimpleSAML\SAML11\DecisionTypeEnum $decision
      * @param \SimpleSAML\SAML11\XML\saml\Subject $subject
      * @param array<\SimpleSAML\SAML11\XML\saml\Action> $action
      * @param \SimpleSAML\SAML11\XML\saml\Evidence|null $evidence
      */
     final public function __construct(
         Subject $subject,
-        protected string $resource,
+        protected AnyURIValue $resource,
         protected DecisionTypeEnum $decision,
         protected array $action = [],
         protected ?Evidence $evidence = null,
     ) {
-        SAMLAssert::validURI($resource);
         Assert::minCount($action, 1, MissingElementException::class);
         Assert::allIsInstanceOf($action, Action::class, SchemaViolationException::class);
 
@@ -46,9 +49,9 @@ abstract class AbstractAuthorizationDecisionStatementType extends AbstractSubjec
     /**
      * Collect the value of the resource-property
      *
-     * @return string
+     * @return \SimpleSAML\SAML11\Type\AnyURIValue
      */
-    public function getResource(): string
+    public function getResource(): AnyURIValue
     {
         return $this->resource;
     }
@@ -57,7 +60,7 @@ abstract class AbstractAuthorizationDecisionStatementType extends AbstractSubjec
     /**
      * Collect the value of the decision-property
      *
-     * @return \SimpleSAML\SAML11\XML\saml\DecisionTypeEnum
+     * @return \SimpleSAML\SAML11\XML\DecisionTypeEnum
      */
     public function getDecision(): DecisionTypeEnum
     {
@@ -110,8 +113,10 @@ abstract class AbstractAuthorizationDecisionStatementType extends AbstractSubjec
 
         return new static(
             array_pop($subject),
-            self::getAttribute($xml, 'Resource'),
-            DecisionTypeEnum::from(self::getAttribute($xml, 'Decision')),
+            self::getAttribute($xml, 'Resource', AnyURIValue::class),
+            DecisionTypeEnum::from(
+                strval(self::getAttribute($xml, 'Decision', StringValue::class)),
+            ),
             Action::getChildrenOfClass($xml),
             array_pop($evidence),
         );
@@ -129,7 +134,7 @@ abstract class AbstractAuthorizationDecisionStatementType extends AbstractSubjec
     {
         $e = parent::toXML($parent);
 
-        $e->setAttribute('Resource', $this->getResource());
+        $e->setAttribute('Resource', strval($this->getResource()));
         $e->setAttribute('Decision', $this->getDecision()->value);
 
         foreach ($this->getAction() as $action) {

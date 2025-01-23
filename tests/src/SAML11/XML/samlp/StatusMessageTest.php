@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\samlp;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\XML\samlp\AbstractSamlpElement;
-use SimpleSAML\SAML11\XML\samlp\StatusMessage;
+use SimpleSAML\SAML11\Type\StringValue;
+use SimpleSAML\SAML11\XML\samlp\{AbstractSamlpElement, StatusMessage};
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
-use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
 
 use function dirname;
 use function strval;
@@ -33,8 +31,6 @@ final class StatusMessageTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        self::$schemaFile = dirname(__FILE__, 6) . '/resources/schemas/oasis-sstc-saml-schema-protocol-1.1.xsd';
-
         self::$testedClass = StatusMessage::class;
 
         self::$xmlRepresentation = DOMDocumentFactory::fromFile(
@@ -47,7 +43,9 @@ final class StatusMessageTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $statusMessage = new StatusMessage('Something went wrong');
+        $statusMessage = new StatusMessage(
+            StringValue::fromString('Something went wrong'),
+        );
 
         $this->assertEquals(
             self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),

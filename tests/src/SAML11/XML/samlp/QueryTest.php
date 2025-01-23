@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\samlp;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Compat\AbstractContainer;
-use SimpleSAML\SAML11\Compat\ContainerSingleton;
+use SimpleSAML\SAML11\Compat\{AbstractContainer, ContainerSingleton};
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\XML\samlp\AbstractQuery;
-use SimpleSAML\SAML11\XML\samlp\AbstractQueryAbstractType;
-use SimpleSAML\SAML11\XML\samlp\AbstractSamlpElement;
-use SimpleSAML\SAML11\XML\samlp\StatusMessage;
-use SimpleSAML\SAML11\XML\samlp\UnknownQuery;
+use SimpleSAML\SAML11\Type\StringValue;
+use SimpleSAML\SAML11\XML\samlp\{
+    AbstractQuery,
+    AbstractQueryAbstractType,
+    AbstractSamlpElement,
+    StatusMessage,
+    UnknownQuery,
+};
 use SimpleSAML\Test\SAML11\CustomQuery;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
-use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
 
 use function dirname;
 use function strval;
@@ -79,7 +79,11 @@ final class QueryTest extends TestCase
     public function testMarshalling(): void
     {
         $query = new CustomQuery(
-            [new StatusMessage('urn:some:audience')],
+            [
+                new StatusMessage(
+                    StringValue::fromString('urn:some:audience'),
+                ),
+            ],
         );
 
         $this->assertEquals(
@@ -102,7 +106,10 @@ final class QueryTest extends TestCase
         $query = AbstractQuery::fromXML($element);
 
         $this->assertInstanceOf(UnknownQuery::class, $query);
-        $this->assertEquals('urn:x-simplesamlphp:namespace:UnknownQueryType', $query->getXsiType());
+        $this->assertEquals(
+            '{urn:x-simplesamlphp:namespace}ssp:UnknownQueryType',
+            $query->getXsiType()->getRawValue(),
+        );
 
         $chunk = $query->getRawQuery();
         $this->assertEquals('samlp', $chunk->getPrefix());

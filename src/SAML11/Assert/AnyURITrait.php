@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\Assert;
 
-use InvalidArgumentException;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\SAML11\Exception\ProtocolViolationException;
-use SimpleSAML\XML\Exception\SchemaViolationException;
 
 /**
  * @package simplesamlphp/saml11
@@ -29,8 +27,12 @@ trait AnyURITrait
              * Unless otherwise indicated in this specification, all URI reference values MUST consist
              * of at least one non-whitespace character
              */
-            static::notWhitespaceOnly($value, $message ?: '%s is not a SAML1.1-compliant URI', ProtocolViolationException::class);
-        } catch (InvalidArgumentException $e) {
+            static::notWhitespaceOnly(
+                $value,
+                $message ?: '%s is not a SAML1.1-compliant URI',
+                ProtocolViolationException::class,
+            );
+        } catch (AssertionFailedException $e) {
             throw new ProtocolViolationException($e->getMessage());
         }
     }

@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\samlp;
 
-use DateTimeImmutable;
 use DOMElement;
 use SimpleSAML\SAML11\Assert\Assert;
+use SimpleSAML\SAML11\Type\{AnyURIValue, DateTimeValue};
 use SimpleSAML\SAML11\XML\saml\Assertion;
 use SimpleSAML\SAML11\XML\samlp\Status;
 use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\XML\Type\{IDValue, NCNameValue, NonNegativeIntegerValue};
+
+use function strval;
 
 /**
  * Base class for all SAML 1.1 samlp:AbstractResponseAbstractType.
@@ -21,29 +24,27 @@ abstract class AbstractResponseType extends AbstractResponseAbstractType
     /**
      * Initialize a response.
      *
-     * @param string $id
+     * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $majorVersion
+     * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $minorVersion
+     * @param \SimpleSAML\XML\Type\IDValue $id
      * @param \SimpleSAML\SAML11\XML\samlp\Status $status
      * @param array<\SimpleSAML\SAML11\XML\saml\Assertion> $assertion
-     * @param int $majorVersion
-     * @param int $minorVersion
-     * @param \DateTimeImmutable|null $issueInstant
-     * @param string|null $inResponseTo
-     * @param string|null $recipient
+     * @param \SimpleSAML\SAML11\Type\DateTimeValue|null $issueInstant
+     * @param \SimpleSAML\XML\Type\NCNameValue|null $inResponseTo
+     * @param \SimpleSAML\SAML11\Type\AnyURIValue|null $recipient
      *
      * @throws \Exception
      */
     public function __construct(
-        string $id,
+        NonNegativeIntegerValue $majorVersion,
+        NonNegativeIntegerValue $minorVersion,
+        IDValue $id,
         protected Status $status,
         protected array $assertion = [],
-        int $majorVersion = 1,
-        int $minorVersion = 1,
-        ?DateTimeImmutable $issueInstant = null,
-        protected ?string $inResponseTo = null,
-        protected ?string $recipient = null,
+        ?DateTimeValue $issueInstant = null,
+        protected ?NCNameValue $inResponseTo = null,
+        protected ?AnyURIValue $recipient = null,
     ) {
-        Assert::nullOrValidNCName($inResponseTo, SchemaViolationException::class);
-        Assert::nullOrValidURI($recipient, SchemaViolationException::class);
         Assert::allIsInstanceOf($assertion, Assertion::class, SchemaViolationException::class);
 
         parent::__construct($id, $majorVersion, $minorVersion, $issueInstant);
@@ -53,9 +54,9 @@ abstract class AbstractResponseType extends AbstractResponseAbstractType
     /**
      * Retrieve the inResponseTo of this message.
      *
-     * @return string|null The inResponseTo of this message
+     * @return \SimpleSAML\XML\Type\NCNameValue|null The inResponseTo of this message
      */
-    public function getInResponseTo(): ?string
+    public function getInResponseTo(): ?NCNameValue
     {
         return $this->inResponseTo;
     }
@@ -64,9 +65,9 @@ abstract class AbstractResponseType extends AbstractResponseAbstractType
     /**
      * Retrieve the recipient of this message.
      *
-     * @return string|null The recipient of this message
+     * @return \SimpleSAML\SAML11\Type\AnyURIValue|null The recipient of this message
      */
-    public function getRecipient(): ?string
+    public function getRecipient(): ?AnyURIValue
     {
         return $this->recipient;
     }
@@ -105,11 +106,11 @@ abstract class AbstractResponseType extends AbstractResponseAbstractType
         $e = parent::toUnsignedXML($parent);
 
         if ($this->getRecipient() !== null) {
-            $e->setAttribute('Recipient', $this->getRecipient());
+            $e->setAttribute('Recipient', strval($this->getRecipient()));
         }
 
         if ($this->getInResponseTo() !== null) {
-            $e->setAttribute('InResponseTo', $this->getInResponseTo());
+            $e->setAttribute('InResponseTo', strval($this->getInResponseTo()));
         }
 
         $this->getStatus()->toXML($e);

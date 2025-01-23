@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
-use SimpleSAML\Assert\Assert;
-use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\SAML11\Type\{AnyURIValue, StringValue};
+
+use function strval;
 
 /**
  * SAML AttributeDesignatorType abstract data type.
@@ -18,24 +19,22 @@ abstract class AbstractAttributeDesignatorType extends AbstractSamlElement
     /**
      * Initialize a saml:AttributeDesignatorType from scratch
      *
-     * @param string $AttributeName
-     * @param string $AttributeNamespace
+     * @param \SimpleSAML\SAML11\Type\StringValue $AttributeName
+     * @param \SimpleSAML\SAML11\Type\AnyURIValue $AttributeNamespace
      */
     public function __construct(
-        protected string $AttributeName,
-        protected string $AttributeNamespace,
+        protected StringValue $AttributeName,
+        protected AnyURIValue $AttributeNamespace,
     ) {
-        Assert::nullOrNotWhitespaceOnly($AttributeName, SchemaViolationException::class);
-        Assert::nullOrValidURI($AttributeNamespace, SchemaViolationException::class); // Covers the empty string
     }
 
 
     /**
      * Collect the value of the AttributeName-property
      *
-     * @return string
+     * @return \SimpleSAML\SAML11\Type\StringValue
      */
-    public function getAttributeName(): string
+    public function getAttributeName(): StringValue
     {
         return $this->AttributeName;
     }
@@ -44,9 +43,9 @@ abstract class AbstractAttributeDesignatorType extends AbstractSamlElement
     /**
      * Collect the value of the AttributeNamespace-property
      *
-     * @return string
+     * @return \SimpleSAML\SAML11\Type\AnyURIValue
      */
-    public function getAttributeNamespace(): string
+    public function getAttributeNamespace(): AnyURIValue
     {
         return $this->AttributeNamespace;
     }
@@ -62,8 +61,8 @@ abstract class AbstractAttributeDesignatorType extends AbstractSamlElement
     {
         $e = $this->instantiateParentElement($parent);
 
-        $e->setAttribute('AttributeName', $this->getAttributeName());
-        $e->setAttribute('AttributeNamespace', $this->getAttributeNamespace());
+        $e->setAttribute('AttributeName', strval($this->getAttributeName()));
+        $e->setAttribute('AttributeNamespace', strval($this->getAttributeNamespace()));
 
         return $e;
     }

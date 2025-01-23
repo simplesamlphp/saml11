@@ -6,11 +6,11 @@ namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\XML\saml\Action;
-use SimpleSAML\SAML11\XML\saml\Evidence;
-use SimpleSAML\SAML11\XML\saml\Subject;
-use SimpleSAML\XML\Exception\MissingElementException;
-use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\SAML11\Type\AnyURIValue;
+use SimpleSAML\SAML11\XML\saml\{Action, Evidence, Subject};
+use SimpleSAML\XML\Exception\{MissingElementException, SchemaViolationException};
+
+use function strval;
 
 /**
  * Abstract class to be implemented by all the authorization decision queries in this namespace
@@ -23,17 +23,16 @@ abstract class AbstractAuthorizationDecisionQueryType extends AbstractSubjectQue
      * Initialize a samlp:AuthorizationDecisionQuery element.
      *
      * @param \SimpleSAML\SAML11\XML\saml\Subject $subject
-     * @param string $resource
+     * @param \SimpleSAML\SAML11\Type\AnyURIValue $resource
      * @param \SimpleSAML\SAML11\XML\saml\Evidence|null $evidence
      * @param array<\SimpleSAML\SAML11\XML\saml\Action> $action
      */
     public function __construct(
         Subject $subject,
-        protected string $resource,
+        protected AnyURIValue $resource,
         protected ?Evidence $evidence = null,
         protected array $action = [],
     ) {
-        Assert::validURI($resource, SchemaViolationException::class);
         Assert::allIsInstanceOf($action, Action::class, SchemaViolationException::class);
         Assert::minCount($action, 1, MissingElementException::class);
 
@@ -42,9 +41,9 @@ abstract class AbstractAuthorizationDecisionQueryType extends AbstractSubjectQue
 
 
     /**
-     * @return string
+     * @return \SimpleSAML\SAML11\Type\AnyURIValue
      */
-    public function getResource(): string
+    public function getResource(): AnyURIValue
     {
         return $this->resource;
     }
@@ -77,7 +76,7 @@ abstract class AbstractAuthorizationDecisionQueryType extends AbstractSubjectQue
     public function toXML(?DOMElement $parent = null): DOMElement
     {
         $e = parent::toXML($parent);
-        $e->setAttribute('Resource', $this->getResource());
+        $e->setAttribute('Resource', strval($this->getResource()));
 
         foreach ($this->getAction() as $action) {
             $action->toXML($e);

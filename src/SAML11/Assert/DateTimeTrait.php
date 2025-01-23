@@ -6,7 +6,6 @@ namespace SimpleSAML\SAML11\Assert;
 
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\SAML11\Exception\ProtocolViolationException;
-use SimpleSAML\XML\Exception\SchemaViolationException;
 
 /**
  * @package simplesamlphp/saml11

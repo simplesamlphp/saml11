@@ -8,6 +8,7 @@ use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Exception\ProtocolViolationException;
 use SimpleSAML\SAML11\Type\StringValue;
+use SimpleSAML\XML\Exception\SchemaViolationException;
 
 /**
  * Class \SimpleSAML\Test\SAML11\Type\StringValueValueTest
@@ -34,7 +35,7 @@ final class StringValueTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: string, 1: string}>
+     * @return array<string, array{0: bool, 1: string}>
      */
     public static function provideString(): array
     {

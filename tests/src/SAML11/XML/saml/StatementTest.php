@@ -4,20 +4,21 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Compat\AbstractContainer;
-use SimpleSAML\SAML11\Compat\ContainerSingleton;
+use SimpleSAML\SAML11\Compat\{AbstractContainer, ContainerSingleton};
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
-use SimpleSAML\SAML11\XML\saml\AbstractStatement;
-use SimpleSAML\SAML11\XML\saml\AbstractStatementType;
-use SimpleSAML\SAML11\XML\saml\Audience;
-use SimpleSAML\SAML11\XML\saml\UnknownStatement;
+use SimpleSAML\SAML11\Type\AnyURIValue;
+use SimpleSAML\SAML11\XML\saml\{
+    AbstractSamlElement,
+    AbstractStatement,
+    AbstractStatementType,
+    Audience,
+    UnknownStatement,
+};
 use SimpleSAML\Test\SAML11\CustomStatement;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
-use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
 
 use function dirname;
 use function strval;
@@ -27,6 +28,7 @@ use function strval;
  *
  * @package simplesamlphp/saml11
  */
+#[Group('saml')]
 #[CoversClass(UnknownStatement::class)]
 #[CoversClass(AbstractStatement::class)]
 #[CoversClass(AbstractStatementType::class)]
@@ -77,7 +79,11 @@ final class StatementTest extends TestCase
     public function testMarshalling(): void
     {
         $statement = new CustomStatement(
-            [new Audience('urn:some:audience')],
+            [
+                new Audience(
+                    AnyURIValue::fromString('urn:some:audience'),
+                ),
+            ],
         );
 
         $this->assertEquals(
@@ -120,7 +126,10 @@ final class StatementTest extends TestCase
         $statement = AbstractStatement::fromXML($element);
 
         $this->assertInstanceOf(UnknownStatement::class, $statement);
-        $this->assertEquals('urn:x-simplesamlphp:namespace:UnknownStatementType', $statement->getXsiType());
+        $this->assertEquals(
+            '{urn:x-simplesamlphp:namespace}ssp:UnknownStatementType',
+            $statement->getXsiType()->getRawValue(),
+        );
 
         $chunk = $statement->getRawStatement();
         $this->assertEquals('saml', $chunk->getPrefix());

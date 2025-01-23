@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\samlp;
 
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\XML\samlp\AbstractSamlpElement;
-use SimpleSAML\SAML11\XML\samlp\RespondWith;
+use SimpleSAML\SAML11\Type\AnyURIValue;
+use SimpleSAML\SAML11\XML\samlp\{AbstractSamlpElement, RespondWith};
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\Type\{NCNameValue, QNameValue};
 
 use function dirname;
 use function strval;
@@ -19,6 +20,7 @@ use function strval;
  *
  * @package simplesamlphp/saml11
  */
+#[Group('samlp')]
 #[CoversClass(RespondWith::class)]
 #[CoversClass(AbstractSamlpElement::class)]
 final class RespondWithTest extends TestCase
@@ -42,7 +44,13 @@ final class RespondWithTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $respondWith = new RespondWith(RespondWith::NS_PREFIX . ':RespondWith', RespondWith::NS);
+        $respondWith = new RespondWith(
+            QNameValue::fromParts(
+                NCNameValue::fromString('RespondWith'),
+                AnyURIValue::fromString(RespondWith::NS),
+                NCNameValue::fromString(RespondWith::NS_PREFIX),
+            ),
+        );
 
         $this->assertEquals(
             self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),

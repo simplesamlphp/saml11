@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
-use SimpleSAML\SAML11\XML\saml\NameIdentifier;
-use SimpleSAML\SAML11\XML\saml\SubjectConfirmationData;
+use SimpleSAML\SAML11\Exception\ProtocolViolationException;
+use SimpleSAML\SAML11\Type\StringValue;
+use SimpleSAML\SAML11\XML\saml\{AbstractSamlElement, NameIdentifier, SubjectConfirmationData};
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
-use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
+use SimpleSAML\XML\Type\IntegerValue;
 
 use function dirname;
 use function strval;
@@ -22,6 +22,7 @@ use function strval;
  *
  * @package simplesamlphp/saml11
  */
+#[Group('saml')]
 #[CoversClass(SubjectConfirmationData::class)]
 #[CoversClass(AbstractSamlElement::class)]
 final class SubjectConfirmationDataTest extends TestCase
@@ -33,8 +34,6 @@ final class SubjectConfirmationDataTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        self::$schemaFile = dirname(__FILE__, 6) . '/resources/schemas/oasis-sstc-saml-schema-assertion-1.1.xsd';
-
         self::$testedClass = SubjectConfirmationData::class;
 
         self::$xmlRepresentation = DOMDocumentFactory::fromFile(
@@ -51,9 +50,11 @@ final class SubjectConfirmationDataTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $scd = new SubjectConfirmationData(2);
-        $this->assertIsInt($scd->getValue());
-        $this->assertEquals(2, $scd->getValue());
+        $scd = new SubjectConfirmationData(
+            IntegerValue::fromString('2'),
+        );
+        $this->assertInstanceOf(IntegerValue::class, $scd->getValue());
+        $this->assertEquals('2', strval($scd->getValue()));
         $this->assertEquals('xs:integer', $scd->getXsiType());
 
         $this->assertEquals(
@@ -68,9 +69,12 @@ final class SubjectConfirmationDataTest extends TestCase
      */
     public function testMarshallingString(): void
     {
-        $scd = new SubjectConfirmationData('value');
+        $scd = new SubjectConfirmationData(
+            StringValue::fromString('value'),
+        );
 
-        $this->assertEquals('value', $scd->getValue());
+        $this->assertInstanceOf(StringValue::class, $scd->getValue());
+        $this->assertEquals('value', strval($scd->getValue()));
         $this->assertEquals('xs:string', $scd->getXsiType());
     }
 
@@ -101,15 +105,10 @@ XML;
      */
     public function testEmptyStringAttribute(): void
     {
-        $scd = new SubjectConfirmationData('');
-        $xmlRepresentation = clone self::$xmlRepresentation;
-        $xmlRepresentation->documentElement->textContent = '';
-//        $this->assertEqualXMLStructure(
-//            $this->xmlRepresentation->documentElement,
-//            $scd->toXML(),
-//        );
-        $this->assertEquals('', $scd->getValue());
-        $this->assertEquals('xs:string', $scd->getXsiType());
+        $this->expectException(ProtocolViolationException::class);
+        new SubjectConfirmationData(
+            StringValue::fromString(''),
+        );
     }
 
 
@@ -132,7 +131,7 @@ XML;
 
         $this->assertInstanceOf(NameIdentifier::class, $value);
 
-        $this->assertEquals('abcd-some-value-xyz', $value->getContent());
+        $this->assertEquals('abcd-some-value-xyz', $value->getValue());
         $this->assertEquals('urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified', $value->getFormat());
         $this->assertXmlStringEqualsXmlString($document->saveXML(), $scd->toXML()->ownerDocument?->saveXML());
     }

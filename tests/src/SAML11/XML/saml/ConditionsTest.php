@@ -4,20 +4,21 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
-use DateTimeImmutable;
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\XML\saml\AbstractConditionsType;
-use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
-use SimpleSAML\SAML11\XML\saml\Audience;
-use SimpleSAML\SAML11\XML\saml\AudienceRestrictionCondition;
-use SimpleSAML\SAML11\XML\saml\Conditions;
-use SimpleSAML\SAML11\XML\saml\DoNotCacheCondition;
+use SimpleSAML\SAML11\Type\{AnyURIValue, DateTimeValue};
+use SimpleSAML\SAML11\XML\saml\{
+    AbstractConditionsType,
+    AbstractSamlElement,
+    Audience,
+    AudienceRestrictionCondition,
+    Conditions,
+    DoNotCacheCondition,
+};
 use SimpleSAML\Test\SAML11\CustomCondition;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
-use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
 
 use function dirname;
 use function strval;
@@ -27,6 +28,7 @@ use function strval;
  *
  * @package simplesamlphp/saml11
  */
+#[Group('saml')]
 #[CoversClass(Conditions::class)]
 #[CoversClass(AbstractConditionsType::class)]
 #[CoversClass(AbstractSamlElement::class)]
@@ -58,21 +60,27 @@ final class ConditionsTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $audience = new Audience('urn:x-simplesamlphp:audience');
+        $audience = new Audience(
+            AnyURIValue::fromString('urn:x-simplesamlphp:audience'),
+        );
         $audienceRestrictionCondition = new AudienceRestrictionCondition([$audience]);
 
         $doNotCacheCondition = new DoNotCacheCondition();
 
         $condition = new CustomCondition(
-            [new Audience('urn:some:audience')],
+            [
+                new Audience(
+                    AnyURIValue::fromString('urn:some:audience'),
+                ),
+            ],
         );
 
         $conditions = new Conditions(
             [$audienceRestrictionCondition],
             [$doNotCacheCondition],
             [$condition],
-            new DateTimeImmutable('2023-01-24T09:42:26Z'),
-            new DateTimeImmutable('2023-01-24T09:47:26Z'),
+            DateTimeValue::fromString('2023-01-24T09:42:26Z'),
+            DateTimeValue::fromString('2023-01-24T09:47:26Z'),
         );
 
         $this->assertEquals(
