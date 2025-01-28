@@ -20,9 +20,6 @@ use function is_subclass_of;
 
 abstract class AbstractContainer
 {
-    /** @var string */
-    private const XSI_TYPE_PREFIX = '<xsi:type>';
-
     /** @var array */
     protected array $registry = [];
 
@@ -56,7 +53,7 @@ abstract class AbstractContainer
     {
         Assert::subclassOf($class, AbstractElement::class);
         if (is_subclass_of($class, ExtensionPointInterface::class, true)) {
-            $key = implode(':', [self::XSI_TYPE_PREFIX, $class::getXsiTypeNamespaceURI(), $class::getXsiTypeName()]);
+            $key = '{' . $class::getXsiTypeNamespaceURI() . '}' . $class::getXsiTypePrefix() . ':' . $class::getXsiTypeName();
         } else {
             $className = AbstractElement::getClassName($class);
             $key = ($class::NS === null) ? $className : implode(':', [$class::NS, $className]);
@@ -106,7 +103,6 @@ abstract class AbstractContainer
         $namespaceURI = $qName->getNamespaceURI()->getValue();
 
         if ($namespaceURI !== null) {
-            $localName = $qName->getLocalName()->getValue();
             $key = $qName->getRawValue();
             if (array_key_exists($key, $this->registry) === true) {
                 Assert::implementsInterface($this->registry[$key], ExtensionPointInterface::class);
