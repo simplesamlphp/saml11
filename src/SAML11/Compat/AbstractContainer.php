@@ -17,11 +17,15 @@ use SimpleSAML\XMLSecurity\Alg\Signature\SignatureAlgorithmFactory;
 use function array_key_exists;
 use function implode;
 use function is_subclass_of;
+use function strval;
 
 abstract class AbstractContainer
 {
     /** @var array */
     protected array $registry = [];
+
+    /** @var array */
+    protected array $extRegistry = [];
 
     /** @var array|null */
     protected ?array $blacklistedEncryptionAlgorithms = [
@@ -44,6 +48,20 @@ abstract class AbstractContainer
 
 
     /**
+     * Register a class that can handle a given element.
+     *
+     * @param string $class The class name of a class extending AbstractElement
+     * @psalm-param class-string $class
+     */
+    public function registerElementHandler(string $class): void
+    {
+        Assert::subclassOf($class, AbstractElement::class);
+        $key = '{' . strval($class::NS) . '}' . AbstractElement::getClassName($class);
+        $this->registry[$key] = $class;
+    }
+
+
+    /**
      * Register a class that can handle given extension points of the standard.
      *
      * @param string $class The class name of a class extending AbstractElement or implementing ExtensionPointInterface.
@@ -51,24 +69,19 @@ abstract class AbstractContainer
      */
     public function registerExtensionHandler(string $class): void
     {
-        Assert::subclassOf($class, AbstractElement::class);
-        if (is_subclass_of($class, ExtensionPointInterface::class, true)) {
-            $key = '{' . $class::getXsiTypeNamespaceURI() . '}' . $class::getXsiTypePrefix() . ':' . $class::getXsiTypeName();
-        } else {
-            $className = AbstractElement::getClassName($class);
-            $key = ($class::NS === null) ? $className : implode(':', [$class::NS, $className]);
-        }
-        $this->registry[$key] = $class;
+        Assert::subclassOf($class, ExtensionPointInterface::class);
+        $key = '{' . $class::getXsiTypeNamespaceURI() . '}' . $class::getXsiTypeName();
+        $this->extRegistry[$key] = $class;
     }
 
 
     /**
-     * Search for a class that implements an $element in the given $namespace.
+     * Search for a class that implements an element in the given $namespace.
      *
      * Such classes must have been registered previously by calling registerExtensionHandler(), and they must
      * extend \SimpleSAML\XML\AbstractElement.
      *
-     * @param \SimpleSAML\XML\Typr\QNameValue|null $qName The qualified name of the element.
+     * @param \SimpleSAML\XML\Type\QNameValue|null $qName The qualified name of the element.
      *
      * @return string|null The fully-qualified name of a class extending \SimpleSAML\XML\AbstractElement and
      * implementing support for the given element, or null if no such class has been registered before.
@@ -76,7 +89,7 @@ abstract class AbstractContainer
      */
     public function getElementHandler(QNameValue $qName): ?string
     {
-        $key = $qName->getRawValue();
+        $key = '{' . strval($qName->getNameSpaceURI()) . '}' . strval($qName->getLocalName());
         if (array_key_exists($key, $this->registry) === true) {
             Assert::implementsInterface($this->registry[$key], ElementInterface::class);
             return $this->registry[$key];
@@ -99,16 +112,10 @@ abstract class AbstractContainer
      */
     public function getExtensionHandler(QNameValue $qName): ?string
     {
-        $prefix = $qName->getNamespacePrefix()->getValue();
-        $namespaceURI = $qName->getNamespaceURI()->getValue();
-
-        if ($namespaceURI !== null) {
-            $key = $qName->getRawValue();
-            if (array_key_exists($key, $this->registry) === true) {
-                Assert::implementsInterface($this->registry[$key], ExtensionPointInterface::class);
-                return $this->registry[$key];
-            }
-            return null;
+        $key = '{' . strval($qName->getNameSpaceURI()) . '}' . strval($qName->getLocalName());
+        if (array_key_exists($key, $this->extRegistry) === true) {
+            Assert::implementsInterface($this->extRegistry[$key], ExtensionPointInterface::class);
+            return $this->extRegistry[$key];
         }
 
         return null;
