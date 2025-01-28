@@ -102,7 +102,8 @@ abstract class AbstractSubjectQuery extends AbstractSubjectQueryAbstractType imp
      */
     public function toXML(?DOMElement $parent = null): DOMElement
     {
-        $e = parent::toXML($parent);
+//        $e = parent::toXML($parent);
+        $e = $this->instantiateParentElement($parent);
 
         if (!$e->lookupPrefix($this->getXsiType()->getNamespaceURI()->getValue())) {
             $e->setAttributeNS(
@@ -115,7 +116,7 @@ abstract class AbstractSubjectQuery extends AbstractSubjectQueryAbstractType imp
         $type = new XMLAttribute(C::NS_XSI, 'xsi', 'type', $this->getXsiType());
         $type->toXML($e);
 
-        $this->getSubject()->toXML($e);
+//        $this->getSubject()->toXML($e);
 
         return $e;
     }
