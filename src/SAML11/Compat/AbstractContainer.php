@@ -15,8 +15,6 @@ use SimpleSAML\XMLSecurity\Alg\KeyTransport\KeyTransportAlgorithmFactory;
 use SimpleSAML\XMLSecurity\Alg\Signature\SignatureAlgorithmFactory;
 
 use function array_key_exists;
-use function implode;
-use function is_subclass_of;
 use function strval;
 
 abstract class AbstractContainer
