@@ -13,7 +13,7 @@ use SimpleSAML\XML\Type\DateTimeValue as BaseDateTimeValue;
 class DateTimeValue extends BaseDateTimeValue
 {
     // Lowercase p as opposed to the base-class to covert the timestamp to UTC as demanded by the SAML specifications
-    public const string DATETIME_FORMAT = 'Y-m-d\\TH:i:sp';
+    public const DATETIME_FORMAT = 'Y-m-d\\TH:i:sp';
 
 
     /**

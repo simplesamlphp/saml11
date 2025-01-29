@@ -72,11 +72,6 @@ class Constants extends \SimpleSAML\XMLSecurity\Constants
     public const CM_BEARER = 'urn:oasis:names:tc:SAML:1.0:cm:bearer';
 
     /**
-     * The format to express a timestamp in SAML 1.1
-     */
-    public const DATETIME_FORMAT = 'Y-m-d\\TH:i:sp';
-
-    /**
      * Email address NameID format.
      */
     public const NAMEID_EMAIL_ADDRESS = 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress';
