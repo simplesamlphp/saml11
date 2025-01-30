@@ -27,7 +27,7 @@ abstract class AbstractAuthorizationDecisionStatementType extends AbstractSubjec
      * Initialize a saml:AuthorizationDecisionStatementType from scratch
      *
      * @param \SimpleSAML\SAML11\Type\AnyURIValue $resource
-     * @param \SimpleSAML\SAML11\DecisionTypeEnum $decision
+     * @param \SimpleSAML\SAML11\XML\saml\DecisionTypeEnum $decision
      * @param \SimpleSAML\SAML11\XML\saml\Subject $subject
      * @param array<\SimpleSAML\SAML11\XML\saml\Action> $action
      * @param \SimpleSAML\SAML11\XML\saml\Evidence|null $evidence
@@ -60,7 +60,7 @@ abstract class AbstractAuthorizationDecisionStatementType extends AbstractSubjec
     /**
      * Collect the value of the decision-property
      *
-     * @return \SimpleSAML\SAML11\XML\DecisionTypeEnum
+     * @return \SimpleSAML\SAML11\XML\saml\DecisionTypeEnum
      */
     public function getDecision(): DecisionTypeEnum
     {

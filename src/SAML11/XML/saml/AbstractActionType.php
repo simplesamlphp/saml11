@@ -34,7 +34,7 @@ abstract class AbstractActionType extends AbstractSamlElement
     /**
      * Collect the value of the element
      *
-     * @return \SimpleSAML\SAML11\XML\StringValue|null
+     * @return \SimpleSAML\SAML11\Type\StringValue|null
      */
     public function getValue(): StringValue
     {
@@ -45,7 +45,7 @@ abstract class AbstractActionType extends AbstractSamlElement
     /**
      * Collect the value of the Namespace-property
      *
-     * @return \SimpleSAML\SAML11\XML\AnyURIValue|null
+     * @return \SimpleSAML\SAML11\Type\AnyURIValue|null
      */
     public function getNamespace(): ?AnyURIValue
     {

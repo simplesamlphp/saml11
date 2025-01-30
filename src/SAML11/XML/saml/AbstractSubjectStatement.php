@@ -74,8 +74,6 @@ abstract class AbstractSubjectStatement extends AbstractSubjectStatementType imp
         );
 
         $type = QNameValue::fromDocument($xml->getAttributeNS(C::NS_XSI, 'type'), $xml);
-        $prefix = $type->getNamespacePrefix()->getValue();
-        $element = $type->getLocalName()->getValue();
 
         // now check if we have a handler registered for it
         $handler = Utils::getContainer()->getExtensionHandler($type);

@@ -67,7 +67,13 @@ class AttributeValue extends AbstractSamlElement implements SchemaValidatableEle
     /**
      * Get this attribute value.
      *
-     * @return string|int|\SimpleSAML\XML\AbstractElement[]|null
+     * @return (
+     *   \SimpleSAML\XML\Type\IntegerValue|
+     *   \SimpleSAML\SAML11\Type\StringValue|
+     *   \SimpleSAML\SAML11\Type\DateTimeValue|
+     *   \SimpleSAML\XML\AbstractElement|
+     *   null
+     * )
      */
     public function getValue()
     {
