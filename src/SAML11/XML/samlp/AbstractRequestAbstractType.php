@@ -33,7 +33,7 @@ abstract class AbstractRequestAbstractType extends AbstractMessage
      * @throws \Exception
      */
     protected function __construct(
-        protected string $id,
+        protected IDValue $id,
         protected NonNegativeIntegerValue $majorVersion,
         protected NonNegativeIntegerValue $minorVersion,
         protected ?DateTimeValue $issueInstant,
@@ -48,7 +48,7 @@ abstract class AbstractRequestAbstractType extends AbstractMessage
     /**
      * Retrieve the ID of this request.
      *
-     * @return \SimpleSAML\XML\Type\IDValuestring The ID of this request
+     * @return \SimpleSAML\XML\Type\IDValue The ID of this request
      */
     public function getID(): IDValue
     {
