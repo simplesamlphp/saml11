@@ -14,7 +14,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 /**
  * Class \SimpleSAML\Test\SAML11\Type\DateTimeValueTest
  *
- * @package simplesamlphp/xml-common
+ * @package simplesamlphp/saml11
  */
 #[CoversClass(DateTimeValue::class)]
 final class DateTimeValueTest extends TestCase
