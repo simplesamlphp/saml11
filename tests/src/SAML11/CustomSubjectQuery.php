@@ -9,6 +9,7 @@ use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\XML\saml\Subject;
 use SimpleSAML\SAML11\XML\samlp\{AbstractSubjectQuery, StatusMessage};
+use SimpleSAML\XML\Attribute as XMLAttribute;
 use SimpleSAML\XML\Exception\{InvalidDOMElementException, MissingElementException, TooManyElementsException};
 use SimpleSAML\XML\Type\QNameValue;
 
@@ -103,7 +104,24 @@ final class CustomSubjectQuery extends AbstractSubjectQuery
      */
     public function toXML(?DOMElement $parent = null): DOMElement
     {
-        $e = parent::toXML($parent);
+        $e = $this->instantiateParentElement($parent);
+
+        if (!$e->lookupPrefix($this->getXsiType()->getNamespaceURI()->getValue())) {
+            $namespace = new XMLAttribute(
+                'http://www.w3.org/2000/xmlns/',
+                'xmlns',
+                $this->getXsiType()->getNamespacePrefix()->getValue(),
+                $this->getXsiType()->getNamespaceURI(),
+            );
+            $namespace->toXML($e);
+        }
+
+        if (!$e->lookupPrefix('xsi')) {
+            $type = new XMLAttribute(C::NS_XSI, 'xsi', 'type', $this->getXsiType());
+            $type->toXML($e);
+        }
+
+        $this->getSubject()->toXML($e);
 
         foreach ($this->getStatusMessage() as $statusMessage) {
             $statusMessage->toXML($e);

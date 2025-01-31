@@ -49,7 +49,6 @@ final class Response extends AbstractResponseType implements SchemaValidatableEl
         $minorVersion = self::getAttribute($xml, 'MinorVersion', NonNegativeIntegerValue::class);
         Assert::same($minorVersion->getValue(), '1', VersionMismatchException::class);
 
-
         $status = Status::getChildrenOfClass($xml);
         Assert::minCount($status, 1, MissingElementException::class);
         Assert::maxCount($status, 1, TooManyElementsException::class);

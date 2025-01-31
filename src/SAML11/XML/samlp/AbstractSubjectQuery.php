@@ -10,7 +10,6 @@ use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\Utils;
 use SimpleSAML\SAML11\XML\{ExtensionPointInterface, ExtensionPointTrait};
 use SimpleSAML\SAML11\XML\saml\Subject;
-use SimpleSAML\XML\Attribute as XMLAttribute;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\Exception\{
     InvalidDOMElementException,
@@ -91,33 +90,5 @@ abstract class AbstractSubjectQuery extends AbstractSubjectQueryAbstractType imp
         );
 
         return $handler::fromXML($xml);
-    }
-
-
-    /**
-     * Convert this SubjectQuery to XML.
-     *
-     * @param \DOMElement $parent The element we are converting to XML.
-     * @return \DOMElement The XML element after adding the data corresponding to this SubjectQuery.
-     */
-    public function toXML(?DOMElement $parent = null): DOMElement
-    {
-//        $e = parent::toXML($parent);
-        $e = $this->instantiateParentElement($parent);
-
-        if (!$e->lookupPrefix($this->getXsiType()->getNamespaceURI()->getValue())) {
-            $e->setAttributeNS(
-                'http://www.w3.org/2000/xmlns/',
-                'xmlns:' . $this->getXsiType()->getNamespacePrefix()->getValue(),
-                $this->getXsiType()->getNamespaceURI()->getValue(),
-            );
-        }
-
-        $type = new XMLAttribute(C::NS_XSI, 'xsi', 'type', $this->getXsiType());
-        $type->toXML($e);
-
-//        $this->getSubject()->toXML($e);
-
-        return $e;
     }
 }

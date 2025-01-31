@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
-use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\Utils;
 use SimpleSAML\SAML11\Type\DateTimeValue;
 use SimpleSAML\SAML11\XML\{SignableElementTrait, SignedElementTrait};
@@ -28,7 +27,6 @@ abstract class AbstractMessage extends AbstractSamlpElement implements SignableE
     use SignedElementTrait {
         SignedElementTrait::getBlacklistedAlgorithms insteadof SignableElementTrait;
     }
-
 
     /** @var bool */
     protected bool $messageContainedSignatureUponConstruction = false;
@@ -146,10 +144,6 @@ abstract class AbstractMessage extends AbstractSamlpElement implements SignableE
     protected function toUnsignedXML(?DOMElement $parent = null): DOMElement
     {
         $e = $this->instantiateParentElement($parent);
-
-        /* Ugly hack to add another namespace declaration to the root element. */
-        $e->setAttributeNS(C::NS_SAML, 'saml:tmp', 'tmp');
-        $e->removeAttributeNS(C::NS_SAML, 'tmp');
 
         $e->setAttribute('MajorVersion', strval($this->getMajorVersion()));
         $e->setAttribute('MinorVersion', strval($this->getMinorVersion()));
