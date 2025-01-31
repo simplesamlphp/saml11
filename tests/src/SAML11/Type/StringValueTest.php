@@ -13,7 +13,7 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 /**
  * Class \SimpleSAML\Test\SAML11\Type\StringValueValueTest
  *
- * @package simplesamlphp/xml-common
+ * @package simplesamlphp/saml11
  */
 #[CoversClass(StringValue::class)]
 final class StringValueTest extends TestCase
