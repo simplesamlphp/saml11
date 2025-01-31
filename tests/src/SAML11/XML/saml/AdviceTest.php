@@ -9,7 +9,11 @@ use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Compat\{AbstractContainer, ContainerSingleton};
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Type\{AnyURIValue, DateTimeValue, StringValue};
+use SimpleSAML\SAML11\Type\{
+    AnyURIValue as SAMLAnyURIValue,
+    DateTimeValue as SAMLDateTimeValue,
+    StringValue as SAMLStringValue,
+};
 use SimpleSAML\SAML11\XML\saml\{
     AbstractAdviceType,
     AbstractSamlElement,
@@ -43,7 +47,7 @@ use SimpleSAML\XML\Type\{
     NCNameValue,
     NonNegativeIntegerValue,
     QNameValue,
-    StringValue as BaseStringValue,
+    StringValue
 };
 use SimpleSAML\XMLSecurity\TestUtils\PEMCertificatesMock;
 use SimpleSAML\XMLSecurity\XML\ds\{
@@ -201,7 +205,7 @@ final class AdviceTest extends TestCase
         $keyInfo = new KeyInfo(
             [
                 new KeyName(
-                    BaseStringValue::fromString('testkey'),
+                    StringValue::fromString('testkey'),
                 ),
                 new X509Data(
                     [
@@ -209,7 +213,7 @@ final class AdviceTest extends TestCase
                             Base64BinaryValue::fromString(self::$certificate),
                         ),
                         new X509SubjectName(
-                            BaseStringValue::fromString(self::$certData['name']),
+                            StringValue::fromString(self::$certData['name']),
                         ),
                     ],
                 ),
@@ -223,10 +227,10 @@ final class AdviceTest extends TestCase
         $sc = new SubjectConfirmation(
             [
                 new ConfirmationMethod(
-                    AnyURIValue::fromString('_Test1'),
+                    SAMLAnyURIValue::fromString('_Test1'),
                 ),
                 new ConfirmationMethod(
-                    AnyURIValue::fromString('_Test2'),
+                    SAMLAnyURIValue::fromString('_Test2'),
                 ),
             ],
             $scd,
@@ -234,14 +238,14 @@ final class AdviceTest extends TestCase
         );
 
         $nameIdentifier = new NameIdentifier(
-            StringValue::fromString('TheNameIDValue'),
-            StringValue::fromString('TheNameQualifier'),
-            AnyURIValue::fromString('urn:the:format'),
+            SAMLStringValue::fromString('TheNameIDValue'),
+            SAMLStringValue::fromString('TheNameQualifier'),
+            SAMLAnyURIValue::fromString('urn:the:format'),
         );
 
         $subject = new Subject($sc, $nameIdentifier);
         $audience = new Audience(
-            AnyURIValue::fromString('urn:x-simplesamlphp:audience'),
+            SAMLAnyURIValue::fromString('urn:x-simplesamlphp:audience'),
         );
         $subjectStatement = new CustomSubjectStatement($subject, [$audience]);
 
@@ -249,7 +253,7 @@ final class AdviceTest extends TestCase
         $keyInfo = new KeyInfo(
             [
                 new KeyName(
-                    BaseStringValue::fromString('testkey'),
+                    StringValue::fromString('testkey'),
                 ),
                 new X509Data(
                     [
@@ -257,7 +261,7 @@ final class AdviceTest extends TestCase
                             Base64BinaryValue::fromString(self::$certificate),
                         ),
                         new X509SubjectName(
-                            BaseStringValue::fromString(self::$certData['name']),
+                            StringValue::fromString(self::$certData['name']),
                         ),
                     ],
                 ),
@@ -271,10 +275,10 @@ final class AdviceTest extends TestCase
         $sc = new SubjectConfirmation(
             [
                 new ConfirmationMethod(
-                    AnyURIValue::fromString('_Test1'),
+                    SAMLAnyURIValue::fromString('_Test1'),
                 ),
                 new ConfirmationMethod(
-                    AnyURIValue::fromString('_Test2'),
+                    SAMLAnyURIValue::fromString('_Test2'),
                 ),
             ],
             $scd,
@@ -284,19 +288,19 @@ final class AdviceTest extends TestCase
         $subject = new Subject($sc, $nameIdentifier);
 
         $subjectLocality = new SubjectLocality(
-            StringValue::fromString('127.0.0.1'),
-            StringValue::fromString('simplesamlphp.org'),
+            SAMLStringValue::fromString('127.0.0.1'),
+            SAMLStringValue::fromString('simplesamlphp.org'),
         );
         $authorityBinding = new AuthorityBinding(
             QNameValue::fromString('{' . C::NS_SAMLP . '}samlp:AttributeQuery'),
-            AnyURIValue::fromString('urn:x-simplesamlphp:location'),
-            AnyURIValue::fromString('urn:x-simplesamlphp:binding'),
+            SAMLAnyURIValue::fromString('urn:x-simplesamlphp:location'),
+            SAMLAnyURIValue::fromString('urn:x-simplesamlphp:binding'),
         );
 
         $authenticationStatement = new AuthenticationStatement(
             $subject,
-            AnyURIValue::fromString(C::AC_PASSWORD),
-            DateTimeValue::fromString('2023-01-24T09:42:26Z'),
+            SAMLAnyURIValue::fromString(C::AC_PASSWORD),
+            SAMLDateTimeValue::fromString('2023-01-24T09:42:26Z'),
             $subjectLocality,
             [$authorityBinding],
         );
@@ -305,7 +309,7 @@ final class AdviceTest extends TestCase
         $keyInfo = new KeyInfo(
             [
                 new KeyName(
-                    BaseStringValue::fromString('testkey'),
+                    StringValue::fromString('testkey'),
                 ),
                 new X509Data(
                     [
@@ -313,7 +317,7 @@ final class AdviceTest extends TestCase
                             Base64BinaryValue::fromString(self::$certificate),
                         ),
                         new X509SubjectName(
-                            BaseStringValue::fromString(self::$certData['name']),
+                            StringValue::fromString(self::$certData['name']),
                         ),
                     ],
                 ),
@@ -327,10 +331,10 @@ final class AdviceTest extends TestCase
         $sc = new SubjectConfirmation(
             [
                 new ConfirmationMethod(
-                    AnyURIValue::fromString('_Test1'),
+                    SAMLAnyURIValue::fromString('_Test1'),
                 ),
                 new ConfirmationMethod(
-                    AnyURIValue::fromString('_Test2'),
+                    SAMLAnyURIValue::fromString('_Test2'),
                 ),
             ],
             $scd,
@@ -340,14 +344,14 @@ final class AdviceTest extends TestCase
         $subject = new Subject($sc, $nameIdentifier);
 
         $attribute = new Attribute(
-            StringValue::fromString('TheName'),
-            AnyURIValue::fromString('https://example.org/'),
+            SAMLStringValue::fromString('TheName'),
+            SAMLAnyURIValue::fromString('https://example.org/'),
             [
                 new AttributeValue(
-                    StringValue::fromString('FirstValue'),
+                    SAMLStringValue::fromString('FirstValue'),
                 ),
                 new AttributeValue(
-                    StringValue::fromString('SecondValue'),
+                    SAMLStringValue::fromString('SecondValue'),
                 ),
             ],
         );
@@ -362,8 +366,8 @@ final class AdviceTest extends TestCase
             NonNegativeIntegerValue::fromString('1'),
             NonNegativeIntegerValue::fromString('1'),
             IDValue::fromString('AdviceAssertionID'),
-            StringValue::fromString('urn:x-simplesamlphp:phpunit'),
-            DateTimeValue::fromString('2023-01-24T09:42:26Z'),
+            SAMLStringValue::fromString('urn:x-simplesamlphp:phpunit'),
+            SAMLDateTimeValue::fromString('2023-01-24T09:42:26Z'),
             Conditions::fromXML(self::$conditions->documentElement),
             null, // null
             [
@@ -385,8 +389,8 @@ final class AdviceTest extends TestCase
             NonNegativeIntegerValue::fromString('1'),
             NonNegativeIntegerValue::fromString('1'),
             IDValue::fromString('_abc123'),
-            StringValue::fromString('urn:x-simplesamlphp:phpunit'),
-            DateTimeValue::fromString('2023-01-24T09:42:26Z'),
+            SAMLStringValue::fromString('urn:x-simplesamlphp:phpunit'),
+            SAMLDateTimeValue::fromString('2023-01-24T09:42:26Z'),
             Conditions::fromXML(self::$conditions->documentElement),
             $advice,
             [

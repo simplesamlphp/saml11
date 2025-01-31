@@ -7,7 +7,11 @@ namespace SimpleSAML\Test\SAML11\XML\saml;
 use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Type\{AnyURIValue, DateTimeValue, StringValue};
+use SimpleSAML\SAML11\Type\{
+    AnyURIValue as SAMLAnyURIValue,
+    DateTimeValue as SAMLDateTimeValue,
+    StringValue as SAMLStringValue,
+};
 use SimpleSAML\SAML11\Utils\XPath;
 use SimpleSAML\SAML11\XML\saml\{
     AbstractAuthenticationStatementType,
@@ -23,7 +27,7 @@ use SimpleSAML\SAML11\XML\saml\{
 };
 use SimpleSAML\XML\{Chunk, DOMDocumentFactory};
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XML\Type\{Base64BinaryValue, IDValue, IntegerValue, QNameValue, StringValue as BaseStringValue};
+use SimpleSAML\XML\Type\{Base64BinaryValue, IDValue, IntegerValue, QNameValue, StringValue};
 use SimpleSAML\XMLSecurity\TestUtils\PEMCertificatesMock;
 use SimpleSAML\XMLSecurity\XML\ds\{
     KeyInfo,
@@ -108,7 +112,7 @@ final class AuthenticationStatementTest extends TestCase
         $keyInfo = new KeyInfo(
             [
                 new KeyName(
-                    BaseStringValue::fromString('testkey'),
+                    StringValue::fromString('testkey'),
                 ),
                 new X509Data(
                     [
@@ -116,7 +120,7 @@ final class AuthenticationStatementTest extends TestCase
                             Base64BinaryValue::fromString(self::$certificate),
                         ),
                         new X509SubjectName(
-                            BaseStringValue::fromString(self::$certData['name']),
+                            StringValue::fromString(self::$certData['name']),
                         ),
                     ],
                 ),
@@ -130,10 +134,10 @@ final class AuthenticationStatementTest extends TestCase
         $sc = new SubjectConfirmation(
             [
                 new ConfirmationMethod(
-                    AnyURIValue::fromString('_Test1'),
+                    SAMLAnyURIValue::fromString('_Test1'),
                 ),
                 new ConfirmationMethod(
-                    AnyURIValue::fromString('_Test2'),
+                    SAMLAnyURIValue::fromString('_Test2'),
                 ),
             ],
             $scd,
@@ -141,28 +145,28 @@ final class AuthenticationStatementTest extends TestCase
         );
 
         $nameIdentifier = new NameIdentifier(
-            StringValue::fromString('TheNameIDValue'),
-            StringValue::fromString('TheNameQualifier'),
-            AnyURIValue::fromString('urn:the:format'),
+            SAMLStringValue::fromString('TheNameIDValue'),
+            SAMLStringValue::fromString('TheNameQualifier'),
+            SAMLAnyURIValue::fromString('urn:the:format'),
         );
 
         $subject = new Subject($sc, $nameIdentifier);
 
         $subjectLocality = new SubjectLocality(
-            StringValue::fromString('127.0.0.1'),
-            StringValue::fromString('simplesamlphp.org'),
+            SAMLStringValue::fromString('127.0.0.1'),
+            SAMLStringValue::fromString('simplesamlphp.org'),
         );
 
         $authorityBinding = new AuthorityBinding(
             QNameValue::fromString('{' . C::NS_SAMLP . '}samlp:AttributeQuery'),
-            AnyURIValue::fromString('urn:x-simplesamlphp:location'),
-            AnyURIValue::fromString('urn:x-simplesamlphp:binding'),
+            SAMLAnyURIValue::fromString('urn:x-simplesamlphp:location'),
+            SAMLAnyURIValue::fromString('urn:x-simplesamlphp:binding'),
         );
 
         $authenticationStatement = new AuthenticationStatement(
             $subject,
-            AnyURIValue::fromString(C::AC_PASSWORD),
-            DateTimeValue::fromString('2023-01-24T09:42:26Z'),
+            SAMLAnyURIValue::fromString(C::AC_PASSWORD),
+            SAMLDateTimeValue::fromString('2023-01-24T09:42:26Z'),
             $subjectLocality,
             [$authorityBinding],
         );

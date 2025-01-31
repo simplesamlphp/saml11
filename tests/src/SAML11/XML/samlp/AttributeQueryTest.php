@@ -6,7 +6,10 @@ namespace SimpleSAML\Test\SAML11\XML\samlp;
 
 use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Type\{AnyURIValue, StringValue};
+use SimpleSAML\SAML11\Type\{
+    AnyURIValue as SAMLAnyURIValue,
+    StringValue as SAMLStringValue,
+};
 use SimpleSAML\SAML11\XML\saml\{
     AttributeDesignator,
     ConfirmationMethod,
@@ -24,7 +27,7 @@ use SimpleSAML\SAML11\XML\samlp\{
 };
 use SimpleSAML\XML\{Chunk, DOMDocumentFactory};
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XML\Type\{Base64BinaryValue, IDValue, StringValue as BaseStringValue};
+use SimpleSAML\XML\Type\{Base64BinaryValue, IDValue, StringValue};
 use SimpleSAML\XMLSecurity\TestUtils\PEMCertificatesMock;
 use SimpleSAML\XMLSecurity\XML\ds\{
     KeyInfo,
@@ -104,13 +107,13 @@ final class AttributeQueryTest extends TestCase
     public function testMarshalling(): void
     {
         $scd = new SubjectConfirmationData(
-            StringValue::fromString('phpunit'),
+            SAMLStringValue::fromString('phpunit'),
         );
 
         $keyInfo = new KeyInfo(
             [
                 new KeyName(
-                    BaseStringValue::fromString('testkey'),
+                    StringValue::fromString('testkey'),
                 ),
                 new X509Data(
                     [
@@ -118,7 +121,7 @@ final class AttributeQueryTest extends TestCase
                             Base64BinaryValue::fromString(self::$certificate),
                         ),
                         new X509SubjectName(
-                            BaseStringValue::fromString(self::$certData['name']),
+                            StringValue::fromString(self::$certData['name']),
                         ),
                     ],
                 ),
@@ -132,10 +135,10 @@ final class AttributeQueryTest extends TestCase
         $sc = new SubjectConfirmation(
             [
                 new ConfirmationMethod(
-                    AnyURIValue::fromString('_Test1'),
+                    SAMLAnyURIValue::fromString('_Test1'),
                 ),
                 new ConfirmationMethod(
-                    AnyURIValue::fromString('_Test2'),
+                    SAMLAnyURIValue::fromString('_Test2'),
                 ),
             ],
             $scd,
@@ -143,23 +146,23 @@ final class AttributeQueryTest extends TestCase
         );
 
         $nameIdentifier = new NameIdentifier(
-            StringValue::fromString('TheNameIDValue'),
-            StringValue::fromString('TheNameQualifier'),
-            AnyURIValue::fromString('urn:the:format'),
+            SAMLStringValue::fromString('TheNameIDValue'),
+            SAMLStringValue::fromString('TheNameQualifier'),
+            SAMLAnyURIValue::fromString('urn:the:format'),
         );
 
         $subject = new Subject($sc, $nameIdentifier);
         $attributeQuery = new AttributeQuery(
             $subject,
-            AnyURIValue::fromString('urn:some:resource'),
+            SAMLAnyURIValue::fromString('urn:some:resource'),
             [
                 new AttributeDesignator(
-                    StringValue::fromString('TheName'),
-                    AnyURIValue::fromString('https://example.org/'),
+                    SAMLStringValue::fromString('TheName'),
+                    SAMLAnyURIValue::fromString('https://example.org/'),
                 ),
                 new AttributeDesignator(
-                    StringValue::fromString('TheOtherName'),
-                    AnyURIValue::fromString('https://example.org/'),
+                    SAMLStringValue::fromString('TheOtherName'),
+                    SAMLAnyURIValue::fromString('https://example.org/'),
                 ),
             ],
         );

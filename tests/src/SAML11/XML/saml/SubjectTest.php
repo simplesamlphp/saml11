@@ -6,7 +6,10 @@ namespace SimpleSAML\Test\SAML11\XML\saml;
 
 use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Type\{AnyURIValue, StringValue};
+use SimpleSAML\SAML11\Type\{
+    AnyURIValue as SAMLAnyURIValue,
+    StringValue as SAMLStringValue,
+};
 use SimpleSAML\SAML11\XML\saml\{
     AbstractSamlElement,
     AbstractSubjectType,
@@ -18,7 +21,7 @@ use SimpleSAML\SAML11\XML\saml\{
 };
 use SimpleSAML\XML\{Chunk, DOMDocumentFactory};
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XML\Type\{Base64BinaryValue, IDValue, IntegerValue, StringValue as BaseStringValue};
+use SimpleSAML\XML\Type\{Base64BinaryValue, IDValue, IntegerValue, StringValue};
 use SimpleSAML\XMLSecurity\TestUtils\PEMCertificatesMock;
 use SimpleSAML\XMLSecurity\XML\ds\{
     KeyInfo,
@@ -103,7 +106,7 @@ final class SubjectTest extends TestCase
         $keyInfo = new KeyInfo(
             [
                 new KeyName(
-                    BaseStringValue::fromString('testkey'),
+                    StringValue::fromString('testkey'),
                 ),
                 new X509Data(
                     [
@@ -111,7 +114,7 @@ final class SubjectTest extends TestCase
                             Base64BinaryValue::fromString(self::$certificate),
                         ),
                         new X509SubjectName(
-                            BaseStringValue::fromString(self::$certData['name']),
+                            StringValue::fromString(self::$certData['name']),
                         ),
                     ],
                 ),
@@ -125,10 +128,10 @@ final class SubjectTest extends TestCase
         $sc = new SubjectConfirmation(
             [
                 new ConfirmationMethod(
-                    AnyURIValue::fromString('_Test1'),
+                    SAMLAnyURIValue::fromString('_Test1'),
                 ),
                 new ConfirmationMethod(
-                    AnyURIValue::fromString('_Test2'),
+                    SAMLAnyURIValue::fromString('_Test2'),
                 ),
             ],
             $scd,
@@ -136,9 +139,9 @@ final class SubjectTest extends TestCase
         );
 
         $nameIdentifier = new NameIdentifier(
-            StringValue::fromString('TheNameIDValue'),
-            StringValue::fromString('TheNameQualifier'),
-            AnyURIValue::fromString('urn:the:format'),
+            SAMLStringValue::fromString('TheNameIDValue'),
+            SAMLStringValue::fromString('TheNameQualifier'),
+            SAMLAnyURIValue::fromString('urn:the:format'),
         );
 
         $subject = new Subject($sc, $nameIdentifier);

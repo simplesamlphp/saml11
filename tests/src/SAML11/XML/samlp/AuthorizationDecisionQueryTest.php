@@ -7,7 +7,11 @@ namespace SimpleSAML\Test\SAML11\XML\samlp;
 use DOMDocument;
 use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Type\{AnyURIValue, DateTimeValue, StringValue};
+use SimpleSAML\SAML11\Type\{
+    AnyURIValue as SAMLAnyURIValue,
+    DateTimeValue as SAMLDateTimeValue,
+    StringValue as SAMLStringValue,
+};
 use SimpleSAML\SAML11\XML\saml\{
     Action,
     Assertion,
@@ -39,7 +43,7 @@ use SimpleSAML\XML\Type\{
     IDValue,
     NCNameValue,
     NonNegativeIntegerValue,
-    StringValue as BaseStringValue,
+    StringValue,
 };
 use SimpleSAML\XMLSecurity\TestUtils\PEMCertificatesMock;
 use SimpleSAML\XMLSecurity\XML\ds\{
@@ -162,13 +166,13 @@ final class AuthorizationDecisionQueryTest extends TestCase
     public function testMarshalling(): void
     {
         $scd = new SubjectConfirmationData(
-            StringValue::fromString('phpunit'),
+            SAMLStringValue::fromString('phpunit'),
         );
 
         $keyInfo = new KeyInfo(
             [
                 new KeyName(
-                    BaseStringValue::fromString('testkey'),
+                    StringValue::fromString('testkey'),
                 ),
                 new X509Data(
                     [
@@ -176,7 +180,7 @@ final class AuthorizationDecisionQueryTest extends TestCase
                             Base64BinaryValue::fromString(self::$certificate),
                         ),
                         new X509SubjectName(
-                            BaseStringValue::fromString(self::$certData['name']),
+                            StringValue::fromString(self::$certData['name']),
                         ),
                     ],
                 ),
@@ -190,10 +194,10 @@ final class AuthorizationDecisionQueryTest extends TestCase
         $sc = new SubjectConfirmation(
             [
                 new ConfirmationMethod(
-                    AnyURIValue::fromString('_Test1'),
+                    SAMLAnyURIValue::fromString('_Test1'),
                 ),
                 new ConfirmationMethod(
-                    AnyURIValue::fromString('_Test2'),
+                    SAMLAnyURIValue::fromString('_Test2'),
                 ),
             ],
             $scd,
@@ -201,9 +205,9 @@ final class AuthorizationDecisionQueryTest extends TestCase
         );
 
         $nameIdentifier = new NameIdentifier(
-            StringValue::fromString('TheNameIDValue'),
-            StringValue::fromString('TheNameQualifier'),
-            AnyURIValue::fromString('urn:the:format'),
+            SAMLStringValue::fromString('TheNameIDValue'),
+            SAMLStringValue::fromString('TheNameQualifier'),
+            SAMLAnyURIValue::fromString('urn:the:format'),
         );
 
         $subject = new Subject($sc, $nameIdentifier);
@@ -213,7 +217,7 @@ final class AuthorizationDecisionQueryTest extends TestCase
         );
 
         $audience = new Audience(
-            AnyURIValue::fromString('urn:x-simplesamlphp:audience'),
+            SAMLAnyURIValue::fromString('urn:x-simplesamlphp:audience'),
         );
         $audienceRestrictionCondition = new AudienceRestrictionCondition([$audience]);
 
@@ -223,16 +227,16 @@ final class AuthorizationDecisionQueryTest extends TestCase
             [$audienceRestrictionCondition],
             [$doNotCacheCondition],
             [],
-            DateTimeValue::fromString('2023-01-24T09:42:26Z'),
-            DateTimeValue::fromString('2023-01-24T09:47:26Z'),
+            SAMLDateTimeValue::fromString('2023-01-24T09:42:26Z'),
+            SAMLDateTimeValue::fromString('2023-01-24T09:47:26Z'),
         );
 
         $assertion = new Assertion(
             NonNegativeIntegerValue::fromString('1'),
             NonNegativeIntegerValue::fromString('1'),
             IDValue::fromString('_abc123'),
-            StringValue::fromString('urn:x-simplesamlphp:phpunit'),
-            DateTimeValue::fromString('2023-01-24T09:42:26Z'),
+            SAMLStringValue::fromString('urn:x-simplesamlphp:phpunit'),
+            SAMLDateTimeValue::fromString('2023-01-24T09:42:26Z'),
             $conditions,
             null, // advice
             [
@@ -245,12 +249,12 @@ final class AuthorizationDecisionQueryTest extends TestCase
 
         $authorizationDecisionQuery = new AuthorizationDecisionQuery(
             $subject,
-            AnyURIValue::fromString('urn:some:resource'),
+            SAMLAnyURIValue::fromString('urn:some:resource'),
             $evidence,
             [
                 new Action(
-                    StringValue::fromString('urn:x-simplesamlphp:action'),
-                    AnyURIValue::fromString('urn:x-simplesamlphp:namespace'),
+                    SAMLStringValue::fromString('urn:x-simplesamlphp:action'),
+                    SAMLAnyURIValue::fromString('urn:x-simplesamlphp:namespace'),
                 ),
             ],
         );
