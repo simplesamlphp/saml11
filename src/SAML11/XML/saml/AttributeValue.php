@@ -53,7 +53,7 @@ class AttributeValue extends AbstractSamlElement implements SchemaValidatableEle
         if ($value === null) {
             return 'xs:nil';
         } elseif ($value instanceof ValueTypeInterface) {
-            return $value::SCHEMA_TYPE;
+            return $value::SCHEMA_NAMESPACE_PREFIX . ':' . $value::SCHEMA_TYPE;
         } else {
             return sprintf(
                 '%s:%s',
