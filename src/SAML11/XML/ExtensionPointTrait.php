@@ -10,6 +10,7 @@ use SimpleSAML\XML\Type\{AnyURIValue, NCNameValue, QNameValue};
 
 use function constant;
 use function defined;
+use function sprintf;
 
 /**
  * Trait for several extension points objects.
