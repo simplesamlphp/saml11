@@ -6,7 +6,7 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Type\{AnyURIValue, StringValue};
+use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLStringValue};
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
 
@@ -34,8 +34,8 @@ final class AttributeDesignator extends AbstractAttributeDesignatorType implemen
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
 
         return new static(
-            self::getAttribute($xml, 'AttributeName', StringValue::class),
-            self::getAttribute($xml, 'AttributeNamespace', AnyURIValue::class),
+            self::getAttribute($xml, 'AttributeName', SAMLStringValue::class),
+            self::getAttribute($xml, 'AttributeNamespace', SAMLAnyURIValue::class),
         );
     }
 }

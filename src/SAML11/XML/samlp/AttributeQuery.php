@@ -6,7 +6,7 @@ namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Type\AnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\SAML11\XML\saml\{AttributeDesignator, Subject};
 use SimpleSAML\XML\Exception\{InvalidDOMElementException, MissingElementException, TooManyElementsException};
 use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
@@ -36,7 +36,7 @@ final class AttributeQuery extends AbstractAttributeQueryType implements SchemaV
         Assert::same($xml->localName, 'AttributeQuery', InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, AttributeQuery::NS, InvalidDOMElementException::class);
 
-        $resource = self::getOptionalAttribute($xml, 'Resource', AnyURIValue::class, null);
+        $resource = self::getOptionalAttribute($xml, 'Resource', SAMLAnyURIValue::class, null);
 
         $subject = Subject::getChildrenOfClass($xml);
         Assert::minCount($subject, 1, MissingElementException::class);

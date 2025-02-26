@@ -7,7 +7,7 @@ namespace SimpleSAML\SAML11\XML\saml;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Type\StringValue;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
@@ -34,14 +34,14 @@ class SubjectConfirmationData extends AbstractSamlElement implements SchemaValid
      *
      * @param mixed $value The value of this element. Can be one of:
      *  - \SimpleSAML\XML\Type\IntegerValue
-     *  - \SimpleSAML\SAML11\Type\StringValue
+     *  - \SimpleSAML\SAML11\Type\SAMLStringValue
      *  - null
      *  - \SimpleSAML\XML\AbstractElement
      *
      * @throws \SimpleSAML\Assert\AssertionFailedException if the supplied value is neither a string or a DOMElement
      */
     final public function __construct(
-        protected StringValue|IntegerValue|null|AbstractElement $value,
+        protected SAMLStringValue|IntegerValue|null|AbstractElement $value,
     ) {
     }
 
@@ -74,7 +74,7 @@ class SubjectConfirmationData extends AbstractSamlElement implements SchemaValid
      *
      * @return string|int|\SimpleSAML\XML\AbstractElement[]|null
      */
-    public function getValue(): StringValue|IntegerValue|AbstractElement|null
+    public function getValue(): SAMLStringValue|IntegerValue|AbstractElement|null
     {
         return $this->value;
     }
@@ -123,7 +123,7 @@ class SubjectConfirmationData extends AbstractSamlElement implements SchemaValid
         ) {
             $value = null;
         } else {
-            $value = StringValue::fromString($xml->textContent);
+            $value = SAMLStringValue::fromString($xml->textContent);
         }
 
         return new static($value);

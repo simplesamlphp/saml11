@@ -6,7 +6,7 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Type\{AnyURIValue, DateTimeValue};
+use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLDateTimeValue};
 use SimpleSAML\XML\Exception\{
     InvalidDOMElementException,
     MissingElementException,
@@ -25,15 +25,15 @@ abstract class AbstractAuthenticationStatementType extends AbstractSubjectStatem
      * Initialize a saml:AuthenticationStatementType from scratch
      *
      * @param \SimpleSAML\SAML11\XML\saml\Subject $subject
-     * @param \SimpleSAML\SAML11\Type\AnyURIValue $authenticationMethod
-     * @param \SimpleSAML\SAML11\Type\DateTimeValue $authenticationInstant
+     * @param \SimpleSAML\SAML11\Type\SAMLAnyURIValue $authenticationMethod
+     * @param \SimpleSAML\SAML11\Type\SAMLDateTimeValue $authenticationInstant
      * @param \SimpleSAML\SAML11\XML\saml\SubjectLocality|null $subjectLocality
      * @param array<\SimpleSAML\SAML11\XML\saml\AuthorityBinding> $authorityBinding
      */
     final public function __construct(
         Subject $subject,
-        protected AnyURIValue $authenticationMethod,
-        protected DateTimeValue $authenticationInstant,
+        protected SAMLAnyURIValue $authenticationMethod,
+        protected SAMLDateTimeValue $authenticationInstant,
         protected ?SubjectLocality $subjectLocality = null,
         protected array $authorityBinding = [],
     ) {
@@ -68,9 +68,9 @@ abstract class AbstractAuthenticationStatementType extends AbstractSubjectStatem
     /**
      * Collect the value of the authenticationMethod-property
      *
-     * @return \SimpleSAML\SAML11\Type\AnyURIValue
+     * @return \SimpleSAML\SAML11\Type\SAMLAnyURIValue
      */
-    public function getAuthenticationMethod(): AnyURIValue
+    public function getAuthenticationMethod(): SAMLAnyURIValue
     {
         return $this->authenticationMethod;
     }
@@ -79,9 +79,9 @@ abstract class AbstractAuthenticationStatementType extends AbstractSubjectStatem
     /**
      * Collect the value of the authenticationInstant-property
      *
-     * @return \SimpleSAML\SAML11\Type\DateTimeValue
+     * @return \SimpleSAML\SAML11\Type\SAMLDateTimeValue
      */
-    public function getAuthenticationInstant(): DateTimeValue
+    public function getAuthenticationInstant(): SAMLDateTimeValue
     {
         return $this->authenticationInstant;
     }
@@ -111,8 +111,8 @@ abstract class AbstractAuthenticationStatementType extends AbstractSubjectStatem
 
         return new static(
             array_pop($subject),
-            self::getAttribute($xml, 'AuthenticationMethod', AnyURIValue::class),
-            self::getAttribute($xml, 'AuthenticationInstant', DateTimeValue::class),
+            self::getAttribute($xml, 'AuthenticationMethod', SAMLAnyURIValue::class),
+            self::getAttribute($xml, 'AuthenticationInstant', SAMLDateTimeValue::class),
             array_pop($subjectLocality),
             $authorityBinding,
         );

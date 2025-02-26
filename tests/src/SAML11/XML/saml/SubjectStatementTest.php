@@ -8,10 +8,7 @@ use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Compat\{AbstractContainer, ContainerSingleton};
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Type\{
-    AnyURIValue as SAMLAnyURIValue,
-    StringValue as SAMLStringValue,
-};
+use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLStringValue};
 use SimpleSAML\SAML11\XML\saml\{
     AbstractSamlElement,
     AbstractStatementType,

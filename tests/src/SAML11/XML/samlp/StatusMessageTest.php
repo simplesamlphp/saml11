@@ -6,7 +6,7 @@ namespace SimpleSAML\Test\SAML11\XML\samlp;
 
 use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Type\StringValue;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\SAML11\XML\samlp\{AbstractSamlpElement, StatusMessage};
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
@@ -44,7 +44,7 @@ final class StatusMessageTest extends TestCase
     public function testMarshalling(): void
     {
         $statusMessage = new StatusMessage(
-            StringValue::fromString('Something went wrong'),
+            SAMLStringValue::fromString('Something went wrong'),
         );
 
         $this->assertEquals(

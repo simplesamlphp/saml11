@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
-use SimpleSAML\SAML11\Utils;
-use SimpleSAML\SAML11\Type\DateTimeValue;
+use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
 use SimpleSAML\SAML11\XML\{SignableElementTrait, SignedElementTrait};
 use SimpleSAML\XML\Type\NonNegativeIntegerValue;
 use SimpleSAML\XMLSecurity\XML\{SignableElementInterface, SignedElementInterface};
@@ -44,14 +43,14 @@ abstract class AbstractMessage extends AbstractSamlpElement implements SignableE
      *
      * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $majorVersion
      * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $minorVersion
-     * @param \SimpleSAML\SAML11\Type\DateTimeValue $issueInstant
+     * @param \SimpleSAML\SAML11\Type\SAMLDateTimeValue $issueInstant
      *
      * @throws \Exception
      */
     protected function __construct(
         protected NonNegativeIntegerValue $majorVersion,
         protected NonNegativeIntegerValue $minorVersion,
-        protected ?DateTimeValue $issueInstant,
+        protected SAMLDateTimeValue $issueInstant,
     ) {
     }
 
@@ -81,14 +80,10 @@ abstract class AbstractMessage extends AbstractSamlpElement implements SignableE
     /**
      * Retrieve the issue timestamp of this message.
      *
-     * @return \SimpleSAML\SAML11\Type\DateTimeValue The issue timestamp of this message
+     * @return \SimpleSAML\SAML11\Type\SAMLDateTimeValue The issue timestamp of this message
      */
-    public function getIssueInstant(): DateTimeValue
+    public function getIssueInstant(): SAMLDateTimeValue
     {
-        if ($this->issueInstant === null) {
-            return DateTimeValue::fromDateTime(Utils::getContainer()->getClock()->now());
-        }
-
         return $this->issueInstant;
     }
 

@@ -6,7 +6,7 @@ namespace Simplesamlp\Test\SAML11\XML\samlp;
 
 use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Type\StringValue;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\SAML11\XML\samlp\{AbstractSamlpElement, AssertionArtifact};
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
@@ -49,7 +49,7 @@ final class AssertionArtifactTest extends TestCase
     public function testMarshalling(): void
     {
         $assertionArtifact = new AssertionArtifact(
-            StringValue::fromString('AAEbuqrPjR1XORIHk5YAV8I4sM0nKP2CLV+h1CMiWbnkaWvvlJ0g4Ess'),
+            SAMLStringValue::fromString('AAEbuqrPjR1XORIHk5YAV8I4sM0nKP2CLV+h1CMiWbnkaWvvlJ0g4Ess'),
         );
 
         $this->assertEquals(

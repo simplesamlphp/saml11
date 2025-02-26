@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\saml;
 
-use SimpleSAML\SAML11\Type\AnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
 use SimpleSAML\XML\TypedTextContentTrait;
 
@@ -19,5 +19,5 @@ final class ConfirmationMethod extends AbstractSamlElement implements SchemaVali
     use TypedTextContentTrait;
 
     /** @var string */
-    public const TEXTCONTENT_TYPE = AnyURIValue::class;
+    public const TEXTCONTENT_TYPE = SAMLAnyURIValue::class;
 }

@@ -7,7 +7,7 @@ namespace SimpleSAML\SAML11\XML\samlp;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Exception\{ProtocolViolationException, VersionMismatchException};
-use SimpleSAML\SAML11\Type\DateTimeValue;
+use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
 use SimpleSAML\SAML11\XML\saml\AssertionIDReference;
 use SimpleSAML\XML\Exception\{InvalidDOMElementException, MissingElementException, TooManyElementsException};
 use SimpleSAML\XML\Type\{IDValue, NonNegativeIntegerValue};
@@ -82,7 +82,7 @@ final class Request extends AbstractRequestType
         $minorVersion = self::getAttribute($xml, 'MinorVersion', NonNegativeIntegerValue::class);
         Assert::same($minorVersion->getValue(), '1', VersionMismatchException::class);
 
-        $issueInstant = self::getAttribute($xml, 'IssueInstant', DateTimeValue::class);
+        $issueInstant = self::getAttribute($xml, 'IssueInstant', SAMLDateTimeValue::class);
 
         return new static(
             $assertionIdReference ?: $assertionArtifact ?: array_pop($query),

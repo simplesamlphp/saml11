@@ -6,7 +6,7 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Type\{AnyURIValue, StringValue};
+use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLStringValue};
 use SimpleSAML\XML\Exception\{InvalidDOMElementException, SchemaViolationException};
 
 use function strval;
@@ -21,12 +21,12 @@ abstract class AbstractActionType extends AbstractSamlElement
     /**
      * Initialize a saml:AbstractActionType from scratch
      *
-     * @param \SimpleSAML\SAML11\Type\StringValue $value
-     * @param \SimpleSAML\SAML11\Type\AnyURIValue|null $Namespace
+     * @param \SimpleSAML\SAML11\Type\SAMLStringValue $value
+     * @param \SimpleSAML\SAML11\Type\SAMLAnyURIValue|null $Namespace
      */
     final public function __construct(
-        protected StringValue $value,
-        protected ?AnyURIValue $Namespace = null,
+        protected SAMLStringValue $value,
+        protected ?SAMLAnyURIValue $Namespace = null,
     ) {
     }
 
@@ -34,9 +34,9 @@ abstract class AbstractActionType extends AbstractSamlElement
     /**
      * Collect the value of the element
      *
-     * @return \SimpleSAML\SAML11\Type\StringValue|null
+     * @return \SimpleSAML\SAML11\Type\SAMLStringValue|null
      */
-    public function getValue(): StringValue
+    public function getValue(): SAMLStringValue
     {
         return $this->value;
     }
@@ -45,9 +45,9 @@ abstract class AbstractActionType extends AbstractSamlElement
     /**
      * Collect the value of the Namespace-property
      *
-     * @return \SimpleSAML\SAML11\Type\AnyURIValue|null
+     * @return \SimpleSAML\SAML11\Type\SAMLAnyURIValue|null
      */
-    public function getNamespace(): ?AnyURIValue
+    public function getNamespace(): ?SAMLAnyURIValue
     {
         return $this->Namespace;
     }
@@ -68,8 +68,8 @@ abstract class AbstractActionType extends AbstractSamlElement
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
 
         return new static(
-            StringValue::fromString($xml->textContent),
-            self::getOptionalAttribute($xml, 'Namespace', AnyURIValue::class),
+            SAMLStringValue::fromString($xml->textContent),
+            self::getOptionalAttribute($xml, 'Namespace', SAMLAnyURIValue::class),
         );
     }
 

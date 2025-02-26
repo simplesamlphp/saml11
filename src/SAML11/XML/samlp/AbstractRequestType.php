@@ -6,7 +6,7 @@ namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Type\DateTimeValue;
+use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
 use SimpleSAML\SAML11\XML\saml\AssertionIDReference;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\{IDValue, NonNegativeIntegerValue};
@@ -32,7 +32,7 @@ abstract class AbstractRequestType extends AbstractRequestAbstractType
      * @param \SimpleSAML\XML\Type\IDValue $id
      * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $majorVersion
      * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $minorVersion
-     * @param \SimpleSAML\SAML11\Type\DateTimeValue $issueInstant
+     * @param \SimpleSAML\SAML11\Type\SAMLDateTimeValue $issueInstant
      * @param array<\SimpleSAML\SAML11\XML\samlp\RespondWith> $respondWith
      *
      * @throws \Exception
@@ -42,7 +42,7 @@ abstract class AbstractRequestType extends AbstractRequestAbstractType
         IDValue $id,
         NonNegativeIntegerValue $majorVersion,
         NonNegativeIntegerValue $minorVersion,
-        DateTimeValue $issueInstant,
+        SAMLDateTimeValue $issueInstant,
         array $respondWith = [],
     ) {
         if (is_array($request)) {

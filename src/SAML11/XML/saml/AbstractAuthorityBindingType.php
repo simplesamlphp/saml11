@@ -6,7 +6,7 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\SAML11\Assert\Assert;
-use SimpleSAML\SAML11\Type\AnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 use SimpleSAML\XML\Type\QNameValue;
 
@@ -23,13 +23,13 @@ abstract class AbstractAuthorityBindingType extends AbstractSamlElement
      * Initialize a saml:AuthorityBindingType from scratch
      *
      * @param \SimpleSAML\XML\Type\QNameValue $AuthorityKind
-     * @param \SimpleSAML\SAML11\Type\AnyURIValue $Location
-     * @param \SimpleSAML\SAML11\Type\AnyURIValue $Binding
+     * @param \SimpleSAML\SAML11\Type\SAMLAnyURIValue $Location
+     * @param \SimpleSAML\SAML11\Type\SAMLAnyURIValue $Binding
      */
     final public function __construct(
         protected QNameValue $AuthorityKind,
-        protected AnyURIValue $Location,
-        protected AnyURIValue $Binding,
+        protected SAMLAnyURIValue $Location,
+        protected SAMLAnyURIValue $Binding,
     ) {
     }
 
@@ -48,9 +48,9 @@ abstract class AbstractAuthorityBindingType extends AbstractSamlElement
     /**
      * Collect the value of the Location-property
      *
-     * @return \SimpleSAML\SAML11\Type\AnyURIValue
+     * @return \SimpleSAML\SAML11\Type\SAMLAnyURIValue
      */
-    public function getLocation(): AnyURIValue
+    public function getLocation(): SAMLAnyURIValue
     {
         return $this->Location;
     }
@@ -59,9 +59,9 @@ abstract class AbstractAuthorityBindingType extends AbstractSamlElement
     /**
      * Collect the value of the Binding-property
      *
-     * @return \SimpleSAML\SAML11\Type\AnyURIValue
+     * @return \SimpleSAML\SAML11\Type\SAMLAnyURIValue
      */
-    public function getBinding(): AnyURIValue
+    public function getBinding(): SAMLAnyURIValue
     {
         return $this->Binding;
     }
@@ -82,8 +82,8 @@ abstract class AbstractAuthorityBindingType extends AbstractSamlElement
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
 
         $AuthorityKind = self::getAttribute($xml, 'AuthorityKind', QNameValue::class);
-        $Location = self::getAttribute($xml, 'Location', AnyURIValue::class);
-        $Binding = self::getAttribute($xml, 'Binding', AnyURIValue::class);
+        $Location = self::getAttribute($xml, 'Location', SAMLAnyURIValue::class);
+        $Binding = self::getAttribute($xml, 'Binding', SAMLAnyURIValue::class);
 
         return new static($AuthorityKind, $Location, $Binding);
     }

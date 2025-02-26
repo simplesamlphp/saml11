@@ -8,7 +8,7 @@ use DOMDocument;
 use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Type\{AnyURIValue, DateTimeValue, StringValue};
+use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLDateTimeValue, SAMLStringValue};
 use SimpleSAML\SAML11\XML\saml\{
     Assertion,
     //AttributeStatement,
@@ -76,7 +76,7 @@ final class ResponseTest extends TestCase
     public function testMarshalling(): void
     {
         $audience = new Audience(
-            AnyURIValue::fromString('urn:x-simplesamlphp:audience'),
+            SAMLAnyURIValue::fromString('urn:x-simplesamlphp:audience'),
         );
         $audienceRestrictionCondition = new AudienceRestrictionCondition([$audience]);
 
@@ -86,16 +86,16 @@ final class ResponseTest extends TestCase
             [$audienceRestrictionCondition],
             [$doNotCacheCondition],
             [],
-            DateTimeValue::fromString('2023-01-24T09:42:26Z'),
-            DateTimeValue::fromString('2023-01-24T09:47:26Z'),
+            SAMLDateTimeValue::fromString('2023-01-24T09:42:26Z'),
+            SAMLDateTimeValue::fromString('2023-01-24T09:47:26Z'),
         );
 
         $assertion = new Assertion(
             NonNegativeIntegerValue::fromString('1'),
             NonNegativeIntegerValue::fromString('1'),
             IDValue::fromString('_abc123'),
-            StringValue::fromString('urn:x-simplesamlphp:phpunit'),
-            DateTimeValue::fromString('2023-01-24T09:42:26Z'),
+            SAMLStringValue::fromString('urn:x-simplesamlphp:phpunit'),
+            SAMLDateTimeValue::fromString('2023-01-24T09:42:26Z'),
             $conditions,
             null, // advice
             [
@@ -113,7 +113,7 @@ final class ResponseTest extends TestCase
                 ],
             ),
             new StatusMessage(
-                StringValue::fromString('Something went wrong'),
+                SAMLStringValue::fromString('Something went wrong'),
             ),
         );
 
@@ -122,8 +122,8 @@ final class ResponseTest extends TestCase
             NonNegativeIntegerValue::fromString('1'),
             IDValue::fromString('def456'),
             $status,
+            SAMLDateTimeValue::fromString('2023-01-24T09:42:26Z'),
             [$assertion],
-            DateTimeValue::fromString('2023-01-24T09:42:26Z'),
         );
 
         $this->assertEquals(

@@ -8,15 +8,9 @@ use DOMDocument;
 use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Type\StringValue;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\SAML11\Utils\XPath;
-use SimpleSAML\SAML11\XML\samlp\{
-    AbstractSamlpElement,
-    Status,
-    StatusCode,
-    StatusDetail,
-    StatusMessage,
-};
+use SimpleSAML\SAML11\XML\samlp\{AbstractSamlpElement, Status, StatusCode, StatusDetail, StatusMessage};
 use SimpleSAML\XML\{Chunk, DOMDocumentFactory};
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
 use SimpleSAML\XML\Type\QNameValue;
@@ -71,7 +65,7 @@ final class StatusTest extends TestCase
                 ],
             ),
             new StatusMessage(
-                StringValue::fromString('Something went wrong'),
+                SAMLStringValue::fromString('Something went wrong'),
             ),
             StatusDetail::fromXML(
                 DOMDocumentFactory::fromFile(
@@ -101,7 +95,7 @@ final class StatusTest extends TestCase
                 ],
             ),
             new StatusMessage(
-                StringValue::fromString('Something went wrong'),
+                SAMLStringValue::fromString('Something went wrong'),
             ),
             new StatusDetail([new Chunk(self::$detail->documentElement)]),
         );

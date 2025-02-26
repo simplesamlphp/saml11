@@ -6,7 +6,7 @@ namespace SimpleSAML\Test\SAML11\XML\saml;
 
 use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Type\{AnyURIValue, DateTimeValue, StringValue};
+use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLDateTimeValue, SAMLStringValue};
 use SimpleSAML\SAML11\XML\saml\{
     AbstractAttributeDesignatorType,
     AbstractAttributeType,
@@ -58,20 +58,20 @@ final class AttributeTest extends TestCase
     public function testMarshalling(): void
     {
         $attribute = new Attribute(
-            StringValue::fromString('TheName'),
-            AnyURIValue::fromString('https://example.org/'),
+            SAMLStringValue::fromString('TheName'),
+            SAMLAnyURIValue::fromString('https://example.org/'),
             [
                 new AttributeValue(
-                    StringValue::fromString('FirstValue'),
+                    SAMLStringValue::fromString('FirstValue'),
                 ),
                 new AttributeValue(
-                    StringValue::fromString('SecondValue'),
+                    SAMLStringValue::fromString('SecondValue'),
                 ),
                 new AttributeValue(
                     IntegerValue::fromString('3'),
                 ),
                 new AttributeValue(
-                    DateTimeValue::fromString('2024-04-04T04:44:44Z'),
+                    SAMLDateTimeValue::fromString('2024-04-04T04:44:44Z'),
                 ),
             ],
         );

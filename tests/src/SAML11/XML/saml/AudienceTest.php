@@ -6,7 +6,7 @@ namespace SimpleSAML\Test\SAML11\XML\saml;
 
 use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Type\AnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\SAML11\XML\saml\{AbstractSamlElement, Audience};
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
@@ -49,7 +49,7 @@ final class AudienceTest extends TestCase
     public function testMarshalling(): void
     {
         $audience = new Audience(
-            AnyURIValue::fromString('urn:x-simplesamlphp:audience'),
+            SAMLAnyURIValue::fromString('urn:x-simplesamlphp:audience'),
         );
 
         $this->assertEquals(

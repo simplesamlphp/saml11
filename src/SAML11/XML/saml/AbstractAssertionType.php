@@ -10,7 +10,7 @@ use SimpleSAML\SAML11\Compat\ContainerSingleton;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\Exception\VersionMismatchException;
 use SimpleSAML\SAML11\Utils\XPath;
-use SimpleSAML\SAML11\Type\{DateTimeValue, StringValue};
+use SimpleSAML\SAML11\Type\{SAMLDateTimeValue, SAMLStringValue};
 use SimpleSAML\XML\Exception\{
     InvalidDOMElementException,
     MissingElementException,
@@ -55,8 +55,8 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
      * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $majorVersion
      * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $minorVersion
      * @param \SimpleSAML\XML\Type\IDValue $assertionID
-     * @param \SimpleSAML\SAML11\Type\StringValue $issuer
-     * @param \SimpleSAML\SAML11\Type\DateTimeValue $issueInstant
+     * @param \SimpleSAML\SAML11\Type\SAMLStringValue $issuer
+     * @param \SimpleSAML\SAML11\Type\SAMLDateTimeValue $issueInstant
      * @param \SimpleSAML\SAML11\XML\saml\Conditions|null $conditions
      * @param \SimpleSAML\SAML11\XML\saml\Advice|null $advice
      * @param array<\SimpleSAML\SAML11\XML\saml\AbstractStatementType> $statements
@@ -65,8 +65,8 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
         protected NonNegativeIntegerValue $majorVersion,
         protected NonNegativeIntegerValue $minorVersion,
         protected IDValue $assertionID,
-        protected StringValue $issuer,
-        protected DateTimeValue $issueInstant,
+        protected SAMLStringValue $issuer,
+        protected SAMLDateTimeValue $issueInstant,
         protected ?Conditions $conditions = null,
         protected ?Advice $advice = null,
         protected array $statements = [],
@@ -117,9 +117,9 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
     /**
      * Collect the value of the issuer-property
      *
-     * @return \SimpleSAML\SAML11\Type\StringValue
+     * @return \SimpleSAML\SAML11\Type\SAMLStringValue
      */
-    public function getIssuer(): StringValue
+    public function getIssuer(): SAMLStringValue
     {
         return $this->issuer;
     }
@@ -128,9 +128,9 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
     /**
      * Collect the value of the issueInstant-property
      *
-     * @return \SimpleSAML\SAML11\Type\DateTimeValue
+     * @return \SimpleSAML\SAML11\Type\SAMLDateTimeValue
      */
-    public function getIssueInstant(): DateTimeValue
+    public function getIssueInstant(): SAMLDateTimeValue
     {
         return $this->issueInstant;
     }
@@ -294,8 +294,8 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
             self::getAttribute($xml, 'MajorVersion', NonNegativeIntegerValue::class),
             self::getAttribute($xml, 'MinorVersion', NonNegativeIntegerValue::class),
             self::getAttribute($xml, 'AssertionID', IDValue::class),
-            self::getAttribute($xml, 'Issuer', StringValue::class),
-            self::getAttribute($xml, 'IssueInstant', DateTimeValue::class),
+            self::getAttribute($xml, 'Issuer', SAMLStringValue::class),
+            self::getAttribute($xml, 'IssueInstant', SAMLDateTimeValue::class),
             array_pop($conditions),
             array_pop($advice),
             array_merge($statements, $subjectStatement, $authnStatement, $authzDecisionStatement, $attrStatement),

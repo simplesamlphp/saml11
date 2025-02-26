@@ -6,7 +6,7 @@ namespace SimpleSAML\Test\SAML11\XML\samlp;
 
 use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Type\AnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\SAML11\XML\samlp\{AbstractSamlpElement, RespondWith};
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
@@ -47,7 +47,7 @@ final class RespondWithTest extends TestCase
         $respondWith = new RespondWith(
             QNameValue::fromParts(
                 NCNameValue::fromString('RespondWith'),
-                AnyURIValue::fromString(RespondWith::NS),
+                SAMLAnyURIValue::fromString(RespondWith::NS),
                 NCNameValue::fromString(RespondWith::NS_PREFIX),
             ),
         );

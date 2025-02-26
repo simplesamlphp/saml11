@@ -6,7 +6,7 @@ namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Type\AnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\SAML11\XML\saml\{Action, Evidence, Subject};
 use SimpleSAML\XML\Exception\{MissingElementException, SchemaViolationException};
 
@@ -23,13 +23,13 @@ abstract class AbstractAuthorizationDecisionQueryType extends AbstractSubjectQue
      * Initialize a samlp:AuthorizationDecisionQuery element.
      *
      * @param \SimpleSAML\SAML11\XML\saml\Subject $subject
-     * @param \SimpleSAML\SAML11\Type\AnyURIValue $resource
+     * @param \SimpleSAML\SAML11\Type\SAMLAnyURIValue $resource
      * @param \SimpleSAML\SAML11\XML\saml\Evidence|null $evidence
      * @param array<\SimpleSAML\SAML11\XML\saml\Action> $action
      */
     public function __construct(
         Subject $subject,
-        protected AnyURIValue $resource,
+        protected SAMLAnyURIValue $resource,
         protected ?Evidence $evidence = null,
         protected array $action = [],
     ) {
@@ -41,9 +41,9 @@ abstract class AbstractAuthorizationDecisionQueryType extends AbstractSubjectQue
 
 
     /**
-     * @return \SimpleSAML\SAML11\Type\AnyURIValue
+     * @return \SimpleSAML\SAML11\Type\SAMLAnyURIValue
      */
-    public function getResource(): AnyURIValue
+    public function getResource(): SAMLAnyURIValue
     {
         return $this->resource;
     }

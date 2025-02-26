@@ -7,8 +7,7 @@ namespace SimpleSAML\Test\SAML11\XML\saml;
 use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Exception\ProtocolViolationException;
-use SimpleSAML\SAML11\Type\StringValue;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\SAML11\XML\saml\{AbstractSamlElement, NameIdentifier, SubjectConfirmationData};
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
@@ -70,10 +69,10 @@ final class SubjectConfirmationDataTest extends TestCase
     public function testMarshallingString(): void
     {
         $scd = new SubjectConfirmationData(
-            StringValue::fromString('value'),
+            SAMLStringValue::fromString('value'),
         );
 
-        $this->assertInstanceOf(StringValue::class, $scd->getValue());
+        $this->assertInstanceOf(SAMLStringValue::class, $scd->getValue());
         $this->assertEquals('value', strval($scd->getValue()));
         $this->assertEquals('xs:string', $scd->getXsiType());
     }
@@ -94,20 +93,6 @@ XML;
         $this->assertEquals(
             $xml,
             strval($scd),
-        );
-    }
-
-
-    /**
-     * Verifies that supplying an empty string as subject confirmation data will
-     * generate a tag with no content (instead of e.g. an empty tag).
-     *
-     */
-    public function testEmptyStringAttribute(): void
-    {
-        $this->expectException(ProtocolViolationException::class);
-        new SubjectConfirmationData(
-            StringValue::fromString(''),
         );
     }
 

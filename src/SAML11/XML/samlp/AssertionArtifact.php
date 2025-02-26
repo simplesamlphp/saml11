@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\samlp;
 
-use SimpleSAML\SAML11\Type\StringValue;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
 use SimpleSAML\XML\TypedTextContentTrait;
 
@@ -20,5 +20,5 @@ final class AssertionArtifact extends AbstractSamlpElement implements SchemaVali
     use TypedTextContentTrait;
 
     /** @var string */
-    public const TEXTCONTENT_TYPE = StringValue::class;
+    public const TEXTCONTENT_TYPE = SAMLStringValue::class;
 }

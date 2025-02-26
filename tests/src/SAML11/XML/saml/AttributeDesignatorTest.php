@@ -7,7 +7,7 @@ namespace SimpleSAML\Test\SAML11\XML\saml;
 use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\XML\saml\{AbstractAttributeDesignatorType, AbstractSamlElement, AttributeDesignator};
-use SimpleSAML\SAML11\Type\{AnyURIValue, StringValue};
+use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLStringValue};
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
 
@@ -49,8 +49,8 @@ final class AttributeDesignatorTest extends TestCase
     public function testMarshalling(): void
     {
         $attributeDesignator = new AttributeDesignator(
-            StringValue::fromString('TheName'),
-            AnyURIValue::fromString('https://example.org/'),
+            SAMLStringValue::fromString('TheName'),
+            SAMLAnyURIValue::fromString('https://example.org/'),
         );
 
         $this->assertEquals(

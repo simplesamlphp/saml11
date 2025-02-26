@@ -11,13 +11,13 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
 /**
  * @package simplesamlphp/saml11
  */
-trait StringTrait
+trait SAMLStringTrait
 {
     /**
      * @param string $value
      * @param string $message
      */
-    protected static function validString(string $value, string $message = ''): void
+    protected static function validSAMLString(string $value, string $message = ''): void
     {
         parent::validString($value, $message, SchemaViolationException::class);
 

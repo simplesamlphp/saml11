@@ -7,7 +7,7 @@ namespace SimpleSAML\SAML11\XML\saml;
 use DOMElement;
 use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Type\{DateTimeValue, StringValue};
+use SimpleSAML\SAML11\Type\{SAMLDateTimeValue, SAMLStringValue};
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
@@ -36,7 +36,7 @@ class AttributeValue extends AbstractSamlElement implements SchemaValidatableEle
      * @throws \SimpleSAML\Assert\AssertionFailedException if the supplied value is neither a string or a DOMElement
      */
     final public function __construct(
-        protected StringValue|IntegerValue|DateTimeValue|AbstractElement $value,
+        protected SAMLStringValue|IntegerValue|SAMLDateTimeValue|AbstractElement $value,
     ) {
     }
 
@@ -69,8 +69,8 @@ class AttributeValue extends AbstractSamlElement implements SchemaValidatableEle
      *
      * @return (
      *   \SimpleSAML\XML\Type\IntegerValue|
-     *   \SimpleSAML\SAML11\Type\StringValue|
-     *   \SimpleSAML\SAML11\Type\DateTimeValue|
+     *   \SimpleSAML\SAML11\Type\SAMLStringValue|
+     *   \SimpleSAML\SAML11\Type\SAMLDateTimeValue|
      *   \SimpleSAML\XML\AbstractElement|
      *   null
      * )
@@ -127,9 +127,9 @@ class AttributeValue extends AbstractSamlElement implements SchemaValidatableEle
             $xml->getAttributeNS(C::NS_XSI, "type") === "xs:dateTime"
         ) {
             // we have a dateTime as value
-            $value = DateTimeValue::fromString($xml->textContent);
+            $value = SAMLDateTimeValue::fromString($xml->textContent);
         } else {
-            $value = StringValue::fromString($xml->textContent);
+            $value = SAMLStringValue::fromString($xml->textContent);
         }
 
         return new static($value);
@@ -159,7 +159,7 @@ class AttributeValue extends AbstractSamlElement implements SchemaValidatableEle
                 $e->textContent = strval($value);
                 break;
             case "object":
-                if ($value instanceof DateTimeValue) {
+                if ($value instanceof SAMLDateTimeValue) {
                     $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', C::NS_XSI);
                     $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xs', C::NS_XS);
                     $e->setAttributeNS(C::NS_XSI, 'xsi:type', 'xs:dateTime');
