@@ -7,9 +7,9 @@ namespace SimpleSAML\Test\SAML11;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\XML\saml\AbstractStatement;
-use SimpleSAML\SAML11\XML\saml\Audience;
+use SimpleSAML\SAML11\XML\saml\{AbstractStatement, Audience};
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
+use SimpleSAML\XML\Type\QNameValue;
 
 /**
  * Example class to demonstrate how Statement can be extended.
@@ -38,7 +38,11 @@ final class CustomStatement extends AbstractStatement
     ) {
         Assert::allIsInstanceOf($audience, Audience::class);
 
-        parent::__construct(self::XSI_TYPE_PREFIX . ':' . self::XSI_TYPE_NAME);
+        parent::__construct(
+            QNameValue::fromString(
+                '{' . self::XSI_TYPE_NAMESPACE . '}' . self::XSI_TYPE_PREFIX . ':' . self::XSI_TYPE_NAME,
+            ),
+        );
     }
 
 

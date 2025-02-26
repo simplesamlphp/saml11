@@ -72,11 +72,6 @@ class Constants extends \SimpleSAML\XMLSecurity\Constants
     public const CM_BEARER = 'urn:oasis:names:tc:SAML:1.0:cm:bearer';
 
     /**
-     * The format to express a timestamp in SAML 1.1
-     */
-    public const DATETIME_FORMAT = 'Y-m-d\\TH:i:sp';
-
-    /**
      * Email address NameID format.
      */
     public const NAMEID_EMAIL_ADDRESS = 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress';
@@ -182,4 +177,18 @@ class Constants extends \SimpleSAML\XMLSecurity\Constants
      * Top-level status code.
      */
     public const STATUS_VERSION_MISMATCH = 'samlp:VersionMismatch';
+
+    /** @var string[] */
+    public static array $STATUS_CODES = [
+        self::STATUS_REQUEST_DENIED,
+        self::STATUS_REQUEST_VERSION_DEPRECATED,
+        self::STATUS_REQUEST_VERSION_TOO_HIGH,
+        self::STATUS_REQUEST_VERSION_TOO_LOW,
+        self::STATUS_REQUESTER,
+        self::STATUS_RESOURCE_NOT_RECOGNIZED,
+        self::STATUS_RESPONDER,
+        self::STATUS_SUCCESS,
+        self::STATUS_TOO_MANY_RESPONSES,
+        self::STATUS_VERSION_MISMATCH,
+    ];
 }
