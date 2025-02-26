@@ -6,7 +6,7 @@ namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
 use SimpleSAML\XML\Type\{IDValue, NonNegativeIntegerValue};
-use SimpleSAML\SAML11\Type\DateTimeValue;
+use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
 
 use function strval;
 
@@ -26,7 +26,7 @@ abstract class AbstractResponseAbstractType extends AbstractMessage
      * @param \SimpleSAML\XML\Type\IDValue $id
      * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $majorVersion
      * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $minorVersion
-     * @param \SimpleSAML\SAML11\Type\DateTimeValue|null $issueInstant
+     * @param \SimpleSAML\SAML11\Type\SAMLDateTimeValue|null $issueInstant
      *
      * @throws \Exception
      */
@@ -34,7 +34,7 @@ abstract class AbstractResponseAbstractType extends AbstractMessage
         protected IDValue $id,
         NonNegativeIntegerValue $majorVersion,
         NonNegativeIntegerValue $minorVersion,
-        ?DateTimeValue $issueInstant = null,
+        SAMLDateTimeValue $issueInstant,
     ) {
         parent::__construct($majorVersion, $minorVersion, $issueInstant);
     }

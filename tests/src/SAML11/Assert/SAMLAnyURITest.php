@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\Test\Assert;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\SAML11\Assert\Assert;
@@ -12,25 +12,27 @@ use SimpleSAML\SAML11\Exception\ProtocolViolationException;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 
 /**
- * Class \SimpleSAML\SAML11\Assert\DateTimeTest
+ * Class \SimpleSAML\SAML11\Assert\SAMLAnyURITest
  *
  * @package simplesamlphp/saml11
  */
+#[Group('assert')]
 #[CoversClass(Assert::class)]
-final class DateTimeTest extends TestCase
+final class SAMLAnyURITest extends TestCase
 {
     /**
      * @param boolean $shouldPass
-     * @param string $timestamp
+     * @param string $uri
      */
-    #[DataProvider('provideDateTime')]
-    public function testValidDateTime(bool $shouldPass, string $timestamp): void
+    #[DataProvider('provideAnyURI')]
+    public function testValidSAMLAnyURI(bool $shouldPass, string $uri): void
     {
         try {
-            Assert::validDateTime($timestamp);
+            Assert::validSAMLAnyURI($uri);
             $this->assertTrue($shouldPass);
         } catch (AssertionFailedException | ProtocolViolationException | SchemaViolationException $e) {
             $this->assertFalse($shouldPass);
+        } finally {
         }
     }
 
@@ -38,14 +40,11 @@ final class DateTimeTest extends TestCase
     /**
      * @return array<string, array{0: bool, 1: string}>
      */
-    public static function provideDateTime(): array
+    public static function provideAnyURI(): array
     {
         return [
-            'sub-second zulu' => [true, '2016-07-27T19:30:00.123Z'],
-            'zulu' => [true, '2016-07-27T19:30:00Z'],
-            'sub-second offset' => [false, '2016-07-27T19:30:00.123+05:00'],
-            'offset' => [false, '2016-07-27T19:30:00+05:00'],
-            'bogus' => [false, '&*$(#&^@!(^%$'],
+            'valid' => [true, 'https://simplesamlphp.org'],
+            'empty' => [false, ''],
             'whitespace' => [false, ' '],
         ];
     }

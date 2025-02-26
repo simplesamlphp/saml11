@@ -8,7 +8,7 @@ use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Compat\{AbstractContainer, ContainerSingleton};
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Type\{AnyURIValue, StringValue};
+use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLStringValue};
 use SimpleSAML\SAML11\XML\saml\{
     ConfirmationMethod,
     NameIdentifier,
@@ -26,7 +26,7 @@ use SimpleSAML\SAML11\XML\samlp\{
 use SimpleSAML\Test\SAML11\CustomSubjectQuery;
 use SimpleSAML\XML\{Chunk, DOMDocumentFactory};
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XML\Type\{Base64BinaryValue, IDValue};
+use SimpleSAML\XML\Type\{Base64BinaryValue, IDValue, StringValue};
 use SimpleSAML\XMLSecurity\TestUtils\PEMCertificatesMock;
 use SimpleSAML\XMLSecurity\XML\ds\{
     KeyInfo,
@@ -123,7 +123,7 @@ final class SubjectQueryTest extends TestCase
     public function testMarshalling(): void
     {
         $scd = new SubjectConfirmationData(
-            StringValue::fromString('phpunit'),
+            SAMLStringValue::fromString('phpunit'),
         );
 
         $keyInfo = new KeyInfo(
@@ -151,10 +151,10 @@ final class SubjectQueryTest extends TestCase
         $sc = new SubjectConfirmation(
             [
                 new ConfirmationMethod(
-                    AnyURIValue::fromString('_Test1'),
+                    SAMLAnyURIValue::fromString('_Test1'),
                 ),
                 new ConfirmationMethod(
-                    AnyURIValue::fromString('_Test2'),
+                    SAMLAnyURIValue::fromString('_Test2'),
                 ),
             ],
             $scd,
@@ -162,9 +162,9 @@ final class SubjectQueryTest extends TestCase
         );
 
         $nameIdentifier = new NameIdentifier(
-            StringValue::fromString('TheNameIDValue'),
-            StringValue::fromString('TheNameQualifier'),
-            AnyURIValue::fromString('urn:the:format'),
+            SAMLStringValue::fromString('TheNameIDValue'),
+            SAMLStringValue::fromString('TheNameQualifier'),
+            SAMLAnyURIValue::fromString('urn:the:format'),
         );
 
         $subject = new Subject($sc, $nameIdentifier);
@@ -172,7 +172,7 @@ final class SubjectQueryTest extends TestCase
             $subject,
             [
                 new StatusMessage(
-                    StringValue::fromString('urn:some:audience'),
+                    SAMLStringValue::fromString('urn:some:audience'),
                 ),
             ],
         );

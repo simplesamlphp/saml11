@@ -6,7 +6,7 @@ namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
 use SimpleSAML\SAML11\Assert\Assert;
-use SimpleSAML\SAML11\Type\DateTimeValue;
+use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
 use SimpleSAML\SAML11\Utils\XPath;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\Type\{IDValue, NonNegativeIntegerValue};
@@ -27,7 +27,7 @@ abstract class AbstractRequestAbstractType extends AbstractMessage
      * @param \SimpleSAML\XML\Type\IDValue $id
      * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $majorVersion
      * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $minorVersion
-     * @param \SimpleSAML\SAML11\Type\DateTimeValue $issueInstant
+     * @param \SimpleSAML\SAML11\Type\SAMLDateTimeValue $issueInstant
      * @param array<\SimpleSAML\SAML11\XML\samlp\RespondWith>
      *
      * @throws \Exception
@@ -36,7 +36,7 @@ abstract class AbstractRequestAbstractType extends AbstractMessage
         protected IDValue $id,
         protected NonNegativeIntegerValue $majorVersion,
         protected NonNegativeIntegerValue $minorVersion,
-        protected ?DateTimeValue $issueInstant,
+        protected SAMLDateTimeValue $issueInstant,
         protected array $respondWith = [],
     ) {
         Assert::allIsInstanceOf($respondWith, RespondWith::class, SchemaViolationException::class);

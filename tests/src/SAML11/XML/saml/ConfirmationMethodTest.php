@@ -6,7 +6,7 @@ namespace SimpleSAML\Test\SAML11\XML\saml;
 
 use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Type\AnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\SAML11\XML\saml\{AbstractSamlElement, ConfirmationMethod};
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
@@ -44,7 +44,7 @@ final class ConfirmationMethodTest extends TestCase
     public function testMarshalling(): void
     {
         $confirmationMethod = new ConfirmationMethod(
-            AnyURIValue::fromString('_Test'),
+            SAMLAnyURIValue::fromString('_Test'),
         );
 
         $this->assertEquals(

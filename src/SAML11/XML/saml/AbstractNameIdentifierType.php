@@ -6,7 +6,7 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Type\{AnyURIValue, StringValue};
+use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLStringValue};
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 
 use function strval;
@@ -21,14 +21,14 @@ abstract class AbstractNameIdentifierType extends AbstractSamlElement
     /**
      * Initialize a saml:NameIdentifierType from scratch
      *
-     * @param \SimpleSAML\SAML11\Type\StringValue $value
-     * @param \SimpleSAML\SAML11\Type\StringValue|null $NameQualifier
-     * @param \SimpleSAML\SAML11\Type\AnyURIValue|null $Format
+     * @param \SimpleSAML\SAML11\Type\SAMLStringValue $value
+     * @param \SimpleSAML\SAML11\Type\SAMLStringValue|null $NameQualifier
+     * @param \SimpleSAML\SAML11\Type\SAMLAnyURIValue|null $Format
      */
     final public function __construct(
-        protected StringValue $value,
-        protected ?StringValue $NameQualifier = null,
-        protected ?AnyURIValue $Format = null,
+        protected SAMLStringValue $value,
+        protected ?SAMLStringValue $NameQualifier = null,
+        protected ?SAMLAnyURIValue $Format = null,
     ) {
     }
 
@@ -36,9 +36,9 @@ abstract class AbstractNameIdentifierType extends AbstractSamlElement
     /**
      * Collect the value of the value-property
      *
-     * @return \SimpleSAML\SAML11\Type\StringValue
+     * @return \SimpleSAML\SAML11\Type\SAMLStringValue
      */
-    public function getValue(): StringValue
+    public function getValue(): SAMLStringValue
     {
         return $this->value;
     }
@@ -47,9 +47,9 @@ abstract class AbstractNameIdentifierType extends AbstractSamlElement
     /**
      * Collect the value of the Format-property
      *
-     * @return \SimpleSAML\SAML11\Type\AnyURIValue|null
+     * @return \SimpleSAML\SAML11\Type\SAMLAnyURIValue|null
      */
-    public function getFormat(): ?AnyURIValue
+    public function getFormat(): ?SAMLAnyURIValue
     {
         return $this->Format;
     }
@@ -58,9 +58,9 @@ abstract class AbstractNameIdentifierType extends AbstractSamlElement
     /**
      * Collect the value of the NameQualifier-property
      *
-     * @return \SimpleSAML\SAML11\Type\StringValue|null
+     * @return \SimpleSAML\SAML11\Type\SAMLStringValue|null
      */
-    public function getNameQualifier(): ?StringValue
+    public function getNameQualifier(): ?SAMLStringValue
     {
         return $this->NameQualifier;
     }
@@ -81,9 +81,9 @@ abstract class AbstractNameIdentifierType extends AbstractSamlElement
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
 
         return new static(
-            StringValue::fromString($xml->textContent),
-            self::getOptionalAttribute($xml, 'NameQualifier', StringValue::class, null),
-            self::getOptionalAttribute($xml, 'Format', AnyURIValue::class, null),
+            SAMLStringValue::fromString($xml->textContent),
+            self::getOptionalAttribute($xml, 'NameQualifier', SAMLStringValue::class, null),
+            self::getOptionalAttribute($xml, 'Format', SAMLAnyURIValue::class, null),
         );
     }
 

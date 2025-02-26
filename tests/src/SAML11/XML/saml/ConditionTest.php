@@ -8,7 +8,7 @@ use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Compat\{AbstractContainer, ContainerSingleton};
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Type\AnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\SAML11\XML\saml\{
     AbstractCondition,
     AbstractConditionType,
@@ -81,7 +81,7 @@ final class ConditionTest extends TestCase
         $condition = new CustomCondition(
             [
                 new Audience(
-                    AnyURIValue::fromString('urn:some:audience'),
+                    SAMLAnyURIValue::fromString('urn:some:audience'),
                 ),
             ],
         );

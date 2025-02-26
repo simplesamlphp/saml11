@@ -7,7 +7,7 @@ namespace SimpleSAML\Test\SAML11\XML\saml;
 use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Type\AnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\SAML11\XML\saml\{AbstractAuthorityBindingType, AbstractSamlElement, AuthorityBinding};
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
@@ -54,11 +54,11 @@ final class AuthorityBindingTest extends TestCase
         $ab = new AuthorityBinding(
             QNameValue::fromParts(
                 NCNameValue::fromString('AttributeQuery'),
-                AnyURIValue::fromString(C::NS_SAMLP),
+                SAMLAnyURIValue::fromString(C::NS_SAMLP),
                 NCNameValue::fromString('samlp'),
             ),
-            AnyURIValue::fromString('urn:x-simplesamlphp:location'),
-            AnyURIValue::fromString('urn:x-simplesamlphp:binding'),
+            SAMLAnyURIValue::fromString('urn:x-simplesamlphp:location'),
+            SAMLAnyURIValue::fromString('urn:x-simplesamlphp:binding'),
         );
 
         $this->assertEquals(

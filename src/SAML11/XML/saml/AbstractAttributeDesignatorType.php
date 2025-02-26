@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
-use SimpleSAML\SAML11\Type\{AnyURIValue, StringValue};
+use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLStringValue};
 
 use function strval;
 
@@ -19,12 +19,12 @@ abstract class AbstractAttributeDesignatorType extends AbstractSamlElement
     /**
      * Initialize a saml:AttributeDesignatorType from scratch
      *
-     * @param \SimpleSAML\SAML11\Type\StringValue $AttributeName
-     * @param \SimpleSAML\SAML11\Type\AnyURIValue $AttributeNamespace
+     * @param \SimpleSAML\SAML11\Type\SAMLStringValue $AttributeName
+     * @param \SimpleSAML\SAML11\Type\SAMLAnyURIValue $AttributeNamespace
      */
     public function __construct(
-        protected StringValue $AttributeName,
-        protected AnyURIValue $AttributeNamespace,
+        protected SAMLStringValue $AttributeName,
+        protected SAMLAnyURIValue $AttributeNamespace,
     ) {
     }
 
@@ -32,9 +32,9 @@ abstract class AbstractAttributeDesignatorType extends AbstractSamlElement
     /**
      * Collect the value of the AttributeName-property
      *
-     * @return \SimpleSAML\SAML11\Type\StringValue
+     * @return \SimpleSAML\SAML11\Type\SAMLStringValue
      */
-    public function getAttributeName(): StringValue
+    public function getAttributeName(): SAMLStringValue
     {
         return $this->AttributeName;
     }
@@ -43,9 +43,9 @@ abstract class AbstractAttributeDesignatorType extends AbstractSamlElement
     /**
      * Collect the value of the AttributeNamespace-property
      *
-     * @return \SimpleSAML\SAML11\Type\AnyURIValue
+     * @return \SimpleSAML\SAML11\Type\SAMLAnyURIValue
      */
-    public function getAttributeNamespace(): AnyURIValue
+    public function getAttributeNamespace(): SAMLAnyURIValue
     {
         return $this->AttributeNamespace;
     }

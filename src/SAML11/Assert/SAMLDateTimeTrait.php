@@ -10,13 +10,13 @@ use SimpleSAML\SAML11\Exception\ProtocolViolationException;
 /**
  * @package simplesamlphp/saml11
  */
-trait DateTimeTrait
+trait SAMLDateTimeTrait
 {
     /**
      * @param string $value
      * @param string $message
      */
-    protected static function validDateTime(string $value, string $message = ''): void
+    protected static function validSAMLDateTime(string $value, string $message = ''): void
     {
         parent::validDateTime($value, $message);
 

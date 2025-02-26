@@ -4,34 +4,33 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\Test\Assert;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Exception\ProtocolViolationException;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 
 /**
- * Class \SimpleSAML\SAML11\Assert\AnyURITest
+ * Class \SimpleSAML\SAML11\Assert\SAMLStringTest
  *
  * @package simplesamlphp/saml11
  */
+#[Group('assert')]
 #[CoversClass(Assert::class)]
-final class AnyURITest extends TestCase
+final class SAMLStringTest extends TestCase
 {
     /**
      * @param boolean $shouldPass
-     * @param string $uri
+     * @param string $str
      */
-    #[DataProvider('provideAnyURI')]
-    public function testValidAnyURI(bool $shouldPass, string $uri): void
+    #[DataProvider('provideString')]
+    public function testValidSAMLString(bool $shouldPass, string $str): void
     {
         try {
-            Assert::validAnyURI($uri);
+            Assert::validSAMLString($str);
             $this->assertTrue($shouldPass);
-        } catch (AssertionFailedException | ProtocolViolationException | SchemaViolationException $e) {
+        } catch (ProtocolViolationException | SchemaViolationException $e) {
             $this->assertFalse($shouldPass);
-        } finally {
         }
     }
 
@@ -39,10 +38,10 @@ final class AnyURITest extends TestCase
     /**
      * @return array<string, array{0: bool, 1: string}>
      */
-    public static function provideAnyURI(): array
+    public static function provideString(): array
     {
         return [
-            'valid' => [true, 'https://simplesamlphp.org'],
+            'valid' => [true, 'dear diary'],
             'empty' => [false, ''],
             'whitespace' => [false, ' '],
         ];

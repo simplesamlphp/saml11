@@ -7,7 +7,7 @@ namespace SimpleSAML\Test\SAML11\XML\saml;
 use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Type\{AnyURIValue, DateTimeValue};
+use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLDateTimeValue};
 use SimpleSAML\SAML11\XML\saml\{
     AbstractConditionsType,
     AbstractSamlElement,
@@ -61,7 +61,7 @@ final class ConditionsTest extends TestCase
     public function testMarshalling(): void
     {
         $audience = new Audience(
-            AnyURIValue::fromString('urn:x-simplesamlphp:audience'),
+            SAMLAnyURIValue::fromString('urn:x-simplesamlphp:audience'),
         );
         $audienceRestrictionCondition = new AudienceRestrictionCondition([$audience]);
 
@@ -70,7 +70,7 @@ final class ConditionsTest extends TestCase
         $condition = new CustomCondition(
             [
                 new Audience(
-                    AnyURIValue::fromString('urn:some:audience'),
+                    SAMLAnyURIValue::fromString('urn:some:audience'),
                 ),
             ],
         );
@@ -79,8 +79,8 @@ final class ConditionsTest extends TestCase
             [$audienceRestrictionCondition],
             [$doNotCacheCondition],
             [$condition],
-            DateTimeValue::fromString('2023-01-24T09:42:26Z'),
-            DateTimeValue::fromString('2023-01-24T09:47:26Z'),
+            SAMLDateTimeValue::fromString('2023-01-24T09:42:26Z'),
+            SAMLDateTimeValue::fromString('2023-01-24T09:47:26Z'),
         );
 
         $this->assertEquals(

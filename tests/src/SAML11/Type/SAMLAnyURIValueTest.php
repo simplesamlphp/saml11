@@ -4,29 +4,30 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\Type;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Exception\ProtocolViolationException;
-use SimpleSAML\SAML11\Type\AnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 
 /**
- * Class \SimpleSAML\Test\SAML11\Type\AnyURIValueTest
+ * Class \SimpleSAML\Test\SAML11\Type\SAMLAnyURIValueTest
  *
  * @package simplesamlphp/saml11
  */
-#[CoversClass(AnyURIValue::class)]
-final class AnyURIValueTest extends TestCase
+#[Group('type')]
+#[CoversClass(SAMLAnyURIValue::class)]
+final class SAMLAnyURIValueTest extends TestCase
 {
     /**
      * @param boolean $shouldPass
      * @param string $uri
      */
     #[DataProvider('provideURI')]
-    public function testAnyURI(bool $shouldPass, string $uri): void
+    public function testSAMLAnyURI(bool $shouldPass, string $uri): void
     {
         try {
-            AnyURIValue::fromString($uri);
+            SAMLAnyURIValue::fromString($uri);
             $this->assertTrue($shouldPass);
         } catch (ProtocolViolationException | SchemaViolationException $e) {
             $this->assertFalse($shouldPass);

@@ -4,29 +4,30 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\Type;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Exception\ProtocolViolationException;
-use SimpleSAML\SAML11\Type\StringValue;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 
 /**
- * Class \SimpleSAML\Test\SAML11\Type\StringValueValueTest
+ * Class \SimpleSAML\Test\SAML11\Type\SAMLStringValueValueTest
  *
  * @package simplesamlphp/saml11
  */
-#[CoversClass(StringValue::class)]
-final class StringValueTest extends TestCase
+#[Group('type')]
+#[CoversClass(SAMLStringValue::class)]
+final class SAMLStringValueTest extends TestCase
 {
     /**
      * @param boolean $shouldPass
      * @param string $stringValue
      */
     #[DataProvider('provideString')]
-    public function testString(bool $shouldPass, string $stringValue): void
+    public function testSAMLString(bool $shouldPass, string $stringValue): void
     {
         try {
-            StringValue::fromString($stringValue);
+            SAMLStringValue::fromString($stringValue);
             $this->assertTrue($shouldPass);
         } catch (ProtocolViolationException | SchemaViolationException $e) {
             $this->assertFalse($shouldPass);

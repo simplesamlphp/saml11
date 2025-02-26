@@ -6,7 +6,7 @@ namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Type\AnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\SAML11\XML\saml\Subject;
 use SimpleSAML\XML\Exception\{InvalidDOMElementException, MissingElementException, TooManyElementsException};
 use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
@@ -36,7 +36,7 @@ final class AuthenticationQuery extends AbstractAuthenticationQueryType implemen
         Assert::same($xml->localName, 'AuthenticationQuery', InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, AuthenticationQuery::NS, InvalidDOMElementException::class);
 
-        $authenticationMethod = self::getAttribute($xml, 'AuthenticationMethod', AnyURIValue::class);
+        $authenticationMethod = self::getAttribute($xml, 'AuthenticationMethod', SAMLAnyURIValue::class);
 
         $subject = Subject::getChildrenOfClass($xml);
         Assert::minCount($subject, 1, MissingElementException::class);

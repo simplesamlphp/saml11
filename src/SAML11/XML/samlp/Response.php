@@ -7,7 +7,7 @@ namespace SimpleSAML\SAML11\XML\samlp;
 use DOMElement;
 use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Exception\{ProtocolViolationException, VersionMismatchException};
-use SimpleSAML\SAML11\Type\{AnyURIValue, DateTimeValue};
+use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLDateTimeValue};
 use SimpleSAML\SAML11\XML\saml\Assertion;
 use SimpleSAML\SAML11\XML\samlp\Status;
 use SimpleSAML\XML\Exception\{InvalidDOMElementException, MissingElementException, TooManyElementsException};
@@ -58,10 +58,10 @@ final class Response extends AbstractResponseType implements SchemaValidatableEl
             $minorVersion,
             self::getAttribute($xml, 'ResponseID', IDValue::class),
             array_pop($status),
+            self::getAttribute($xml, 'IssueInstant', SAMLDateTimeValue::class),
             Assertion::getChildrenOfClass($xml),
-            self::getAttribute($xml, 'IssueInstant', DateTimeValue::class),
             self::getOptionalAttribute($xml, 'InResponseTo', NCNameValue::class, null),
-            self::getOptionalAttribute($xml, 'Recipient', AnyURIValue::class, null),
+            self::getOptionalAttribute($xml, 'Recipient', SAMLAnyURIValue::class, null),
         );
     }
 }

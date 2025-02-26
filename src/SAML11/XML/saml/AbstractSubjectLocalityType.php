@@ -6,7 +6,7 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Type\StringValue;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 
 use function strval;
@@ -21,12 +21,12 @@ abstract class AbstractSubjectLocalityType extends AbstractSamlElement
     /**
      * Initialize a saml:SubjectLocalityType from scratch
      *
-     * @param \SimpleSAML\SAML11\Type\StringValue|null $IPAddress
-     * @param \SimpleSAML\SAML11\Type\StringValue|null $DNSAddress
+     * @param \SimpleSAML\SAML11\Type\SAMLStringValue|null $IPAddress
+     * @param \SimpleSAML\SAML11\Type\SAMLStringValue|null $DNSAddress
      */
     final public function __construct(
-        protected ?StringValue $IPAddress = null,
-        protected ?StringValue $DNSAddress = null,
+        protected ?SAMLStringValue $IPAddress = null,
+        protected ?SAMLStringValue $DNSAddress = null,
     ) {
     }
 
@@ -34,9 +34,9 @@ abstract class AbstractSubjectLocalityType extends AbstractSamlElement
     /**
      * Collect the value of the IPAddress-property
      *
-     * @return \SimpleSAML\SAML11\Type\StringValue|null
+     * @return \SimpleSAML\SAML11\Type\SAMLStringValue|null
      */
-    public function getIPAddress(): ?StringValue
+    public function getIPAddress(): ?SAMLStringValue
     {
         return $this->IPAddress;
     }
@@ -45,9 +45,9 @@ abstract class AbstractSubjectLocalityType extends AbstractSamlElement
     /**
      * Collect the value of the DNSAddress-property
      *
-     * @return \SimpleSAML\SAML11\Type\StringValue|null
+     * @return \SimpleSAML\SAML11\Type\SAMLStringValue|null
      */
-    public function getDNSAddress(): ?StringValue
+    public function getDNSAddress(): ?SAMLStringValue
     {
         return $this->DNSAddress;
     }
@@ -79,8 +79,8 @@ abstract class AbstractSubjectLocalityType extends AbstractSamlElement
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
 
-        $IPAddress = self::getOptionalAttribute($xml, 'IPAddress', StringValue::class);
-        $DNSAddress = self::getOptionalAttribute($xml, 'DNSAddress', StringValue::class);
+        $IPAddress = self::getOptionalAttribute($xml, 'IPAddress', SAMLStringValue::class);
+        $DNSAddress = self::getOptionalAttribute($xml, 'DNSAddress', SAMLStringValue::class);
 
         return new static($IPAddress, $DNSAddress);
     }

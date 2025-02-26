@@ -10,13 +10,13 @@ use SimpleSAML\SAML11\Exception\ProtocolViolationException;
 /**
  * @package simplesamlphp/saml11
  */
-trait AnyURITrait
+trait SAMLAnyURITrait
 {
     /**
      * @param string $value
      * @param string $message
      */
-    protected static function validAnyURI(string $value, string $message = ''): void
+    protected static function validSAMLAnyURI(string $value, string $message = ''): void
     {
         parent::validAnyURI($value, $message);
 

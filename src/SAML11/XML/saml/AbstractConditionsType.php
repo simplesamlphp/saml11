@@ -6,7 +6,7 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Type\DateTimeValue;
+use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
 use SimpleSAML\XML\Exception\InvalidDOMElementException;
 
 use function strval;
@@ -24,15 +24,15 @@ abstract class AbstractConditionsType extends AbstractSamlElement
      * @param array<\SimpleSAML\SAML11\XML\saml\AudienceRestrictionCondition> $audienceRestrictionCondition
      * @param array<\SimpleSAML\SAML11\XML\saml\DoNotCacheCondition> $doNotCacheCondition
      * @param array<\SimpleSAML\SAML11\XML\saml\AbstractCondition> $condition
-     * @param \SimpleSAML\SAML11\Type\DateTimeValue|null $notBefore
-     * @param \SimpleSAML\SAML11\Type\DateTimeValue|null $notOnOrAfter
+     * @param \SimpleSAML\SAML11\Type\SAMLDateTimeValue|null $notBefore
+     * @param \SimpleSAML\SAML11\Type\SAMLDateTimeValue|null $notOnOrAfter
      */
     final public function __construct(
         protected array $audienceRestrictionCondition = [],
         protected array $doNotCacheCondition = [],
         protected array $condition = [],
-        protected ?DateTimeValue $notBefore = null,
-        protected ?DateTimeValue $notOnOrAfter = null,
+        protected ?SAMLDateTimeValue $notBefore = null,
+        protected ?SAMLDateTimeValue $notOnOrAfter = null,
     ) {
         Assert::allIsInstanceOf($audienceRestrictionCondition, AudienceRestrictionCondition::class);
         Assert::allIsInstanceOf($doNotCacheCondition, DoNotCacheCondition::class);
@@ -43,9 +43,9 @@ abstract class AbstractConditionsType extends AbstractSamlElement
     /**
      * Collect the value of the notBefore-property
      *
-     * @return \SimpleSAML\SAML11\Type\DateTimeValue|null
+     * @return \SimpleSAML\SAML11\Type\SAMLDateTimeValue|null
      */
-    public function getNotBefore(): ?DateTimeValue
+    public function getNotBefore(): ?SAMLDateTimeValue
     {
         return $this->notBefore;
     }
@@ -54,9 +54,9 @@ abstract class AbstractConditionsType extends AbstractSamlElement
     /**
      * Collect the value of the notOnOrAfter-property
      *
-     * @return \SimpleSAML\SAML11\Type\DateTimeValue|null
+     * @return \SimpleSAML\SAML11\Type\SAMLDateTimeValue|null
      */
-    public function getNotOnOrAfter(): ?DateTimeValue
+    public function getNotOnOrAfter(): ?SAMLDateTimeValue
     {
         return $this->notOnOrAfter;
     }
@@ -128,8 +128,8 @@ abstract class AbstractConditionsType extends AbstractSamlElement
             AudienceRestrictionCondition::getChildrenOfClass($xml),
             DoNotCacheCondition::getChildrenOfClass($xml),
             AbstractCondition::getChildrenOfClass($xml),
-            self::getOptionalAttribute($xml, 'NotBefore', DateTimeValue::class),
-            self::getOptionalAttribute($xml, 'NotOnOrAfter', DateTimeValue::class),
+            self::getOptionalAttribute($xml, 'NotBefore', SAMLDateTimeValue::class),
+            self::getOptionalAttribute($xml, 'NotOnOrAfter', SAMLDateTimeValue::class),
         );
     }
 

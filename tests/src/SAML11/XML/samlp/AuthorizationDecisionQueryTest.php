@@ -7,11 +7,7 @@ namespace SimpleSAML\Test\SAML11\XML\samlp;
 use DOMDocument;
 use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Type\{
-    AnyURIValue as SAMLAnyURIValue,
-    DateTimeValue as SAMLDateTimeValue,
-    StringValue as SAMLStringValue,
-};
+use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLDateTimeValue, SAMLStringValue};
 use SimpleSAML\SAML11\XML\saml\{
     Action,
     Assertion,

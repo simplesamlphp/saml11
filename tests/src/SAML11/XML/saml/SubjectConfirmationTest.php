@@ -6,7 +6,7 @@ namespace SimpleSAML\Test\SAML11\XML\saml;
 
 use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Type\AnyURIValue as SAMLAnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\SAML11\XML\saml\{
     AbstractSamlElement,
     AbstractSubjectConfirmationType,

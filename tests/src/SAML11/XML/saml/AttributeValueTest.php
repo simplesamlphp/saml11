@@ -8,7 +8,7 @@ use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\Exception\ProtocolViolationException;
-use SimpleSAML\SAML11\Type\{DateTimeValue, StringValue};
+use SimpleSAML\SAML11\Type\{SAMLDateTimeValue, SAMLStringValue};
 use SimpleSAML\SAML11\XML\saml\{AbstractSamlElement, AttributeValue, NameIdentifier};
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
@@ -70,7 +70,7 @@ final class AttributeValueTest extends TestCase
     public function testMarshallingString(): void
     {
         $av = new AttributeValue(
-            StringValue::fromString('value'),
+            SAMLStringValue::fromString('value'),
         );
 
         $this->assertEquals('value', $av->getValue());
@@ -109,7 +109,7 @@ XML;
     public function testMarshallingDateTime(): void
     {
         $av = new AttributeValue(
-            DateTimeValue::fromString("2024-04-04T04:44:44Z"),
+            SAMLDateTimeValue::fromString("2024-04-04T04:44:44Z"),
         );
 
         $value = $av->getValue();
@@ -135,7 +135,7 @@ XML;
     public function testEmptyStringAttribute(): void
     {
         $this->expectException(ProtocolViolationException::class);
-        new AttributeValue(StringValue::fromString(''));
+        new AttributeValue(SAMLStringValue::fromString(''));
     }
 
 

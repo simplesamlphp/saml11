@@ -6,7 +6,7 @@ namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Type\AnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\SAML11\XML\saml\{AttributeDesignator, Subject};
 use SimpleSAML\XML\Exception\SchemaViolationException;
 
@@ -23,12 +23,12 @@ abstract class AbstractAttributeQueryType extends AbstractSubjectQueryAbstractTy
      * Initialize a samlp:AttributeQuery element.
      *
      * @param \SimpleSAML\SAML11\XML\saml\Subject $subject
-     * @param \SimpleSAML\SAML11\Type\AnyURIValue|null $resource
+     * @param \SimpleSAML\SAML11\Type\SAMLAnyURIValue|null $resource
      * @param array<\SimpleSAML\SAML11\XML\saml\AttributeDesignator> $attributeDesignator
      */
     public function __construct(
         Subject $subject,
-        protected ?AnyURIValue $resource = null,
+        protected ?SAMLAnyURIValue $resource = null,
         protected array $attributeDesignator = [],
     ) {
         Assert::allIsInstanceOf($attributeDesignator, AttributeDesignator::class, SchemaViolationException::class);
@@ -38,9 +38,9 @@ abstract class AbstractAttributeQueryType extends AbstractSubjectQueryAbstractTy
 
 
     /**
-     * @return \SimpleSAML\SAML11\Type\AnyURIValue|null
+     * @return \SimpleSAML\SAML11\Type\SAMLAnyURIValue|null
      */
-    public function getResource(): ?AnyURIValue
+    public function getResource(): ?SAMLAnyURIValue
     {
         return $this->resource;
     }

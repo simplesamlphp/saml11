@@ -6,7 +6,7 @@ namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
 use SimpleSAML\SAML11\Assert\Assert;
-use SimpleSAML\SAML11\Type\{AnyURIValue, DateTimeValue};
+use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLDateTimeValue};
 use SimpleSAML\SAML11\XML\saml\Assertion;
 use SimpleSAML\SAML11\XML\samlp\Status;
 use SimpleSAML\XML\Exception\SchemaViolationException;
@@ -29,9 +29,9 @@ abstract class AbstractResponseType extends AbstractResponseAbstractType
      * @param \SimpleSAML\XML\Type\IDValue $id
      * @param \SimpleSAML\SAML11\XML\samlp\Status $status
      * @param array<\SimpleSAML\SAML11\XML\saml\Assertion> $assertion
-     * @param \SimpleSAML\SAML11\Type\DateTimeValue|null $issueInstant
+     * @param \SimpleSAML\SAML11\Type\SAMLDateTimeValue|null $issueInstant
      * @param \SimpleSAML\XML\Type\NCNameValue|null $inResponseTo
-     * @param \SimpleSAML\SAML11\Type\AnyURIValue|null $recipient
+     * @param \SimpleSAML\SAML11\Type\SAMLAnyURIValue|null $recipient
      *
      * @throws \Exception
      */
@@ -40,10 +40,10 @@ abstract class AbstractResponseType extends AbstractResponseAbstractType
         NonNegativeIntegerValue $minorVersion,
         IDValue $id,
         protected Status $status,
+        SAMLDateTimeValue $issueInstant,
         protected array $assertion = [],
-        ?DateTimeValue $issueInstant = null,
         protected ?NCNameValue $inResponseTo = null,
-        protected ?AnyURIValue $recipient = null,
+        protected ?SAMLAnyURIValue $recipient = null,
     ) {
         Assert::allIsInstanceOf($assertion, Assertion::class, SchemaViolationException::class);
 
@@ -65,9 +65,9 @@ abstract class AbstractResponseType extends AbstractResponseAbstractType
     /**
      * Retrieve the recipient of this message.
      *
-     * @return \SimpleSAML\SAML11\Type\AnyURIValue|null The recipient of this message
+     * @return \SimpleSAML\SAML11\Type\SAMLAnyURIValue|null The recipient of this message
      */
-    public function getRecipient(): ?AnyURIValue
+    public function getRecipient(): ?SAMLAnyURIValue
     {
         return $this->recipient;
     }

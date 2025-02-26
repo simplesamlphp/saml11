@@ -6,7 +6,7 @@ namespace SimpleSAML\Test\SAML11\XML\saml;
 
 use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Type\StringValue;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\SAML11\XML\saml\{AbstractSamlElement, AbstractSubjectLocalityType, SubjectLocality};
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
@@ -50,8 +50,8 @@ final class SubjectLocalityTest extends TestCase
     public function testMarshalling(): void
     {
         $sl = new SubjectLocality(
-            StringValue::fromString('127.0.0.1'),
-            StringValue::fromString('simplesamlphp.org'),
+            SAMLStringValue::fromString('127.0.0.1'),
+            SAMLStringValue::fromString('simplesamlphp.org'),
         );
 
         $this->assertEquals(

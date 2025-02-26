@@ -5,17 +5,13 @@ declare(strict_types=1);
 namespace SimpleSAML\SAML11\Type;
 
 use SimpleSAML\SAML11\Assert\Assert;
-use SimpleSAML\XML\Type\DateTimeValue as BaseDateTimeValue;
+use SimpleSAML\XML\Type\StringValue;
 
 /**
  * @package simplesaml/saml11
  */
-class DateTimeValue extends BaseDateTimeValue
+class SAMLStringValue extends StringValue
 {
-    // Lowercase p as opposed to the base-class to covert the timestamp to UTC as demanded by the SAML specifications
-    public const DATETIME_FORMAT = 'Y-m-d\\TH:i:sp';
-
-
     /**
      * Validate the value.
      *
@@ -25,6 +21,6 @@ class DateTimeValue extends BaseDateTimeValue
     protected function validateValue(string $value): void
     {
         // Note: value must already be sanitized before validating
-        Assert::validDateTime($this->sanitizeValue($value));
+        Assert::validSAMLString($this->sanitizeValue($value));
     }
 }

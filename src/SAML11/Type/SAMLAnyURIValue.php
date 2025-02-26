@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace SimpleSAML\SAML11\Type;
 
 use SimpleSAML\SAML11\Assert\Assert;
-use SimpleSAML\XML\Type\AnyURIValue as BaseAnyURIValue;
+use SimpleSAML\XML\Type\AnyURIValue;
 
 /**
  * @package simplesaml/saml11
  */
-class AnyURIValue extends BaseAnyURIValue
+class SAMLAnyURIValue extends AnyURIValue
 {
     /**
      * Validate the value.
@@ -21,6 +21,6 @@ class AnyURIValue extends BaseAnyURIValue
     protected function validateValue(string $value): void
     {
         // Note: value must already be sanitized before validating
-        Assert::validAnyURI($this->sanitizeValue($value));
+        Assert::validSAMLAnyURI($this->sanitizeValue($value));
     }
 }

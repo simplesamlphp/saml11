@@ -4,30 +4,31 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\Type;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider};
+use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\SAML11\Exception\ProtocolViolationException;
-use SimpleSAML\SAML11\Type\DateTimeValue;
+use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
 use SimpleSAML\XML\Exception\SchemaViolationException;
 
 /**
- * Class \SimpleSAML\Test\SAML11\Type\DateTimeValueTest
+ * Class \SimpleSAML\Test\SAML11\Type\SAMLDateTimeValueTest
  *
  * @package simplesamlphp/saml11
  */
-#[CoversClass(DateTimeValue::class)]
-final class DateTimeValueTest extends TestCase
+#[Group('type')]
+#[CoversClass(SAMLDateTimeValue::class)]
+final class SAMLDateTimeValueTest extends TestCase
 {
     /**
      * @param boolean $shouldPass
      * @param string $dateTime
      */
     #[DataProvider('provideDateTime')]
-    public function testDateTime(bool $shouldPass, string $dateTime): void
+    public function testSAMLDateTime(bool $shouldPass, string $dateTime): void
     {
         try {
-            DateTimeValue::fromString($dateTime);
+            SAMLDateTimeValue::fromString($dateTime);
             $this->assertTrue($shouldPass);
         } catch (AssertionFailedException | ProtocolViolationException | SchemaViolationException $e) {
             $this->assertFalse($shouldPass);

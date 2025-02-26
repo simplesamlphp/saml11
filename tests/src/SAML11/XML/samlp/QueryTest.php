@@ -8,7 +8,7 @@ use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Compat\{AbstractContainer, ContainerSingleton};
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Type\StringValue;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\SAML11\XML\samlp\{
     AbstractQuery,
     AbstractQueryAbstractType,
@@ -81,7 +81,7 @@ final class QueryTest extends TestCase
         $query = new CustomQuery(
             [
                 new StatusMessage(
-                    StringValue::fromString('urn:some:audience'),
+                    SAMLStringValue::fromString('urn:some:audience'),
                 ),
             ],
         );

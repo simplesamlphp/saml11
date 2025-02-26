@@ -6,7 +6,7 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Type\StringValue;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\XML\Exception\{
     InvalidDOMElementException,
     MissingElementException,
@@ -117,7 +117,7 @@ abstract class AbstractAuthorizationDecisionStatementType extends AbstractSubjec
             array_pop($subject),
             self::getAttribute($xml, 'Resource', AnyURIValue::class),
             DecisionTypeEnum::from(
-                strval(self::getAttribute($xml, 'Decision', StringValue::class)),
+                strval(self::getAttribute($xml, 'Decision', SAMLStringValue::class)),
             ),
             Action::getChildrenOfClass($xml),
             array_pop($evidence),

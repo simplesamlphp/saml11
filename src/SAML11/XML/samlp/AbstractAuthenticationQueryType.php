@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
-use SimpleSAML\SAML11\Type\AnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\SAML11\XML\saml\Subject;
 
 use function strval;
@@ -21,20 +21,20 @@ abstract class AbstractAuthenticationQueryType extends AbstractSubjectQueryAbstr
      * Initialize a samlp:AuthenticationQuery element.
      *
      * @param \SimpleSAML\SAML11\XML\saml\Subject $subject
-     * @param \SimpleSAML\SAML11\Type\AnyURIValue $authenticationMethod
+     * @param \SimpleSAML\SAML11\Type\SAMLAnyURIValue $authenticationMethod
      */
     public function __construct(
         Subject $subject,
-        protected AnyURIValue $authenticationMethod,
+        protected SAMLAnyURIValue $authenticationMethod,
     ) {
         parent::__construct($subject);
     }
 
 
     /**
-     * @return \SimpleSAML\SAML11\Type\AnyURIValue
+     * @return \SimpleSAML\SAML11\Type\SAMLAnyURIValue
      */
-    public function getAuthenticationMethod(): AnyURIValue
+    public function getAuthenticationMethod(): SAMLAnyURIValue
     {
         return $this->authenticationMethod;
     }
