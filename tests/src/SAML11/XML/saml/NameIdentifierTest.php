@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\XML\saml\AbstractNameIdentifierType;
-use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
-use SimpleSAML\SAML11\XML\saml\NameIdentifier;
+use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLStringValue};
+use SimpleSAML\SAML11\XML\saml\{AbstractNameIdentifierType, AbstractSamlElement, NameIdentifier};
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
-use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
 
 use function dirname;
 use function strval;
@@ -21,6 +19,7 @@ use function strval;
  *
  * @package simplesamlphp/saml11
  */
+#[Group('saml')]
 #[CoversClass(NameIdentifier::class)]
 #[CoversClass(AbstractNameIdentifierType::class)]
 #[CoversClass(AbstractSamlElement::class)]
@@ -34,8 +33,6 @@ final class NameIdentifierTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        self::$schemaFile = dirname(__FILE__, 6) . '/resources/schemas/oasis-sstc-saml-schema-assertion-1.1.xsd';
-
         self::$testedClass = NameIdentifier::class;
 
         self::$xmlRepresentation = DOMDocumentFactory::fromFile(
@@ -52,9 +49,9 @@ final class NameIdentifierTest extends TestCase
     public function testMarshalling(): void
     {
         $nameIdentifier = new NameIdentifier(
-            'TheNameIDValue',
-            'TheNameQualifier',
-            'urn:the:format',
+            SAMLStringValue::fromString('TheNameIDValue'),
+            SAMLStringValue::fromString('TheNameQualifier'),
+            SAMLAnyURIValue::fromString('urn:the:format'),
         );
 
         $this->assertEquals(

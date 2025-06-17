@@ -8,11 +8,10 @@ use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\XML\saml\Subject;
-use SimpleSAML\SAML11\XML\samlp\AbstractSubjectQuery;
-use SimpleSAML\SAML11\XML\samlp\StatusMessage;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Exception\MissingElementException;
-use SimpleSAML\XML\Exception\TooManyElementsException;
+use SimpleSAML\SAML11\XML\samlp\{AbstractSubjectQuery, StatusMessage};
+use SimpleSAML\XML\Attribute as XMLAttribute;
+use SimpleSAML\XML\Exception\{InvalidDOMElementException, MissingElementException, TooManyElementsException};
+use SimpleSAML\XML\Type\QNameValue;
 
 use function array_pop;
 
@@ -44,7 +43,12 @@ final class CustomSubjectQuery extends AbstractSubjectQuery
     ) {
         Assert::allIsInstanceOf($statusMessage, StatusMessage::class);
 
-        parent::__construct(self::XSI_TYPE_PREFIX . ':' . self::XSI_TYPE_NAME, $subject);
+        parent::__construct(
+            QNameValue::fromString(
+                '{' . self::XSI_TYPE_NAMESPACE . '}' . self::XSI_TYPE_PREFIX . ':' . self::XSI_TYPE_NAME,
+            ),
+            $subject,
+        );
     }
 
 
@@ -79,8 +83,8 @@ final class CustomSubjectQuery extends AbstractSubjectQuery
             InvalidDOMElementException::class,
         );
 
-        $type = $xml->getAttributeNS(C::NS_XSI, 'type');
-        Assert::same($type, self::XSI_TYPE_PREFIX . ':' . self::XSI_TYPE_NAME);
+        $type = QNameValue::fromDocument($xml->getAttributeNS(C::NS_XSI, 'type'), $xml);
+        Assert::same($type->getValue(), self::XSI_TYPE_PREFIX . ':' . self::XSI_TYPE_NAME);
 
         $statusMessage = StatusMessage::getChildrenOfClass($xml);
 
@@ -100,7 +104,24 @@ final class CustomSubjectQuery extends AbstractSubjectQuery
      */
     public function toXML(?DOMElement $parent = null): DOMElement
     {
-        $e = parent::toXML($parent);
+        $e = $this->instantiateParentElement($parent);
+
+        if (!$e->lookupPrefix($this->getXsiType()->getNamespaceURI()->getValue())) {
+            $namespace = new XMLAttribute(
+                'http://www.w3.org/2000/xmlns/',
+                'xmlns',
+                $this->getXsiType()->getNamespacePrefix()->getValue(),
+                $this->getXsiType()->getNamespaceURI(),
+            );
+            $namespace->toXML($e);
+        }
+
+        if (!$e->lookupPrefix('xsi')) {
+            $type = new XMLAttribute(C::NS_XSI, 'xsi', 'type', $this->getXsiType());
+            $type->toXML($e);
+        }
+
+        $this->getSubject()->toXML($e);
 
         foreach ($this->getStatusMessage() as $statusMessage) {
             $statusMessage->toXML($e);

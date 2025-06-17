@@ -38,9 +38,8 @@ trait SignedElementTrait
 
         $reference = array_pop($references);
         Assert::notNull($reference->getURI(), "URI attribute not found.", ReferenceValidationFailedException::class);
-        Assert::validURI($reference->getURI(), ReferenceValidationFailedException::class);
         Assert::startsWith(
-            $reference->getURI(),
+            $reference->getURI()->getValue(),
             '#',
             "Reference must contain a same-document reference to the ID-attribute of the root element.",
             ReferenceValidationFailedException::class,

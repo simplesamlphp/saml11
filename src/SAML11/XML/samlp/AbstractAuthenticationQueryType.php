@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
-use SimpleSAML\Assert\Assert;
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\SAML11\XML\saml\Subject;
-use SimpleSAML\XML\Exception\SchemaViolationException;
+
+use function strval;
 
 /**
  * Abstract class to be implemented by all the authentication queries in this namespace
@@ -20,22 +21,20 @@ abstract class AbstractAuthenticationQueryType extends AbstractSubjectQueryAbstr
      * Initialize a samlp:AuthenticationQuery element.
      *
      * @param \SimpleSAML\SAML11\XML\saml\Subject $subject
-     * @param string $authenticationMethod
+     * @param \SimpleSAML\SAML11\Type\SAMLAnyURIValue $authenticationMethod
      */
     public function __construct(
         Subject $subject,
-        protected string $authenticationMethod,
+        protected SAMLAnyURIValue $authenticationMethod,
     ) {
-        Assert::validURI($authenticationMethod, SchemaViolationException::class);
-
         parent::__construct($subject);
     }
 
 
     /**
-     * @return string
+     * @return \SimpleSAML\SAML11\Type\SAMLAnyURIValue
      */
-    public function getAuthenticationMethod(): string
+    public function getAuthenticationMethod(): SAMLAnyURIValue
     {
         return $this->authenticationMethod;
     }
@@ -50,7 +49,7 @@ abstract class AbstractAuthenticationQueryType extends AbstractSubjectQueryAbstr
     public function toXML(?DOMElement $parent = null): DOMElement
     {
         $e = parent::toXML($parent);
-        $e->setAttribute('AuthenticationMethod', $this->getAuthenticationMethod());
+        $e->setAttribute('AuthenticationMethod', strval($this->getAuthenticationMethod()));
 
         return $e;
     }

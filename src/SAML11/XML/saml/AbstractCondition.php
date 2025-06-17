@@ -8,17 +8,14 @@ use DOMElement;
 use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\Utils;
-use SimpleSAML\SAML11\XML\ExtensionPointInterface;
-use SimpleSAML\SAML11\XML\ExtensionPointTrait;
+use SimpleSAML\SAML11\XML\{ExtensionPointInterface, ExtensionPointTrait};
 use SimpleSAML\XML\Attribute as XMLAttribute;
 use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Exception\SchemaViolationException;
-use SimpleSAML\XML\SchemaValidatableElementInterface;
-use SimpleSAML\XML\SchemaValidatableElementTrait;
+use SimpleSAML\XML\Exception\{InvalidDOMElementException, SchemaViolationException};
+use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
+use SimpleSAML\XML\Type\QNameValue;
 
-use function count;
-use function explode;
+use function strval;
 
 /**
  * SAML Condition data type.
@@ -39,18 +36,18 @@ abstract class AbstractCondition extends AbstractConditionType implements
     /**
      * Initialize a custom saml:Condition element.
      *
-     * @param string $type
+     * @param \SimpleSAML\XML\Type\QNameValue $type
      */
     protected function __construct(
-        protected string $type,
+        protected QNameValue $type,
     ) {
     }
 
 
     /**
-     * @inheritDoc
+     * @return \SimpleSAML\XML\Type\QNameValue
      */
-    public function getXsiType(): string
+    public function getXsiType(): QNameValue
     {
         return $this->type;
     }
@@ -75,19 +72,7 @@ abstract class AbstractCondition extends AbstractConditionType implements
             SchemaViolationException::class,
         );
 
-        $type = $xml->getAttributeNS(C::NS_XSI, 'type');
-        Assert::validQName($type, SchemaViolationException::class);
-
-        // first, try to resolve the type to a full namespaced version
-        $qname = explode(':', $type, 2);
-        if (count($qname) === 2) {
-            list($prefix, $element) = $qname;
-        } else {
-            $prefix = null;
-            list($element) = $qname;
-        }
-        $ns = $xml->lookupNamespaceUri($prefix);
-        $type = ($ns === null) ? $element : implode(':', [$ns, $element]);
+        $type = QNameValue::fromDocument($xml->getAttributeNS(C::NS_XSI, 'type'), $xml);
 
         // now check if we have a handler registered for it
         $handler = Utils::getContainer()->getExtensionHandler($type);
@@ -114,11 +99,14 @@ abstract class AbstractCondition extends AbstractConditionType implements
     public function toXML(?DOMElement $parent = null): DOMElement
     {
         $e = $this->instantiateParentElement($parent);
-        $e->setAttributeNS(
-            'http://www.w3.org/2000/xmlns/',
-            'xmlns:' . static::getXsiTypePrefix(),
-            static::getXsiTypeNamespaceURI(),
-        );
+
+        if (!$e->lookupPrefix($this->getXsiType()->getNamespaceURI()->getValue())) {
+            $e->setAttributeNS(
+                'http://www.w3.org/2000/xmlns/',
+                'xmlns:' . static::getXsiTypePrefix(),
+                strval(static::getXsiTypeNamespaceURI()),
+            );
+        }
 
         $type = new XMLAttribute(C::NS_XSI, 'xsi', 'type', $this->getXsiType());
         $type->toXML($e);
