@@ -8,7 +8,7 @@ use DOMDocument;
 use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Compat\{AbstractContainer, ContainerSingleton};
-use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
+use SimpleSAML\SAML11\Type\{DecisionTypeValue, SAMLAnyURIValue};
 use SimpleSAML\SAML11\XML\saml\{
     AbstractAuthorizationDecisionStatementType,
     AbstractSamlElement,
@@ -116,7 +116,7 @@ final class AuthorizationDecisionStatementTest extends TestCase
         $authzDecisionStatement = new AuthorizationDecisionStatement(
             $subject,
             SAMLAnyURIValue::fromString('urn:x-simplesamlphp:resource'),
-            DecisionTypeEnum::Permit,
+            DecisionTypeValue::fromEnum(DecisionTypeEnum::Permit),
             [$action],
             $evidence,
         );
