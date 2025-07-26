@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\SAML11\Type;
 
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\XML\saml\DecisionTypeEnum;
+use SimpleSAML\SAML11\XML\Enumeration\DecisionTypeEnum;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Type\StringValue;
 
@@ -38,7 +38,7 @@ class DecisionTypeValue extends StringValue
 
 
     /**
-     * @param \SimpleSAML\SAML11\XML\saml\DecisionTypeEnum $value
+     * @param \SimpleSAML\SAML11\XML\Enumeration\DecisionTypeEnum $value
      * @return static
      */
     public static function fromEnum(DecisionTypeEnum $value): static
@@ -48,7 +48,7 @@ class DecisionTypeValue extends StringValue
 
 
     /**
-     * @return \SimpleSAML\SAML11\XML\saml\DecisionTypeEnum $value
+     * @return \SimpleSAML\SAML11\XML\Enumeration\DecisionTypeEnum $value
      */
     public function toEnum(): DecisionTypeEnum
     {

@@ -9,12 +9,12 @@ use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Compat\{AbstractContainer, ContainerSingleton};
 use SimpleSAML\SAML11\Type\{DecisionTypeValue, SAMLAnyURIValue};
+use SimpleSAML\SAML11\XML\Enumeration\DecisionTypeEnum;
 use SimpleSAML\SAML11\XML\saml\{
     AbstractAuthorizationDecisionStatementType,
     AbstractSamlElement,
     Action,
     AuthorizationDecisionStatement,
-    DecisionTypeEnum,
     Evidence,
     Subject,
 };
