@@ -37,7 +37,7 @@ abstract class AbstractCondition extends AbstractConditionType implements
     /**
      * Initialize a custom saml:Condition element.
      *
-     * @param \SimpleSAML\XML\Type\QNameValue $type
+     * @param \SimpleSAML\XMLSchema\Type\QNameValue $type
      */
     protected function __construct(
         protected QNameValue $type,
@@ -46,7 +46,7 @@ abstract class AbstractCondition extends AbstractConditionType implements
 
 
     /**
-     * @return \SimpleSAML\XML\Type\QNameValue
+     * @return \SimpleSAML\XMLSchema\Type\QNameValue
      */
     public function getXsiType(): QNameValue
     {

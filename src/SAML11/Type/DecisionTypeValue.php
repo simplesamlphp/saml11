@@ -23,7 +23,7 @@ class DecisionTypeValue extends StringValue
     /**
      * Validate the value.
      *
-     * @param string $value  The value
+     * @param string $value The value
      * @throws \Exception on failure
      * @return void
      */
@@ -38,7 +38,7 @@ class DecisionTypeValue extends StringValue
 
 
     /**
-     * @param \SimpleSAML\XSD\XML\xsd\DecisionTypeEnum $value
+     * @param \SimpleSAML\SAML11\XML\saml\DecisionTypeEnum $value
      * @return static
      */
     public static function fromEnum(DecisionTypeEnum $value): static
@@ -48,7 +48,7 @@ class DecisionTypeValue extends StringValue
 
 
     /**
-     * @return \SimpleSAML\XSD\XML\xsd\DecisionTypeEnum $value
+     * @return \SimpleSAML\SAML11\XML\saml\DecisionTypeEnum $value
      */
     public function toEnum(): DecisionTypeEnum
     {

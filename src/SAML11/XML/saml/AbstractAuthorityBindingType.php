@@ -22,7 +22,7 @@ abstract class AbstractAuthorityBindingType extends AbstractSamlElement
     /**
      * Initialize a saml:AuthorityBindingType from scratch
      *
-     * @param \SimpleSAML\XML\Type\QNameValue $AuthorityKind
+     * @param \SimpleSAML\XMLSchema\Type\QNameValue $AuthorityKind
      * @param \SimpleSAML\SAML11\Type\SAMLAnyURIValue $Location
      * @param \SimpleSAML\SAML11\Type\SAMLAnyURIValue $Binding
      */
@@ -37,7 +37,7 @@ abstract class AbstractAuthorityBindingType extends AbstractSamlElement
     /**
      * Collect the value of the AuthorityKind-property
      *
-     * @return \SimpleSAML\XML\Type\QNameValue
+     * @return \SimpleSAML\XMLSchema\Type\QNameValue
      */
     public function getAuthorityKind(): QNameValue
     {

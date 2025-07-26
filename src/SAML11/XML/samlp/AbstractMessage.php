@@ -41,8 +41,8 @@ abstract class AbstractMessage extends AbstractSamlpElement implements SignableE
     /**
      * Initialize a message.
      *
-     * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $majorVersion
-     * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $minorVersion
+     * @param \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue $majorVersion
+     * @param \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue $minorVersion
      * @param \SimpleSAML\SAML11\Type\SAMLDateTimeValue $issueInstant
      *
      * @throws \Exception
@@ -58,7 +58,7 @@ abstract class AbstractMessage extends AbstractSamlpElement implements SignableE
     /**
      * Retrieve the major version of this message.
      *
-     * @return \SimpleSAML\XML\Type\NonNegativeIntegerValue The major version of this message
+     * @return \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue The major version of this message
      */
     public function getMajorVersion(): NonNegativeIntegerValue
     {
@@ -69,7 +69,7 @@ abstract class AbstractMessage extends AbstractSamlpElement implements SignableE
     /**
      * Retrieve the minor version of this message.
      *
-     * @return \SimpleSAML\XML\Type\NonNegativeIntegerValue The minor version of this message
+     * @return \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue The minor version of this message
      */
     public function getMinorVersion(): NonNegativeIntegerValue
     {

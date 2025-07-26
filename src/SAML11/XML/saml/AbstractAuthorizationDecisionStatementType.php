@@ -51,7 +51,7 @@ abstract class AbstractAuthorizationDecisionStatementType extends AbstractSubjec
     /**
      * Collect the value of the resource-property
      *
-     * @return \SimpleSAML\SAML11\Type\AnyURIValue
+     * @return \SimpleSAML\XMLSchema\Type\AnyURIValue
      */
     public function getResource(): AnyURIValue
     {
