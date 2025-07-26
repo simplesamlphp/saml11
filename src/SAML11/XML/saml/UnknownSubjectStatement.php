@@ -6,7 +6,7 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\Type\QNameValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
 
 /**
  * Class for unknown SubjectStatements.
@@ -17,7 +17,7 @@ final class UnknownSubjectStatement extends AbstractSubjectStatement
 {
     /**
      * @param \SimpleSAML\XML\Chunk $chunk The whole SubjectStatement element as a chunk object.
-     * @param \SimpleSAML\XML\Type\QNameValue $type The xsi:type of this SubjectStatement
+     * @param \SimpleSAML\XMLSchema\Type\QNameValue $type The xsi:type of this SubjectStatement
      */
     public function __construct(
         protected Chunk $chunk,

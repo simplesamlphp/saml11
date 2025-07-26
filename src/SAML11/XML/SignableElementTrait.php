@@ -8,7 +8,7 @@ use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Compat\ContainerSingleton;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\Type\{AnyURIValue, Base64BinaryValue};
+use SimpleSAML\XMLSchema\Type\{AnyURIValue, Base64BinaryValue};
 use SimpleSAML\XMLSecurity\Alg\Signature\SignatureAlgorithmInterface;
 use SimpleSAML\XMLSecurity\Constants as C;
 use SimpleSAML\XMLSecurity\Exception\{RuntimeException, UnsupportedAlgorithmException};

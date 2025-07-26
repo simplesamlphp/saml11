@@ -11,7 +11,8 @@ use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\SAML11\XML\saml\{AbstractSamlElement, NameIdentifier, SubjectConfirmationData};
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XML\Type\IntegerValue;
+use SimpleSAML\XMLSchema\Constants as C_XSI;
+use SimpleSAML\XMLSchema\Type\IntegerValue;
 
 use function dirname;
 use function strval;
@@ -86,7 +87,7 @@ final class SubjectConfirmationDataTest extends TestCase
         $this->assertNull($scd->getValue());
         $this->assertEquals('xs:nil', $scd->getXsiType());
         $nssaml = C::NS_SAML;
-        $nsxsi = C::NS_XSI;
+        $nsxsi = C_XSI::NS_XSI;
         $xml = <<<XML
 <saml:SubjectConfirmationData xmlns:saml="{$nssaml}" xmlns:xsi="{$nsxsi}" xsi:nil="1"/>
 XML;

@@ -11,9 +11,10 @@ use SimpleSAML\SAML11\Utils;
 use SimpleSAML\SAML11\XML\{ExtensionPointInterface, ExtensionPointTrait};
 use SimpleSAML\XML\Attribute as XMLAttribute;
 use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\Exception\{InvalidDOMElementException, SchemaViolationException};
 use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
-use SimpleSAML\XML\Type\QNameValue;
+use SimpleSAML\XMLSchema\Constants as C_XSI;
+use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, SchemaViolationException};
+use SimpleSAML\XMLSchema\Type\QNameValue;
 
 /**
  * SAMLP Query data type.
@@ -34,7 +35,7 @@ abstract class AbstractQuery extends AbstractQueryAbstractType implements
     /**
      * Initialize a custom samlp:Query element.
      *
-     * @param \SimpleSAML\XML\Type\QNameValue $type
+     * @param \SimpleSAML\XMLSchema\Type\QNameValue $type
      */
     protected function __construct(
         protected QNameValue $type,
@@ -56,12 +57,12 @@ abstract class AbstractQuery extends AbstractQueryAbstractType implements
         Assert::same($xml->localName, 'Query', InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, C::NS_SAMLP, InvalidDOMElementException::class);
         Assert::true(
-            $xml->hasAttributeNS(C::NS_XSI, 'type'),
+            $xml->hasAttributeNS(C_XSI::NS_XSI, 'type'),
             'Missing required xsi:type in <samlp:Query> element.',
             SchemaViolationException::class,
         );
 
-        $type = QNameValue::fromDocument($xml->getAttributeNS(C::NS_XSI, 'type'), $xml);
+        $type = QNameValue::fromDocument($xml->getAttributeNS(C_XSI::NS_XSI, 'type'), $xml);
 
         // now check if we have a handler registered for it
         $handler = Utils::getContainer()->getExtensionHandler($type);
@@ -97,7 +98,7 @@ abstract class AbstractQuery extends AbstractQueryAbstractType implements
             );
         }
 
-        $type = new XMLAttribute(C::NS_XSI, 'xsi', 'type', $this->getXsiType());
+        $type = new XMLAttribute(C_XSI::NS_XSI, 'xsi', 'type', $this->getXsiType());
         $type->toXML($e);
 
         return $e;

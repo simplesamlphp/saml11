@@ -11,13 +11,13 @@ use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\Exception\VersionMismatchException;
 use SimpleSAML\SAML11\Utils\XPath;
 use SimpleSAML\SAML11\Type\{SAMLDateTimeValue, SAMLStringValue};
-use SimpleSAML\XML\Exception\{
+use SimpleSAML\XMLSchema\Exception\{
     InvalidDOMElementException,
     MissingElementException,
     SchemaViolationException,
     TooManyElementsException,
 };
-use SimpleSAML\XML\Type\{IDValue, NonNegativeIntegerValue};
+use SimpleSAML\XMLSchema\Type\{IDValue, NonNegativeIntegerValue};
 use SimpleSAML\XMLSecurity\XML\ds\Signature;
 use SimpleSAML\XMLSecurity\XML\{SignableElementInterface, SignableElementTrait};
 use SimpleSAML\XMLSecurity\XML\{SignedElementInterface, SignedElementTrait};
@@ -52,9 +52,9 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
     /**
      * Initialize a saml:AssertionType from scratch
      *
-     * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $majorVersion
-     * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $minorVersion
-     * @param \SimpleSAML\XML\Type\IDValue $assertionID
+     * @param \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue $majorVersion
+     * @param \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue $minorVersion
+     * @param \SimpleSAML\XMLSchema\Type\IDValue $assertionID
      * @param \SimpleSAML\SAML11\Type\SAMLStringValue $issuer
      * @param \SimpleSAML\SAML11\Type\SAMLDateTimeValue $issueInstant
      * @param \SimpleSAML\SAML11\XML\saml\Conditions|null $conditions
@@ -82,7 +82,7 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
     /**
      * Collect the value of the majorVersion-property
      *
-     * @return \SimpleSAML\XML\Type\NonNegativeIntegerValue
+     * @return \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue
      */
     public function getMajorVersion(): NonNegativeIntegerValue
     {
@@ -93,7 +93,7 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
     /**
      * Collect the value of the minorVersion-property
      *
-     * @return \SimpleSAML\XML\Type\NonNegativeIntegerValue
+     * @return \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue
      */
     public function getMinorVersion(): NonNegativeIntegerValue
     {
@@ -106,7 +106,7 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
      *
      * Note: the name of this method is not consistent, but it has to be named getId for xml-security to work.
      *
-     * @return \SimpleSAML\XML\Type\IDValue
+     * @return \SimpleSAML\XMLSchema\Type\IDValue
      */
     public function getId(): IDValue
     {

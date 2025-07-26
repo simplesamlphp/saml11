@@ -10,9 +10,9 @@ use SimpleSAML\SAML11\Exception\{ProtocolViolationException, VersionMismatchExce
 use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLDateTimeValue};
 use SimpleSAML\SAML11\XML\saml\Assertion;
 use SimpleSAML\SAML11\XML\samlp\Status;
-use SimpleSAML\XML\Exception\{InvalidDOMElementException, MissingElementException, TooManyElementsException};
 use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
-use SimpleSAML\XML\Type\{IDValue, NCNameValue, NonNegativeIntegerValue};
+use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, MissingElementException, TooManyElementsException};
+use SimpleSAML\XMLSchema\Type\{IDValue, NCNameValue, NonNegativeIntegerValue};
 
 use function array_pop;
 

@@ -16,7 +16,7 @@ use SimpleSAML\SAML11\XML\saml\{
 };
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XML\Type\IntegerValue;
+use SimpleSAML\XMLSchema\Type\IntegerValue;
 
 use function dirname;
 use function strval;

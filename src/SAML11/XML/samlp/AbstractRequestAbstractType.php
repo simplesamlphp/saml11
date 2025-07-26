@@ -8,8 +8,8 @@ use DOMElement;
 use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
 use SimpleSAML\SAML11\Utils\XPath;
-use SimpleSAML\XML\Exception\SchemaViolationException;
-use SimpleSAML\XML\Type\{IDValue, NonNegativeIntegerValue};
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
+use SimpleSAML\XMLSchema\Type\{IDValue, NonNegativeIntegerValue};
 
 use function array_pop;
 use function strval;
@@ -24,9 +24,9 @@ abstract class AbstractRequestAbstractType extends AbstractMessage
     /**
      * Initialize a request.
      *
-     * @param \SimpleSAML\XML\Type\IDValue $id
-     * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $majorVersion
-     * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $minorVersion
+     * @param \SimpleSAML\XMLSchema\Type\IDValue $id
+     * @param \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue $majorVersion
+     * @param \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue $minorVersion
      * @param \SimpleSAML\SAML11\Type\SAMLDateTimeValue $issueInstant
      * @param array<\SimpleSAML\SAML11\XML\samlp\RespondWith>
      *
@@ -48,7 +48,7 @@ abstract class AbstractRequestAbstractType extends AbstractMessage
     /**
      * Retrieve the ID of this request.
      *
-     * @return \SimpleSAML\XML\Type\IDValue The ID of this request
+     * @return \SimpleSAML\XMLSchema\Type\IDValue The ID of this request
      */
     public function getID(): IDValue
     {

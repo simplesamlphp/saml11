@@ -7,7 +7,7 @@ namespace SimpleSAML\SAML11\XML\samlp;
 use DOMElement;
 use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
 use SimpleSAML\SAML11\XML\{SignableElementTrait, SignedElementTrait};
-use SimpleSAML\XML\Type\NonNegativeIntegerValue;
+use SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue;
 use SimpleSAML\XMLSecurity\XML\{SignableElementInterface, SignedElementInterface};
 
 use function strval;

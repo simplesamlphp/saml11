@@ -7,8 +7,8 @@ namespace SimpleSAML\SAML11\XML\samlp;
 use DOMElement;
 use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Type\QNameValue;
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Type\QNameValue;
 
 use function strval;
 
@@ -22,7 +22,7 @@ abstract class AbstractStatusCodeType extends AbstractSamlpElement
     /**
      * Initialize a samlp:StatusCode
      *
-     * @param \SimpleSAML\XML\Type\QNameValue $Value
+     * @param \SimpleSAML\XMLSchema\Type\QNameValue $Value
      * @param \SimpleSAML\SAML11\XML\samlp\StatusCode[] $subCodes
      */
     final public function __construct(
@@ -38,7 +38,7 @@ abstract class AbstractStatusCodeType extends AbstractSamlpElement
     /**
      * Collect the Value
      *
-     * @return \SimpleSAML\XML\Type\QNameValue
+     * @return \SimpleSAML\XMLSchema\Type\QNameValue
      */
     public function getValue(): QNameValue
     {

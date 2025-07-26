@@ -26,7 +26,8 @@ use SimpleSAML\SAML11\XML\samlp\{
 use SimpleSAML\Test\SAML11\CustomSubjectQuery;
 use SimpleSAML\XML\{Chunk, DOMDocumentFactory};
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XML\Type\{Base64BinaryValue, IDValue, StringValue};
+use SimpleSAML\XMLSchema\Constants as C_XSI;
+use SimpleSAML\XMLSchema\Type\{Base64BinaryValue, IDValue, StringValue};
 use SimpleSAML\XMLSecurity\TestUtils\PEMCertificatesMock;
 use SimpleSAML\XMLSecurity\XML\ds\{
     KeyInfo,
@@ -192,7 +193,7 @@ final class SubjectQueryTest extends TestCase
     public function testUnmarshallingUnregistered(): void
     {
         $element = clone self::$xmlRepresentation->documentElement;
-        $element->setAttributeNS(C::NS_XSI, 'xsi:type', 'ssp:UnknownSubjectQueryType');
+        $element->setAttributeNS(C_XSI::NS_XSI, 'xsi:type', 'ssp:UnknownSubjectQueryType');
         $element->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:ssp', 'urn:x-simplesamlphp:namespace');
 
         // Normalize the DOMElement by importing it into a clean empty document

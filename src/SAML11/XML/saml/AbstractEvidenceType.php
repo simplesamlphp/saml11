@@ -7,7 +7,7 @@ namespace SimpleSAML\SAML11\XML\saml;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\XML\Exception\{InvalidDOMElementException, SchemaViolationException};
+use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, SchemaViolationException};
 
 /**
  * SAML EvidenceType abstract data type.

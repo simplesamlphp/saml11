@@ -9,8 +9,8 @@ use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLDateTimeValue};
 use SimpleSAML\SAML11\XML\saml\Assertion;
 use SimpleSAML\SAML11\XML\samlp\Status;
-use SimpleSAML\XML\Exception\SchemaViolationException;
-use SimpleSAML\XML\Type\{IDValue, NCNameValue, NonNegativeIntegerValue};
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
+use SimpleSAML\XMLSchema\Type\{IDValue, NCNameValue, NonNegativeIntegerValue};
 
 use function strval;
 
@@ -24,13 +24,13 @@ abstract class AbstractResponseType extends AbstractResponseAbstractType
     /**
      * Initialize a response.
      *
-     * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $majorVersion
-     * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $minorVersion
-     * @param \SimpleSAML\XML\Type\IDValue $id
+     * @param \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue $majorVersion
+     * @param \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue $minorVersion
+     * @param \SimpleSAML\XMLSchema\Type\IDValue $id
      * @param \SimpleSAML\SAML11\XML\samlp\Status $status
      * @param array<\SimpleSAML\SAML11\XML\saml\Assertion> $assertion
      * @param \SimpleSAML\SAML11\Type\SAMLDateTimeValue|null $issueInstant
-     * @param \SimpleSAML\XML\Type\NCNameValue|null $inResponseTo
+     * @param \SimpleSAML\XMLSchema\Type\NCNameValue|null $inResponseTo
      * @param \SimpleSAML\SAML11\Type\SAMLAnyURIValue|null $recipient
      *
      * @throws \Exception
@@ -54,7 +54,7 @@ abstract class AbstractResponseType extends AbstractResponseAbstractType
     /**
      * Retrieve the inResponseTo of this message.
      *
-     * @return \SimpleSAML\XML\Type\NCNameValue|null The inResponseTo of this message
+     * @return \SimpleSAML\XMLSchema\Type\NCNameValue|null The inResponseTo of this message
      */
     public function getInResponseTo(): ?NCNameValue
     {

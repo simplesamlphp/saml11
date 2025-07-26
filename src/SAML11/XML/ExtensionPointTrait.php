@@ -6,7 +6,7 @@ namespace SimpleSAML\SAML11\XML;
 
 use RuntimeException;
 use SimpleSAML\SAML11\Assert\Assert;
-use SimpleSAML\XML\Type\{AnyURIValue, NCNameValue, QNameValue};
+use SimpleSAML\XMLSchema\Type\{AnyURIValue, NCNameValue, QNameValue};
 
 use function constant;
 use function defined;
@@ -20,7 +20,7 @@ use function sprintf;
 trait ExtensionPointTrait
 {
     /**
-     * @return \SimpleSAML\XML\Type\QNameValue
+     * @return \SimpleSAML\XMLSchema\Type\QNameValue
      */
     public function getXsiType(): QNameValue
     {
@@ -31,7 +31,7 @@ trait ExtensionPointTrait
     /**
      * Get the local name for the element's xsi:type.
      *
-     * @return \SimpleSAML\XML\Type\NCNameValue
+     * @return \SimpleSAML\XMLSchema\Type\NCNameValue
      */
     public static function getXsiTypeName(): NCNameValue
     {
@@ -49,7 +49,7 @@ trait ExtensionPointTrait
     /**
      * Get the namespace for the element's xsi:type.
      *
-     * @return \SimpleSAML\XML\Type\AnyURIValue
+     * @return \SimpleSAML\XMLSchema\Type\AnyURIValue
      */
     public static function getXsiTypeNamespaceURI(): AnyURIValue
     {
@@ -67,7 +67,7 @@ trait ExtensionPointTrait
     /**
      * Get the namespace-prefix for the element's xsi:type.
      *
-     * @return \SimpleSAML\XML\Type\NCNameValue
+     * @return \SimpleSAML\XMLSchema\Type\NCNameValue
      */
     public static function getXsiTypePrefix(): NCNameValue
     {

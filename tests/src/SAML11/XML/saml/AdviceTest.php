@@ -36,7 +36,7 @@ use SimpleSAML\SAML11\XML\saml\{
 use SimpleSAML\Test\SAML11\{CustomCondition, CustomStatement, CustomSubjectStatement};
 use SimpleSAML\XML\{Chunk, DOMDocumentFactory};
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XML\Type\{
+use SimpleSAML\XMLSchema\Type\{
     Base64BinaryValue,
     IDValue,
     IntegerValue,

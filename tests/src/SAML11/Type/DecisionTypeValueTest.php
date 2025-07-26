@@ -8,7 +8,7 @@ use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, DependsOnClass};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Type\DecisionTypeValue;
 use SimpleSAML\SAML11\XML\saml\DecisionTypeEnum;
-use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 
 /**
  * Class \SimpleSAML\Test\SAML11\Type\DecisionTypeValueTest
@@ -20,7 +20,7 @@ final class DecisionTypeValueTest extends TestCase
 {
     /**
      * @param string $decisionType
-     * @param bool $expected
+     * @param bool $shouldPass
      */
     #[DataProvider('provideDecisionType')]
     public function testDecisionTypeValue(string $decisionType, bool $shouldPass): void
@@ -48,7 +48,7 @@ final class DecisionTypeValueTest extends TestCase
 
 
     /**
-     * @return array<string, array{0: string, 1: string}>
+     * @return array<string, array{0: string, 1: boolean}>
      */
     public static function provideDecisionType(): array
     {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\SAML11\Type;
 
 use SimpleSAML\SAML11\Assert\Assert;
-use SimpleSAML\XML\Type\DateTimeValue;
+use SimpleSAML\XMLSchema\Type\DateTimeValue;
 
 /**
  * @package simplesaml/saml11

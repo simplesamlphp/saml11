@@ -6,13 +6,14 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
 use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
-use SimpleSAML\XML\Type\{IntegerValue, ValueTypeInterface};
+use SimpleSAML\XMLSchema\Constants as C_XSI;
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Type\IntegerValue;
+use SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface;
 
 use function class_exists;
 use function explode;
@@ -33,7 +34,7 @@ class SubjectConfirmationData extends AbstractSamlElement implements SchemaValid
      * Create an SubjectConfirmationData.
      *
      * @param mixed $value The value of this element. Can be one of:
-     *  - \SimpleSAML\XML\Type\IntegerValue
+     *  - \SimpleSAML\XMLSchema\Type\IntegerValue
      *  - \SimpleSAML\SAML11\Type\SAMLStringValue
      *  - null
      *  - \SimpleSAML\XML\AbstractElement
@@ -72,7 +73,12 @@ class SubjectConfirmationData extends AbstractSamlElement implements SchemaValid
     /**
      * Get this attribute value.
      *
-     * @return string|int|\SimpleSAML\XML\AbstractElement[]|null
+     * @return (
+     *   \SimpleSAML\XMLSchema\Type\IntegerValue|
+     *   \SimpleSAML\SAML11\Type\SAMLStringValue|
+     *   \SimpleSAML\XML\AbstractElement|
+     *   null
+     * )
      */
     public function getValue(): SAMLStringValue|IntegerValue|AbstractElement|null
     {
@@ -110,16 +116,16 @@ class SubjectConfirmationData extends AbstractSamlElement implements SchemaValid
                 $value = Chunk::fromXML($node);
             }
         } elseif (
-            $xml->hasAttributeNS(C::NS_XSI, "type") &&
-            $xml->getAttributeNS(C::NS_XSI, "type") === "xs:integer"
+            $xml->hasAttributeNS(C_XSI::NS_XSI, "type") &&
+            $xml->getAttributeNS(C_XSI::NS_XSI, "type") === "xs:integer"
         ) {
             // we have an integer as value
             $value = IntegerValue::fromString($xml->textContent);
         } elseif (
             // null value
-            $xml->hasAttributeNS(C::NS_XSI, "nil") &&
-            ($xml->getAttributeNS(C::NS_XSI, "nil") === "1" ||
-                $xml->getAttributeNS(C::NS_XSI, "nil") === "true")
+            $xml->hasAttributeNS(C_XSI::NS_XSI, "nil") &&
+            ($xml->getAttributeNS(C_XSI::NS_XSI, "nil") === "1" ||
+                $xml->getAttributeNS(C_XSI::NS_XSI, "nil") === "true")
         ) {
             $value = null;
         } else {
@@ -147,22 +153,22 @@ class SubjectConfirmationData extends AbstractSamlElement implements SchemaValid
         switch ($type) {
             case "integer":
                 // make sure that the xs namespace is available in the SubjectConfirmationData
-                $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', C::NS_XSI);
-                $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xs', C::NS_XS);
-                $e->setAttributeNS(C::NS_XSI, 'xsi:type', 'xs:integer');
+                $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', C_XSI::NS_XSI);
+                $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xs', C_XSI::NS_XS);
+                $e->setAttributeNS(C_XSI::NS_XSI, 'xsi:type', 'xs:integer');
                 $e->textContent = strval($value);
                 break;
             case "NULL":
-                $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', C::NS_XSI);
-                $e->setAttributeNS(C::NS_XSI, 'xsi:nil', '1');
+                $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', C_XSI::NS_XSI);
+                $e->setAttributeNS(C_XSI::NS_XSI, 'xsi:nil', '1');
                 $e->textContent = '';
                 break;
             case "object":
                 if ($value instanceof ValueTypeInterface) {
                     if ($this->value instanceof IntegerValue) {
-                        $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', C::NS_XSI);
-                        $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xs', C::NS_XS);
-                        $e->setAttributeNS(C::NS_XSI, 'xsi:type', 'xs:integer');
+                        $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', C_XSI::NS_XSI);
+                        $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xs', C_XSI::NS_XS);
+                        $e->setAttributeNS(C_XSI::NS_XSI, 'xsi:type', 'xs:integer');
                     }
                     $e->textContent = strval($value);
                 } else {

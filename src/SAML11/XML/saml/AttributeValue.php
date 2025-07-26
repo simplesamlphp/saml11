@@ -6,13 +6,14 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\SAML11\Assert\Assert;
-use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\Type\{SAMLDateTimeValue, SAMLStringValue};
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
 use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
-use SimpleSAML\XML\Type\{IntegerValue, ValueTypeInterface};
+use SimpleSAML\XMLSchema\Constants as C_XSI;
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Type\IntegerValue;
+use SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface;
 
 use function class_exists;
 use function explode;
@@ -32,7 +33,7 @@ class AttributeValue extends AbstractSamlElement implements SchemaValidatableEle
     /**
      * Create an AttributeValue.
      *
-     * @param \SimpleSAML\XML\Type\ValueTypeInterface|\SimpleSAML\XML\AbstractElement $value
+     * @param \SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface|\SimpleSAML\XML\AbstractElement $value
      * @throws \SimpleSAML\Assert\AssertionFailedException if the supplied value is neither a string or a DOMElement
      */
     final public function __construct(
@@ -68,7 +69,7 @@ class AttributeValue extends AbstractSamlElement implements SchemaValidatableEle
      * Get this attribute value.
      *
      * @return (
-     *   \SimpleSAML\XML\Type\IntegerValue|
+     *   \SimpleSAML\XMLSchema\Type\IntegerValue|
      *   \SimpleSAML\SAML11\Type\SAMLStringValue|
      *   \SimpleSAML\SAML11\Type\SAMLDateTimeValue|
      *   \SimpleSAML\XML\AbstractElement|
@@ -111,20 +112,21 @@ class AttributeValue extends AbstractSamlElement implements SchemaValidatableEle
                 $value = Chunk::fromXML($node);
             }
         } elseif (
-            $xml->hasAttributeNS(C::NS_XSI, "type") &&
-            $xml->getAttributeNS(C::NS_XSI, "type") === "xs:integer"
+            $xml->hasAttributeNS(C_XSI::NS_XSI, "type") &&
+            $xml->getAttributeNS(C_XSI::NS_XSI, "type") === "xs:integer"
         ) {
             // we have an integer as value
             $value = IntegerValue::fromString($xml->textContent);
         } elseif (
-            $xml->hasAttributeNS(C::NS_XSI, "nil") &&
-            ($xml->getAttributeNS(C::NS_XSI, "nil") === "1" || $xml->getAttributeNS(C::NS_XSI, "nil") === "true")
+            $xml->hasAttributeNS(C_XSI::NS_XSI, "nil") &&
+            ($xml->getAttributeNS(C_XSI::NS_XSI, "nil") === "1" ||
+                $xml->getAttributeNS(C_XSI::NS_XSI, "nil") === "true")
         ) {
             // we have a nill value
             $value = null;
         } elseif (
-            $xml->hasAttributeNS(C::NS_XSI, "type") &&
-            $xml->getAttributeNS(C::NS_XSI, "type") === "xs:dateTime"
+            $xml->hasAttributeNS(C_XSI::NS_XSI, "type") &&
+            $xml->getAttributeNS(C_XSI::NS_XSI, "type") === "xs:dateTime"
         ) {
             // we have a dateTime as value
             $value = SAMLDateTimeValue::fromString($xml->textContent);
@@ -153,22 +155,22 @@ class AttributeValue extends AbstractSamlElement implements SchemaValidatableEle
         switch ($type) {
             case IntegerValue::class:
                 // make sure that the xs namespace is available in the AttributeValue
-                $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', C::NS_XSI);
-                $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xs', C::NS_XS);
-                $e->setAttributeNS(C::NS_XSI, 'xsi:type', 'xs:integer');
+                $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', C_XSI::NS_XSI);
+                $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xs', C_XSI::NS_XS);
+                $e->setAttributeNS(C_XSI::NS_XSI, 'xsi:type', 'xs:integer');
                 $e->textContent = strval($value);
                 break;
             case "object":
                 if ($value instanceof SAMLDateTimeValue) {
-                    $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', C::NS_XSI);
-                    $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xs', C::NS_XS);
-                    $e->setAttributeNS(C::NS_XSI, 'xsi:type', 'xs:dateTime');
+                    $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', C_XSI::NS_XSI);
+                    $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xs', C_XSI::NS_XS);
+                    $e->setAttributeNS(C_XSI::NS_XSI, 'xsi:type', 'xs:dateTime');
                     $e->textContent = strval($value);
                 } elseif ($value instanceof ValueTypeInterface) {
                     if ($value instanceof IntegerValue) {
-                        $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', C::NS_XSI);
-                        $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xs', C::NS_XS);
-                        $e->setAttributeNS(C::NS_XSI, 'xsi:type', 'xs:integer');
+                        $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', C_XSI::NS_XSI);
+                        $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xs', C_XSI::NS_XS);
+                        $e->setAttributeNS(C_XSI::NS_XSI, 'xsi:type', 'xs:integer');
                     }
                     $e->textContent = strval($value);
                 } else {

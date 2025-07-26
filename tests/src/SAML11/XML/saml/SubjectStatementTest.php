@@ -25,7 +25,8 @@ use SimpleSAML\SAML11\XML\saml\{
 use SimpleSAML\Test\SAML11\CustomSubjectStatement;
 use SimpleSAML\XML\{Chunk, DOMDocumentFactory};
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
-use SimpleSAML\XML\Type\{Base64BinaryValue, IDValue, IntegerValue, StringValue};
+use SimpleSAML\XMLSchema\Constants as C_XSI;
+use SimpleSAML\XMLSchema\Type\{Base64BinaryValue, IDValue, IntegerValue, StringValue};
 use SimpleSAML\XMLSecurity\TestUtils\PEMCertificatesMock;
 use SimpleSAML\XMLSecurity\XML\ds\{
     KeyInfo,
@@ -203,7 +204,7 @@ final class SubjectStatementTest extends TestCase
     public function testUnmarshallingUnregistered(): void
     {
         $element = clone self::$xmlRepresentation->documentElement;
-        $element->setAttributeNS(C::NS_XSI, 'xsi:type', 'ssp:UnknownSubjectStatementType');
+        $element->setAttributeNS(C_XSI::NS_XSI, 'xsi:type', 'ssp:UnknownSubjectStatementType');
 
         $subjectStatement = AbstractSubjectStatement::fromXML($element);
 

@@ -12,7 +12,8 @@ use SimpleSAML\SAML11\Type\{SAMLDateTimeValue, SAMLStringValue};
 use SimpleSAML\SAML11\XML\saml\{AbstractSamlElement, AttributeValue, NameIdentifier};
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XML\Type\IntegerValue;
+use SimpleSAML\XMLSchema\Type\IntegerValue;
+use SimpleSAML\XMLSchema\Constants as C_XSI;
 use TypeError;
 
 use function dirname;
@@ -91,8 +92,8 @@ final class AttributeValueTest extends TestCase
         $this->assertEquals('xs:integer', $av->getXsiType());
 
         $nssaml = C::NS_SAML;
-        $nsxs = C::NS_XS;
-        $nsxsi = C::NS_XSI;
+        $nsxs = C_XSI::NS_XS;
+        $nsxsi = C_XSI::NS_XSI;
         $xml = <<<XML
 <saml:AttributeValue xmlns:saml="{$nssaml}" xmlns:xsi="{$nsxsi}" xmlns:xs="{$nsxs}" xsi:type="xs:integer">3</saml:AttributeValue>
 XML;
@@ -117,8 +118,8 @@ XML;
         $this->assertEquals('xs:dateTime', $av->getXsiType());
 
         $nssaml = C::NS_SAML;
-        $nsxs = C::NS_XS;
-        $nsxsi = C::NS_XSI;
+        $nsxs = C_XSI::NS_XS;
+        $nsxsi = C_XSI::NS_XSI;
         $xml = <<<XML
 <saml:AttributeValue xmlns:saml="{$nssaml}" xmlns:xsi="{$nsxsi}" xmlns:xs="{$nsxs}" xsi:type="xs:dateTime">2024-04-04T04:44:44Z</saml:AttributeValue>
 XML;
@@ -172,7 +173,7 @@ XML;
     public function testUnmarshallingNil(): void
     {
         $nssaml = C::NS_SAML;
-        $nsxsi = C::NS_XSI;
+        $nsxsi = C_XSI::NS_XSI;
 
         $xml = <<<XML
 <saml:AttributeValue xmlns:saml="{$nssaml}" xmlns:xsi="{$nsxsi}" xsi:nil="1"/>

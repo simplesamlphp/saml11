@@ -24,7 +24,7 @@ use SimpleSAML\SAML11\XML\samlp\{
 };
 use SimpleSAML\XML\{Chunk, DOMDocumentFactory};
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XML\Type\{Base64BinaryValue, IDValue, StringValue};
+use SimpleSAML\XMLSchema\Type\{Base64BinaryValue, IDValue, StringValue};
 use SimpleSAML\XMLSecurity\TestUtils\PEMCertificatesMock;
 use SimpleSAML\XMLSecurity\XML\ds\{
     KeyInfo,

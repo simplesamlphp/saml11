@@ -7,8 +7,8 @@ namespace SimpleSAML\SAML11\XML\samlp;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\XML\saml\{AttributeDesignator, Subject};
-use SimpleSAML\XML\Exception\SchemaViolationException;
-use SimpleSAML\XML\Type\AnyURIValue;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
+use SimpleSAML\XMLSchema\Type\AnyURIValue;
 
 use function strval;
 
@@ -23,7 +23,7 @@ abstract class AbstractAttributeQueryType extends AbstractSubjectQueryAbstractTy
      * Initialize a samlp:AttributeQuery element.
      *
      * @param \SimpleSAML\SAML11\XML\saml\Subject $subject
-     * @param \SimpleSAML\XML\Type\AnyURIValue|null $resource
+     * @param \SimpleSAML\XMLSchema\Type\AnyURIValue|null $resource
      * @param array<\SimpleSAML\SAML11\XML\saml\AttributeDesignator> $attributeDesignator
      */
     public function __construct(
@@ -38,7 +38,7 @@ abstract class AbstractAttributeQueryType extends AbstractSubjectQueryAbstractTy
 
 
     /**
-     * @return \SimpleSAML\SAML11\Type\AnyURIValue|null
+     * @return \SimpleSAML\XMLSchema\Type\AnyURIValue|null
      */
     public function getResource(): ?AnyURIValue
     {

@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\SAML11\Exception\ProtocolViolationException;
 use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
-use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 
 /**
  * Class \SimpleSAML\Test\SAML11\Type\SAMLDateTimeValueTest

@@ -10,7 +10,7 @@ use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\SAML11\XML\samlp\{AbstractSamlpElement, RespondWith};
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
-use SimpleSAML\XML\Type\{NCNameValue, QNameValue};
+use SimpleSAML\XMLSchema\Type\{NCNameValue, QNameValue};
 
 use function dirname;
 use function strval;

@@ -11,7 +11,7 @@ use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\SAML11\XML\saml\{AbstractAuthorityBindingType, AbstractSamlElement, AuthorityBinding};
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XML\Type\{NCNameValue, QNameValue};
+use SimpleSAML\XMLSchema\Type\{NCNameValue, QNameValue};
 
 use function dirname;
 use function strval;

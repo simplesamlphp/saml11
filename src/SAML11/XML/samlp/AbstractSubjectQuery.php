@@ -11,14 +11,15 @@ use SimpleSAML\SAML11\Utils;
 use SimpleSAML\SAML11\XML\{ExtensionPointInterface, ExtensionPointTrait};
 use SimpleSAML\SAML11\XML\saml\Subject;
 use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\Exception\{
+use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
+use SimpleSAML\XMLSchema\Constants as C_XSI;
+use SimpleSAML\XMLSchema\Exception\{
     InvalidDOMElementException,
     MissingElementException,
     SchemaViolationException,
     TooManyElementsException,
 };
-use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
-use SimpleSAML\XML\Type\QNameValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
 
 use function array_pop;
 
@@ -41,7 +42,7 @@ abstract class AbstractSubjectQuery extends AbstractSubjectQueryAbstractType imp
     /**
      * Initialize a custom samlp:SubjectQuery element.
      *
-     * @param \SimpleSAML\XML\Type\QNameValue $type
+     * @param \SimpleSAML\XMLSchema\Type\QNameValue $type
      */
     protected function __construct(
         protected QNameValue $type,
@@ -65,12 +66,12 @@ abstract class AbstractSubjectQuery extends AbstractSubjectQueryAbstractType imp
         Assert::same($xml->localName, 'SubjectQuery', InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, C::NS_SAMLP, InvalidDOMElementException::class);
         Assert::true(
-            $xml->hasAttributeNS(C::NS_XSI, 'type'),
+            $xml->hasAttributeNS(C_XSI::NS_XSI, 'type'),
             'Missing required xsi:type in <samlp:SubjectQuery> element.',
             SchemaViolationException::class,
         );
 
-        $type = QNameValue::fromDocument($xml->getAttributeNS(C::NS_XSI, 'type'), $xml);
+        $type = QNameValue::fromDocument($xml->getAttributeNS(C_XSI::NS_XSI, 'type'), $xml);
 
         // now check if we have a handler registered for it
         $handler = Utils::getContainer()->getExtensionHandler($type);

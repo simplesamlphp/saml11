@@ -6,8 +6,8 @@ namespace SimpleSAML\SAML11\Type;
 
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\XML\saml\DecisionTypeEnum;
-use SimpleSAML\XML\Exception\SchemaViolationException;
-use SimpleSAML\XML\Type\StringValue;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
+use SimpleSAML\XMLSchema\Type\StringValue;
 
 use function array_column;
 

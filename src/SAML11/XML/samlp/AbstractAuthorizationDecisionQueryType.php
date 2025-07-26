@@ -8,7 +8,7 @@ use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\SAML11\XML\saml\{Action, Evidence, Subject};
-use SimpleSAML\XML\Exception\{MissingElementException, SchemaViolationException};
+use SimpleSAML\XMLSchema\Exception\{MissingElementException, SchemaViolationException};
 
 use function strval;
 

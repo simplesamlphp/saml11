@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
-use SimpleSAML\XML\Type\{IDValue, NonNegativeIntegerValue};
 use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
+use SimpleSAML\XMLSchema\Type\{IDValue, NonNegativeIntegerValue};
 
 use function strval;
 
@@ -23,9 +23,9 @@ abstract class AbstractResponseAbstractType extends AbstractMessage
     /**
      * Initialize a response.
      *
-     * @param \SimpleSAML\XML\Type\IDValue $id
-     * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $majorVersion
-     * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $minorVersion
+     * @param \SimpleSAML\XMLSchema\Type\IDValue $id
+     * @param \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue $majorVersion
+     * @param \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue $minorVersion
      * @param \SimpleSAML\SAML11\Type\SAMLDateTimeValue|null $issueInstant
      *
      * @throws \Exception
@@ -43,7 +43,7 @@ abstract class AbstractResponseAbstractType extends AbstractMessage
     /**
      * Retrieve the identifier of this message.
      *
-     * @return \SimpleSAML\XML\Type\IDValue The identifier of this message
+     * @return \SimpleSAML\XMLSchema\Type\IDValue The identifier of this message
      */
     public function getID(): IDValue
     {

@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\XML\saml\{AbstractSamlElement, AssertionIDReference};
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XML\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\IDValue;
 
 use function dirname;
 use function strval;

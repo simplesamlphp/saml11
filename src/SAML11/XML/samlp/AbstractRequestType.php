@@ -8,8 +8,8 @@ use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
 use SimpleSAML\SAML11\XML\saml\AssertionIDReference;
-use SimpleSAML\XML\Exception\SchemaViolationException;
-use SimpleSAML\XML\Type\{IDValue, NonNegativeIntegerValue};
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
+use SimpleSAML\XMLSchema\Type\{IDValue, NonNegativeIntegerValue};
 
 use function array_pop;
 use function is_array;
@@ -29,9 +29,9 @@ abstract class AbstractRequestType extends AbstractRequestAbstractType
      *   array<\SimpleSAML\SAML11\XML\saml\AssertionIDReference>|
      *   array<\SimpleSAML\SAML11\XML\samlp\AssertionArtifact>
      * ) $request
-     * @param \SimpleSAML\XML\Type\IDValue $id
-     * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $majorVersion
-     * @param \SimpleSAML\XML\Type\NonNegativeIntegerValue $minorVersion
+     * @param \SimpleSAML\XMLSchema\Type\IDValue $id
+     * @param \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue $majorVersion
+     * @param \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue $minorVersion
      * @param \SimpleSAML\SAML11\Type\SAMLDateTimeValue $issueInstant
      * @param array<\SimpleSAML\SAML11\XML\samlp\RespondWith> $respondWith
      *

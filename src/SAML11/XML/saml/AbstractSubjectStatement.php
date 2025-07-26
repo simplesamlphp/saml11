@@ -11,13 +11,14 @@ use SimpleSAML\SAML11\Utils;
 use SimpleSAML\SAML11\XML\{ExtensionPointInterface, ExtensionPointTrait};
 use SimpleSAML\XML\Attribute as XMLAttribute;
 use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\Exception\{
+use SimpleSAML\XMLSchema\Constants as C_XSI;
+use SimpleSAML\XMLSchema\Exception\{
     InvalidDOMElementException,
     MissingElementException,
     SchemaViolationException,
     TooManyElementsException,
 };
-use SimpleSAML\XML\Type\QNameValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
 
 /**
  * Class implementing the <saml:SubjectStatement> extension point.
@@ -35,7 +36,7 @@ abstract class AbstractSubjectStatement extends AbstractSubjectStatementType imp
     /**
      * Initialize a custom saml:SubjectStatement element.
      *
-     * @param \SimpleSAML\XML\Type\QNameValue $type
+     * @param \SimpleSAML\XMLSchema\Type\QNameValue $type
      */
     protected function __construct(
         protected QNameValue $type,
@@ -46,7 +47,7 @@ abstract class AbstractSubjectStatement extends AbstractSubjectStatementType imp
 
 
     /**
-     * @return \SimpleSAML\XML\Type\QNameValue
+     * @return \SimpleSAML\XMLSchema\Type\QNameValue
      */
     public function getXsiType(): QNameValue
     {
@@ -68,12 +69,12 @@ abstract class AbstractSubjectStatement extends AbstractSubjectStatementType imp
         Assert::same($xml->localName, 'SubjectStatement', InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, C::NS_SAML, InvalidDOMElementException::class);
         Assert::true(
-            $xml->hasAttributeNS(C::NS_XSI, 'type'),
+            $xml->hasAttributeNS(C_XSI::NS_XSI, 'type'),
             'Missing required xsi:type in <saml:SubjectStatement> element.',
             SchemaViolationException::class,
         );
 
-        $type = QNameValue::fromDocument($xml->getAttributeNS(C::NS_XSI, 'type'), $xml);
+        $type = QNameValue::fromDocument($xml->getAttributeNS(C_XSI::NS_XSI, 'type'), $xml);
 
         // now check if we have a handler registered for it
         $handler = Utils::getContainer()->getExtensionHandler($type);
@@ -113,7 +114,7 @@ abstract class AbstractSubjectStatement extends AbstractSubjectStatementType imp
             );
         }
 
-        $type = new XMLAttribute(C::NS_XSI, 'xsi', 'type', $this->getXsiType());
+        $type = new XMLAttribute(C_XSI::NS_XSI, 'xsi', 'type', $this->getXsiType());
         $type->toXML($e);
 
         return $e;

@@ -19,6 +19,7 @@ use SimpleSAML\SAML11\XML\samlp\{
 use SimpleSAML\Test\SAML11\CustomQuery;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
+use SimpleSAML\XMLSchema\Constants as C_XSI;
 
 use function dirname;
 use function strval;
@@ -101,7 +102,7 @@ final class QueryTest extends TestCase
     public function testUnmarshallingUnregistered(): void
     {
         $element = clone self::$xmlRepresentation->documentElement;
-        $element->setAttributeNS(C::NS_XSI, 'xsi:type', 'ssp:UnknownQueryType');
+        $element->setAttributeNS(C_XSI::NS_XSI, 'xsi:type', 'ssp:UnknownQueryType');
 
         $query = AbstractQuery::fromXML($element);
 

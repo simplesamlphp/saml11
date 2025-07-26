@@ -6,7 +6,7 @@ namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
 use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\Type\QNameValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
 
 /**
  * Class for unknown queries.
@@ -17,7 +17,7 @@ final class UnknownQuery extends AbstractQuery
 {
     /**
      * @param \SimpleSAML\XML\Chunk $chunk The whole Query element as a chunk object.
-     * @param \SimpleSAML\XML\Type\QNameValue $type The xsi:type of this condition.
+     * @param \SimpleSAML\XMLSchema\Type\QNameValue $type The xsi:type of this condition.
      */
     public function __construct(
         protected Chunk $chunk,

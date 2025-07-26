@@ -7,13 +7,13 @@ namespace SimpleSAML\SAML11\XML\saml;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Type\{DecisionTypeValue, SAMLStringValue};
-use SimpleSAML\XML\Exception\{
+use SimpleSAML\XMLSchema\Exception\{
     InvalidDOMElementException,
     MissingElementException,
     SchemaViolationException,
     TooManyElementsException,
 };
-use SimpleSAML\XML\Type\AnyURIValue;
+use SimpleSAML\XMLSchema\Type\AnyURIValue;
 
 use function strval;
 
@@ -27,7 +27,7 @@ abstract class AbstractAuthorizationDecisionStatementType extends AbstractSubjec
     /**
      * Initialize a saml:AuthorizationDecisionStatementType from scratch
      *
-     * @param \SimpleSAML\XML\Type\AnyURIValue $resource
+     * @param \SimpleSAML\XMLSchema\Type\AnyURIValue $resource
      * @param \SimpleSAML\SAML11\Type\DecisionTypeValue $decision
      * @param \SimpleSAML\SAML11\XML\saml\Subject $subject
      * @param array<\SimpleSAML\SAML11\XML\saml\Action> $action

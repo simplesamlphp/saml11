@@ -10,7 +10,7 @@ use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\XML\samlp\{AbstractSamlpElement, StatusCode};
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XML\Type\QNameValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
 
 use function dirname;
 use function strval;

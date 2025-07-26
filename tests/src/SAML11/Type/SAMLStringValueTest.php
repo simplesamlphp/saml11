@@ -8,7 +8,7 @@ use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Exception\ProtocolViolationException;
 use SimpleSAML\SAML11\Type\SAMLStringValue;
-use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 
 /**
  * Class \SimpleSAML\Test\SAML11\Type\SAMLStringValueValueTest

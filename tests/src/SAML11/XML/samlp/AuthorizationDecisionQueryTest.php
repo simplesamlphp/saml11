@@ -34,7 +34,7 @@ use SimpleSAML\SAML11\XML\samlp\{
 };
 use SimpleSAML\XML\{Chunk, DOMDocumentFactory};
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XML\Type\{
+use SimpleSAML\XMLSchema\Type\{
     Base64BinaryValue,
     IDValue,
     NCNameValue,

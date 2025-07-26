@@ -9,8 +9,8 @@ use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Exception\{ProtocolViolationException, VersionMismatchException};
 use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
 use SimpleSAML\SAML11\XML\saml\AssertionIDReference;
-use SimpleSAML\XML\Exception\{InvalidDOMElementException, MissingElementException, TooManyElementsException};
-use SimpleSAML\XML\Type\{IDValue, NonNegativeIntegerValue};
+use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, MissingElementException, TooManyElementsException};
+use SimpleSAML\XMLSchema\Type\{IDValue, NonNegativeIntegerValue};
 
 use function array_merge;
 use function array_pop;

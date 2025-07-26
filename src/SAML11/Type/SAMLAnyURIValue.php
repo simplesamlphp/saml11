@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace SimpleSAML\SAML11\Type;
 
 use SimpleSAML\SAML11\Assert\Assert;
-use SimpleSAML\XML\Type\AnyURIValue;
+use SimpleSAML\XMLSchema\Type\AnyURIValue;
 
 /**
  * @package simplesaml/saml11

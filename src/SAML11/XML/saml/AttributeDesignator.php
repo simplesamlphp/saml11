@@ -7,8 +7,8 @@ namespace SimpleSAML\SAML11\XML\saml;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLStringValue};
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
 use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 
 /**
  * Class representing a saml:AttributeDesignator element.

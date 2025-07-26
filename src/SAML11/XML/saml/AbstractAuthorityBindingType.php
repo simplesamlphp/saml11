@@ -7,8 +7,8 @@ namespace SimpleSAML\SAML11\XML\saml;
 use DOMElement;
 use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Type\QNameValue;
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Type\QNameValue;
 
 use function strval;
 

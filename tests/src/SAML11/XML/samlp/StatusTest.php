@@ -13,7 +13,7 @@ use SimpleSAML\SAML11\Utils\XPath;
 use SimpleSAML\SAML11\XML\samlp\{AbstractSamlpElement, Status, StatusCode, StatusDetail, StatusMessage};
 use SimpleSAML\XML\{Chunk, DOMDocumentFactory};
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XML\Type\QNameValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
 
 use function dirname;
 use function strval;

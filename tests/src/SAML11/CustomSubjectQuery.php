@@ -6,12 +6,12 @@ namespace SimpleSAML\Test\SAML11;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\XML\saml\Subject;
 use SimpleSAML\SAML11\XML\samlp\{AbstractSubjectQuery, StatusMessage};
 use SimpleSAML\XML\Attribute as XMLAttribute;
-use SimpleSAML\XML\Exception\{InvalidDOMElementException, MissingElementException, TooManyElementsException};
-use SimpleSAML\XML\Type\QNameValue;
+use SimpleSAML\XMLSchema\Constants as C_XSI;
+use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, MissingElementException, TooManyElementsException};
+use SimpleSAML\XMLSchema\Type\QNameValue;
 
 use function array_pop;
 
@@ -69,7 +69,7 @@ final class CustomSubjectQuery extends AbstractSubjectQuery
      * @param \DOMElement $xml The XML element we should load
      * @return static
      *
-     * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
+     * @throws \SimpleSAML\XMLSchema\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
     public static function fromXML(DOMElement $xml): static
@@ -78,12 +78,12 @@ final class CustomSubjectQuery extends AbstractSubjectQuery
         Assert::notNull($xml->namespaceURI, InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, AbstractSubjectQuery::NS, InvalidDOMElementException::class);
         Assert::true(
-            $xml->hasAttributeNS(C::NS_XSI, 'type'),
+            $xml->hasAttributeNS(C_XSI::NS_XSI, 'type'),
             'Missing required xsi:type in <samlp:SubjectQuery> element.',
             InvalidDOMElementException::class,
         );
 
-        $type = QNameValue::fromDocument($xml->getAttributeNS(C::NS_XSI, 'type'), $xml);
+        $type = QNameValue::fromDocument($xml->getAttributeNS(C_XSI::NS_XSI, 'type'), $xml);
         Assert::same($type->getValue(), self::XSI_TYPE_PREFIX . ':' . self::XSI_TYPE_NAME);
 
         $statusMessage = StatusMessage::getChildrenOfClass($xml);
@@ -117,7 +117,7 @@ final class CustomSubjectQuery extends AbstractSubjectQuery
         }
 
         if (!$e->lookupPrefix('xsi')) {
-            $type = new XMLAttribute(C::NS_XSI, 'xsi', 'type', $this->getXsiType());
+            $type = new XMLAttribute(C_XSI::NS_XSI, 'xsi', 'type', $this->getXsiType());
             $type->toXML($e);
         }
 

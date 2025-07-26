@@ -7,7 +7,7 @@ namespace SimpleSAML\SAML11\XML\saml;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLDateTimeValue};
-use SimpleSAML\XML\Exception\{
+use SimpleSAML\XMLSchema\Exception\{
     InvalidDOMElementException,
     MissingElementException,
     SchemaViolationException,

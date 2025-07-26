@@ -6,10 +6,10 @@ namespace SimpleSAML\Test\SAML11;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\XML\saml\{AbstractStatement, Audience};
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Type\QNameValue;
+use SimpleSAML\XMLSchema\Constants as C_XSI;
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Type\QNameValue;
 
 /**
  * Example class to demonstrate how Statement can be extended.
@@ -63,7 +63,7 @@ final class CustomStatement extends AbstractStatement
      * @param \DOMElement $xml The XML element we should load
      * @return static
      *
-     * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
+     * @throws \SimpleSAML\XMLSchema\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
     public static function fromXML(DOMElement $xml): static
@@ -72,12 +72,12 @@ final class CustomStatement extends AbstractStatement
         Assert::notNull($xml->namespaceURI, InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, AbstractStatement::NS, InvalidDOMElementException::class);
         Assert::true(
-            $xml->hasAttributeNS(C::NS_XSI, 'type'),
+            $xml->hasAttributeNS(C_XSI::NS_XSI, 'type'),
             'Missing required xsi:type in <saml:Statement> element.',
             InvalidDOMElementException::class,
         );
 
-        $type = $xml->getAttributeNS(C::NS_XSI, 'type');
+        $type = $xml->getAttributeNS(C_XSI::NS_XSI, 'type');
         Assert::same($type, self::XSI_TYPE_PREFIX . ':' . self::XSI_TYPE_NAME);
 
         $audience = Audience::getChildrenOfClass($xml);

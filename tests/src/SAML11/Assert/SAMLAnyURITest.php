@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Exception\ProtocolViolationException;
-use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 
 /**
  * Class \SimpleSAML\SAML11\Assert\SAMLAnyURITest
