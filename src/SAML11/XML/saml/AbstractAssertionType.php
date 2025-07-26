@@ -4,28 +4,29 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\saml;
 
-use DateTimeImmutable;
 use DOMElement;
 use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Compat\ContainerSingleton;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Exception\ProtocolViolationException;
+use SimpleSAML\SAML11\Exception\VersionMismatchException;
 use SimpleSAML\SAML11\Utils\XPath;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Exception\MissingElementException;
-use SimpleSAML\XML\Exception\SchemaViolationException;
-use SimpleSAML\XML\Exception\TooManyElementsException;
+use SimpleSAML\SAML11\Type\{SAMLDateTimeValue, SAMLStringValue};
+use SimpleSAML\XMLSchema\Exception\{
+    InvalidDOMElementException,
+    MissingElementException,
+    SchemaViolationException,
+    TooManyElementsException,
+};
+use SimpleSAML\XMLSchema\Type\{IDValue, NonNegativeIntegerValue};
 use SimpleSAML\XMLSecurity\XML\ds\Signature;
-use SimpleSAML\XMLSecurity\XML\SignableElementInterface;
-use SimpleSAML\XMLSecurity\XML\SignableElementTrait;
-use SimpleSAML\XMLSecurity\XML\SignedElementInterface;
-use SimpleSAML\XMLSecurity\XML\SignedElementTrait;
+use SimpleSAML\XMLSecurity\XML\{SignableElementInterface, SignableElementTrait};
+use SimpleSAML\XMLSecurity\XML\{SignedElementInterface, SignedElementTrait};
 
 use function array_filter;
 use function array_merge;
 use function array_pop;
 use function array_values;
-use function preg_replace;
+use function strval;
 
 /**
  * SAML Assertion Type abstract data type.
@@ -51,26 +52,52 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
     /**
      * Initialize a saml:AssertionType from scratch
      *
-     * @param string $assertionID
-     * @param string $issuer
-     * @param \DateTimeImmutable $issueInstant
+     * @param \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue $majorVersion
+     * @param \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue $minorVersion
+     * @param \SimpleSAML\XMLSchema\Type\IDValue $assertionID
+     * @param \SimpleSAML\SAML11\Type\SAMLStringValue $issuer
+     * @param \SimpleSAML\SAML11\Type\SAMLDateTimeValue $issueInstant
      * @param \SimpleSAML\SAML11\XML\saml\Conditions|null $conditions
      * @param \SimpleSAML\SAML11\XML\saml\Advice|null $advice
      * @param array<\SimpleSAML\SAML11\XML\saml\AbstractStatementType> $statements
      */
     final public function __construct(
-        protected string $assertionID,
-        protected string $issuer,
-        protected DateTimeImmutable $issueInstant,
+        protected NonNegativeIntegerValue $majorVersion,
+        protected NonNegativeIntegerValue $minorVersion,
+        protected IDValue $assertionID,
+        protected SAMLStringValue $issuer,
+        protected SAMLDateTimeValue $issueInstant,
         protected ?Conditions $conditions = null,
         protected ?Advice $advice = null,
         protected array $statements = [],
     ) {
-        Assert::same($issueInstant->getTimeZone()->getName(), 'Z', ProtocolViolationException::class);
-        Assert::validNCName($assertionID, SchemaViolationException::class);
+        Assert::same($majorVersion->getValue(), '1', VersionMismatchException::class);
+        Assert::same($minorVersion->getValue(), '1', VersionMismatchException::class);
         Assert::minCount($statements, 1, MissingElementException::class);
         Assert::maxCount($statements, C::UNBOUNDED_LIMIT);
         Assert::allIsInstanceOf($statements, AbstractStatementType::class, SchemaViolationException::class);
+    }
+
+
+    /**
+     * Collect the value of the majorVersion-property
+     *
+     * @return \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue
+     */
+    public function getMajorVersion(): NonNegativeIntegerValue
+    {
+        return $this->majorVersion;
+    }
+
+
+    /**
+     * Collect the value of the minorVersion-property
+     *
+     * @return \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue
+     */
+    public function getMinorVersion(): NonNegativeIntegerValue
+    {
+        return $this->minorVersion;
     }
 
 
@@ -79,9 +106,9 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
      *
      * Note: the name of this method is not consistent, but it has to be named getId for xml-security to work.
      *
-     * @return string
+     * @return \SimpleSAML\XMLSchema\Type\IDValue
      */
-    public function getId(): string
+    public function getId(): IDValue
     {
         return $this->assertionID;
     }
@@ -90,9 +117,9 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
     /**
      * Collect the value of the issuer-property
      *
-     * @return string
+     * @return \SimpleSAML\SAML11\Type\SAMLStringValue
      */
-    public function getIssuer(): string
+    public function getIssuer(): SAMLStringValue
     {
         return $this->issuer;
     }
@@ -101,9 +128,9 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
     /**
      * Collect the value of the issueInstant-property
      *
-     * @return \DateTimeImmutable
+     * @return \SimpleSAML\SAML11\Type\SAMLDateTimeValue
      */
-    public function getIssueInstant(): DateTimeImmutable
+    public function getIssueInstant(): SAMLDateTimeValue
     {
         return $this->issueInstant;
     }
@@ -238,19 +265,6 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
 
-        Assert::same(self::getIntegerAttribute($xml, 'MajorVersion'), 1, 'Unsupported major version: %s');
-        Assert::same(self::getIntegerAttribute($xml, 'MinorVersion'), 1, 'Unsupported minor version: %s');
-
-        $assertionID = self::getAttribute($xml, 'AssertionID');
-        Assert::validNCName($assertionID); // Covers the empty string
-
-        $issueInstant = self::getAttribute($xml, 'IssueInstant');
-        // Strip sub-seconds - See paragraph 1.2.2 of SAML core specifications
-        $issueInstant = preg_replace('/([.][0-9]+Z)$/', 'Z', $issueInstant, 1);
-
-        Assert::validDateTime($issueInstant, ProtocolViolationException::class);
-        $issueInstant = new DateTimeImmutable($issueInstant);
-
         $conditions = Conditions::getChildrenOfClass($xml);
         Assert::maxCount(
             $conditions,
@@ -277,9 +291,11 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
         Assert::maxCount($signature, 1, 'Only one <ds:Signature> element is allowed.', TooManyElementsException::class);
 
         $assertion = new static(
-            $assertionID,
-            self::getAttribute($xml, 'Issuer'),
-            $issueInstant,
+            self::getAttribute($xml, 'MajorVersion', NonNegativeIntegerValue::class),
+            self::getAttribute($xml, 'MinorVersion', NonNegativeIntegerValue::class),
+            self::getAttribute($xml, 'AssertionID', IDValue::class),
+            self::getAttribute($xml, 'Issuer', SAMLStringValue::class),
+            self::getAttribute($xml, 'IssueInstant', SAMLDateTimeValue::class),
             array_pop($conditions),
             array_pop($advice),
             array_merge($statements, $subjectStatement, $authnStatement, $authzDecisionStatement, $attrStatement),
@@ -304,11 +320,11 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
     {
         $e = $this->instantiateParentElement($parent);
 
-        $e->setAttribute('MajorVersion', '1');
-        $e->setAttribute('MinorVersion', '1');
-        $e->setAttribute('AssertionID', $this->getId());
-        $e->setAttribute('Issuer', $this->getIssuer());
-        $e->setAttribute('IssueInstant', $this->getIssueInstant()->format(C::DATETIME_FORMAT));
+        $e->setAttribute('MajorVersion', strval($this->getMajorVersion()));
+        $e->setAttribute('MinorVersion', strval($this->getMinorVersion()));
+        $e->setAttribute('AssertionID', strval($this->getId()));
+        $e->setAttribute('Issuer', strval($this->getIssuer()));
+        $e->setAttribute('IssueInstant', strval($this->getIssueInstant()));
 
         $this->getConditions()?->toXML($e);
         $this->getAdvice()?->toXML($e);

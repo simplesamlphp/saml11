@@ -4,32 +4,38 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\samlp;
 
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Compat\AbstractContainer;
-use SimpleSAML\SAML11\Compat\ContainerSingleton;
+use SimpleSAML\SAML11\Compat\{AbstractContainer, ContainerSingleton};
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\XML\saml\ConfirmationMethod;
-use SimpleSAML\SAML11\XML\saml\NameIdentifier;
-use SimpleSAML\SAML11\XML\saml\Subject;
-use SimpleSAML\SAML11\XML\saml\SubjectConfirmation;
-use SimpleSAML\SAML11\XML\saml\SubjectConfirmationData;
-use SimpleSAML\SAML11\XML\samlp\AbstractSamlpElement;
-use SimpleSAML\SAML11\XML\samlp\AbstractSubjectQuery;
-use SimpleSAML\SAML11\XML\samlp\AbstractSubjectQueryAbstractType;
-use SimpleSAML\SAML11\XML\samlp\StatusMessage;
-use SimpleSAML\SAML11\XML\samlp\UnknownSubjectQuery;
+use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLStringValue};
+use SimpleSAML\SAML11\XML\saml\{
+    ConfirmationMethod,
+    NameIdentifier,
+    Subject,
+    SubjectConfirmation,
+    SubjectConfirmationData,
+};
+use SimpleSAML\SAML11\XML\samlp\{
+    AbstractSamlpElement,
+    AbstractSubjectQuery,
+    AbstractSubjectQueryAbstractType,
+    StatusMessage,
+    UnknownSubjectQuery,
+};
 use SimpleSAML\Test\SAML11\CustomSubjectQuery;
-use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
-use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\{Chunk, DOMDocumentFactory};
+use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
+use SimpleSAML\XMLSchema\Constants as C_XSI;
+use SimpleSAML\XMLSchema\Type\{Base64BinaryValue, IDValue, StringValue};
 use SimpleSAML\XMLSecurity\TestUtils\PEMCertificatesMock;
-use SimpleSAML\XMLSecurity\XML\ds\KeyInfo;
-use SimpleSAML\XMLSecurity\XML\ds\KeyName;
-use SimpleSAML\XMLSecurity\XML\ds\X509Certificate;
-use SimpleSAML\XMLSecurity\XML\ds\X509Data;
-use SimpleSAML\XMLSecurity\XML\ds\X509SubjectName;
+use SimpleSAML\XMLSecurity\XML\ds\{
+    KeyInfo,
+    KeyName,
+    X509Certificate,
+    X509Data,
+    X509SubjectName,
+};
 
 use function dirname;
 use function strval;
@@ -39,6 +45,7 @@ use function strval;
  *
  * @package simplesamlphp/saml11
  */
+#[Group('samlp')]
 #[CoversClass(AbstractSubjectQuery::class)]
 #[CoversClass(AbstractSubjectQueryAbstractType::class)]
 #[CoversClass(AbstractSamlpElement::class)]
@@ -116,40 +123,59 @@ final class SubjectQueryTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $scd = new SubjectConfirmationData('phpunit');
+        $scd = new SubjectConfirmationData(
+            SAMLStringValue::fromString('phpunit'),
+        );
 
         $keyInfo = new KeyInfo(
             [
-                new KeyName('testkey'),
+                new KeyName(
+                    StringValue::fromString('testkey'),
+                ),
                 new X509Data(
                     [
-                        new X509Certificate(self::$certificate),
-                        new X509SubjectName(self::$certData['name']),
+                        new X509Certificate(
+                            Base64BinaryValue::fromString(self::$certificate),
+                        ),
+                        new X509SubjectName(
+                            StringValue::fromString(self::$certData['name']),
+                        ),
                     ],
                 ),
                 new Chunk(DOMDocumentFactory::fromString(
                     '<ssp:Chunk xmlns:ssp="urn:x-simplesamlphp:namespace">some</ssp:Chunk>',
                 )->documentElement),
             ],
-            'fed654',
+            IDValue::fromString('fed654'),
         );
 
         $sc = new SubjectConfirmation(
-            [new ConfirmationMethod('_Test1'), new ConfirmationMethod('_Test2')],
+            [
+                new ConfirmationMethod(
+                    SAMLAnyURIValue::fromString('_Test1'),
+                ),
+                new ConfirmationMethod(
+                    SAMLAnyURIValue::fromString('_Test2'),
+                ),
+            ],
             $scd,
             $keyInfo,
         );
 
         $nameIdentifier = new NameIdentifier(
-            'TheNameIDValue',
-            'TheNameQualifier',
-            'urn:the:format',
+            SAMLStringValue::fromString('TheNameIDValue'),
+            SAMLStringValue::fromString('TheNameQualifier'),
+            SAMLAnyURIValue::fromString('urn:the:format'),
         );
 
         $subject = new Subject($sc, $nameIdentifier);
         $subjectQuery = new CustomSubjectQuery(
             $subject,
-            [new StatusMessage('urn:some:audience')],
+            [
+                new StatusMessage(
+                    SAMLStringValue::fromString('urn:some:audience'),
+                ),
+            ],
         );
 
         $this->assertEquals(
@@ -167,7 +193,8 @@ final class SubjectQueryTest extends TestCase
     public function testUnmarshallingUnregistered(): void
     {
         $element = clone self::$xmlRepresentation->documentElement;
-        $element->setAttributeNS(C::NS_XSI, 'xsi:type', 'ssp:UnknownSubjectQueryType');
+        $element->setAttributeNS(C_XSI::NS_XSI, 'xsi:type', 'ssp:UnknownSubjectQueryType');
+        $element->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:ssp', 'urn:x-simplesamlphp:namespace');
 
         // Normalize the DOMElement by importing it into a clean empty document
         $newDoc = DOMDocumentFactory::create();
@@ -177,7 +204,10 @@ final class SubjectQueryTest extends TestCase
         $subjectQuery = AbstractSubjectQuery::fromXML($element);
 
         $this->assertInstanceOf(UnknownSubjectQuery::class, $subjectQuery);
-        $this->assertEquals('urn:x-simplesamlphp:namespace:UnknownSubjectQueryType', $subjectQuery->getXsiType());
+        $this->assertEquals(
+            '{urn:x-simplesamlphp:namespace}ssp:UnknownSubjectQueryType',
+            $subjectQuery->getXsiType()->getRawValue(),
+        );
 
         $chunk = $subjectQuery->getRawSubjectQuery();
         $this->assertEquals('samlp', $chunk->getPrefix());

@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\XML\saml\AbstractActionType;
-use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
-use SimpleSAML\SAML11\XML\saml\Action;
+use SimpleSAML\SAML11\XML\saml\{AbstractActionType, AbstractSamlElement, Action};
+use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLStringValue};
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
-use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
 
 use function dirname;
 use function strval;
@@ -21,6 +19,7 @@ use function strval;
  *
  * @package simplesamlphp/saml11
  */
+#[Group('saml')]
 #[CoversClass(Action::class)]
 #[CoversClass(AbstractActionType::class)]
 #[CoversClass(AbstractSamlElement::class)]
@@ -34,8 +33,6 @@ final class ActionTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        self::$schemaFile = dirname(__FILE__, 6) . '/resources/schemas/oasis-sstc-saml-schema-assertion-1.1.xsd';
-
         self::$testedClass = Action::class;
 
         self::$xmlRepresentation = DOMDocumentFactory::fromFile(
@@ -52,7 +49,10 @@ final class ActionTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $action = new Action('urn:x-simplesamlphp:action', 'urn:x-simplesamlphp:namespace');
+        $action = new Action(
+            SAMLStringValue::fromString('urn:x-simplesamlphp:action'),
+            SAMLAnyURIValue::fromString('urn:x-simplesamlphp:namespace'),
+        );
 
         $this->assertEquals(
             self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),

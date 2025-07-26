@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
-use SimpleSAML\SAML11\XML\saml\AbstractStatementType;
-use SimpleSAML\SAML11\XML\saml\Subject;
 
 /**
  * @package simplesamlphp\saml11

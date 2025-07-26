@@ -6,9 +6,10 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\XML\StringElementTrait;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLStringValue};
+use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, SchemaViolationException};
+
+use function strval;
 
 /**
  * SAML ActionType abstract data type.
@@ -17,30 +18,36 @@ use SimpleSAML\XML\Exception\SchemaViolationException;
  */
 abstract class AbstractActionType extends AbstractSamlElement
 {
-    use StringElementTrait;
-
-
     /**
      * Initialize a saml:AbstractActionType from scratch
      *
-     * @param string $value
-     * @param string|null $Namespace
+     * @param \SimpleSAML\SAML11\Type\SAMLStringValue $value
+     * @param \SimpleSAML\SAML11\Type\SAMLAnyURIValue|null $Namespace
      */
     final public function __construct(
-        protected string $value,
-        protected ?string $Namespace = null,
+        protected SAMLStringValue $value,
+        protected ?SAMLAnyURIValue $Namespace = null,
     ) {
-        Assert::nullOrValidURI($Namespace, SchemaViolationException::class); // Covers the empty string
-        $this->setContent($value);
+    }
+
+
+    /**
+     * Collect the value of the element
+     *
+     * @return \SimpleSAML\SAML11\Type\SAMLStringValue|null
+     */
+    public function getValue(): SAMLStringValue
+    {
+        return $this->value;
     }
 
 
     /**
      * Collect the value of the Namespace-property
      *
-     * @return string|null
+     * @return \SimpleSAML\SAML11\Type\SAMLAnyURIValue|null
      */
-    public function getNamespace(): ?string
+    public function getNamespace(): ?SAMLAnyURIValue
     {
         return $this->Namespace;
     }
@@ -60,9 +67,10 @@ abstract class AbstractActionType extends AbstractSamlElement
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
 
-        $Namespace = self::getOptionalAttribute($xml, 'Namespace');
-
-        return new static($xml->textContent, $Namespace);
+        return new static(
+            SAMLStringValue::fromString($xml->textContent),
+            self::getOptionalAttribute($xml, 'Namespace', SAMLAnyURIValue::class),
+        );
     }
 
 
@@ -75,10 +83,10 @@ abstract class AbstractActionType extends AbstractSamlElement
     public function toXML(?DOMElement $parent = null): DOMElement
     {
         $e = $this->instantiateParentElement($parent);
-        $e->textContent = $this->getContent();
+        $e->textContent = strval($this->getValue());
 
         if ($this->getNamespace() !== null) {
-            $e->setAttribute('Namespace', $this->getNamespace());
+            $e->setAttribute('Namespace', strval($this->getNamespace()));
         }
 
         return $e;

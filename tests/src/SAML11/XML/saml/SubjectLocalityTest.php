@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
-use SimpleSAML\SAML11\XML\saml\AbstractSubjectLocalityType;
-use SimpleSAML\SAML11\XML\saml\SubjectLocality;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
+use SimpleSAML\SAML11\XML\saml\{AbstractSamlElement, AbstractSubjectLocalityType, SubjectLocality};
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
-use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
 
 use function dirname;
 use function strval;
@@ -21,6 +19,7 @@ use function strval;
  *
  * @package simplesamlphp/saml11
  */
+#[Group('saml')]
 #[CoversClass(SubjectLocality::class)]
 #[CoversClass(AbstractSubjectLocalityType::class)]
 #[CoversClass(AbstractSamlElement::class)]
@@ -34,8 +33,6 @@ final class SubjectLocalityTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        self::$schemaFile = dirname(__FILE__, 6) . '/resources/schemas/oasis-sstc-saml-schema-assertion-1.1.xsd';
-
         self::$testedClass = SubjectLocality::class;
 
         self::$xmlRepresentation = DOMDocumentFactory::fromFile(
@@ -52,7 +49,10 @@ final class SubjectLocalityTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $sl = new SubjectLocality('127.0.0.1', 'simplesamlphp.org');
+        $sl = new SubjectLocality(
+            SAMLStringValue::fromString('127.0.0.1'),
+            SAMLStringValue::fromString('simplesamlphp.org'),
+        );
 
         $this->assertEquals(
             self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),

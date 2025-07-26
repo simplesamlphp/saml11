@@ -5,23 +5,22 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
 use DOMDocument;
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Compat\AbstractContainer;
-use SimpleSAML\SAML11\Compat\ContainerSingleton;
-use SimpleSAML\SAML11\XML\saml\AbstractAuthorizationDecisionStatementType;
-use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
-use SimpleSAML\SAML11\XML\saml\Action;
-use SimpleSAML\SAML11\XML\saml\AuthorizationDecisionStatement;
-use SimpleSAML\SAML11\XML\saml\DecisionTypeEnum;
-use SimpleSAML\SAML11\XML\saml\Evidence;
-use SimpleSAML\SAML11\XML\saml\Subject;
-use SimpleSAML\Test\SAML11\CustomCondition;
-use SimpleSAML\Test\SAML11\CustomStatement;
-use SimpleSAML\Test\SAML11\CustomSubjectStatement;
+use SimpleSAML\SAML11\Compat\{AbstractContainer, ContainerSingleton};
+use SimpleSAML\SAML11\Type\{DecisionTypeValue, SAMLAnyURIValue};
+use SimpleSAML\SAML11\XML\Enumeration\DecisionTypeEnum;
+use SimpleSAML\SAML11\XML\saml\{
+    AbstractAuthorizationDecisionStatementType,
+    AbstractSamlElement,
+    Action,
+    AuthorizationDecisionStatement,
+    Evidence,
+    Subject,
+};
+use SimpleSAML\Test\SAML11\{CustomCondition, CustomStatement, CustomSubjectStatement};
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
-use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
 
 use function dirname;
 use function strval;
@@ -31,6 +30,7 @@ use function strval;
  *
  * @package simplesamlphp/saml11
  */
+#[Group('saml')]
 #[CoversClass(AuthorizationDecisionStatement::class)]
 #[CoversClass(AbstractAuthorizationDecisionStatementType::class)]
 #[CoversClass(AbstractSamlElement::class)]
@@ -115,8 +115,8 @@ final class AuthorizationDecisionStatementTest extends TestCase
 
         $authzDecisionStatement = new AuthorizationDecisionStatement(
             $subject,
-            'urn:x-simplesamlphp:resource',
-            DecisionTypeEnum::Permit,
+            SAMLAnyURIValue::fromString('urn:x-simplesamlphp:resource'),
+            DecisionTypeValue::fromEnum(DecisionTypeEnum::Permit),
             [$action],
             $evidence,
         );

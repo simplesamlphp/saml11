@@ -5,20 +5,15 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\SAML11\XML\samlp;
 
 use DOMDocument;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Constants as C;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\SAML11\Utils\XPath;
-use SimpleSAML\SAML11\XML\samlp\AbstractSamlpElement;
-use SimpleSAML\SAML11\XML\samlp\Status;
-use SimpleSAML\SAML11\XML\samlp\StatusCode;
-use SimpleSAML\SAML11\XML\samlp\StatusDetail;
-use SimpleSAML\SAML11\XML\samlp\StatusMessage;
-use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
-use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\SAML11\XML\samlp\{AbstractSamlpElement, Status, StatusCode, StatusDetail, StatusMessage};
+use SimpleSAML\XML\{Chunk, DOMDocumentFactory};
+use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
+use SimpleSAML\XMLSchema\Type\QNameValue;
 
 use function dirname;
 use function strval;
@@ -44,8 +39,6 @@ final class StatusTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        self::$schemaFile = dirname(__FILE__, 6) . '/resources/schemas/oasis-sstc-saml-schema-protocol-1.1.xsd';
-
         self::$testedClass = Status::class;
 
         self::$xmlRepresentation = DOMDocumentFactory::fromFile(
@@ -64,14 +57,16 @@ final class StatusTest extends TestCase
     {
         $status = new Status(
             new StatusCode(
-                C::STATUS_RESPONDER,
+                QNameValue::fromString('{' . C::NS_SAMLP . '}' . C::STATUS_RESPONDER),
                 [
                     new StatusCode(
-                        C::STATUS_REQUEST_DENIED,
+                        QNameValue::fromString('{' . C::NS_SAMLP . '}' . C::STATUS_REQUEST_DENIED),
                     ),
                 ],
             ),
-            new StatusMessage('Something went wrong'),
+            new StatusMessage(
+                SAMLStringValue::fromString('Something went wrong'),
+            ),
             StatusDetail::fromXML(
                 DOMDocumentFactory::fromFile(
                     dirname(__FILE__, 5) . '/resources/xml/samlp_StatusDetail.xml',
@@ -92,14 +87,16 @@ final class StatusTest extends TestCase
     {
         $status = new Status(
             new StatusCode(
-                C::STATUS_RESPONDER,
+                QNameValue::fromString('{' . C::NS_SAMLP . '}' . C::STATUS_RESPONDER),
                 [
                     new StatusCode(
-                        C::STATUS_REQUEST_DENIED,
+                        QNameValue::fromString('{' . C::NS_SAMLP . '}' . C::STATUS_REQUEST_DENIED),
                     ),
                 ],
             ),
-            new StatusMessage('Something went wrong'),
+            new StatusMessage(
+                SAMLStringValue::fromString('Something went wrong'),
+            ),
             new StatusDetail([new Chunk(self::$detail->documentElement)]),
         );
 

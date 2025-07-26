@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\XML\saml\AbstractAttributeDesignatorType;
-use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
-use SimpleSAML\SAML11\XML\saml\AttributeDesignator;
+use SimpleSAML\SAML11\XML\saml\{AbstractAttributeDesignatorType, AbstractSamlElement, AttributeDesignator};
+use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLStringValue};
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
-use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
 
 use function dirname;
 use function strval;
@@ -21,6 +19,7 @@ use function strval;
  *
  * @package simplesamlphp/saml11
  */
+#[Group('saml')]
 #[CoversClass(AttributeDesignator::class)]
 #[CoversClass(AbstractAttributeDesignatorType::class)]
 #[CoversClass(AbstractSamlElement::class)]
@@ -34,8 +33,6 @@ final class AttributeDesignatorTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        self::$schemaFile = dirname(__FILE__, 6) . '/resources/schemas/oasis-sstc-saml-schema-assertion-1.1.xsd';
-
         self::$testedClass = AttributeDesignator::class;
 
         self::$xmlRepresentation = DOMDocumentFactory::fromFile(
@@ -52,8 +49,8 @@ final class AttributeDesignatorTest extends TestCase
     public function testMarshalling(): void
     {
         $attributeDesignator = new AttributeDesignator(
-            'TheName',
-            'https://example.org/',
+            SAMLStringValue::fromString('TheName'),
+            SAMLAnyURIValue::fromString('https://example.org/'),
         );
 
         $this->assertEquals(

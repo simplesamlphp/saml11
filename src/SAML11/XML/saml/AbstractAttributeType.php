@@ -6,8 +6,8 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLStringValue};
+use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, SchemaViolationException};
 
 /**
  * SAML AttributeType abstract data type.
@@ -19,13 +19,13 @@ abstract class AbstractAttributeType extends AbstractAttributeDesignatorType
     /**
      * Initialize a saml:AttributeType from scratch
      *
-     * @param string $AttributeName
-     * @param string $AttributeNamespace
+     * @param \SimpleSAML\SAML11\Type\SAMLStringValue $AttributeName
+     * @param \SimpleSAML\SAML11\Type\SAMLAnyURIValue $AttributeNamespace
      * @param array<\SimpleSAML\SAML11\XML\saml\AttributeValue> $attributeValue
      */
     final public function __construct(
-        string $AttributeName,
-        string $AttributeNamespace,
+        SAMLStringValue $AttributeName,
+        SAMLAnyURIValue $AttributeNamespace,
         protected array $attributeValue,
     ) {
         Assert::allIsInstanceOf($attributeValue, AttributeValue::class, SchemaViolationException::class);
@@ -60,8 +60,8 @@ abstract class AbstractAttributeType extends AbstractAttributeDesignatorType
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
 
         $attributeValue = AttributeValue::getChildrenOfClass($xml);
-        $AttributeName = self::getAttribute($xml, 'AttributeName');
-        $AttributeNamespace = self::getAttribute($xml, 'AttributeNamespace');
+        $AttributeName = self::getAttribute($xml, 'AttributeName', SAMLStringValue::class);
+        $AttributeNamespace = self::getAttribute($xml, 'AttributeNamespace', SAMLAnyURIValue::class);
 
         return new static($AttributeName, $AttributeNamespace, $attributeValue);
     }

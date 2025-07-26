@@ -8,10 +8,9 @@ use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Exception\SchemaViolationException;
 use SimpleSAML\XML\ExtendableElementTrait;
-use SimpleSAML\XML\XsNamespace as NS;
+use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, SchemaViolationException};
+use SimpleSAML\XMLSchema\XML\Enumeration\NamespaceEnum;
 
 /**
  * SAML AdviceType abstract data type.
@@ -23,7 +22,7 @@ abstract class AbstractAdviceType extends AbstractSamlElement
     use ExtendableElementTrait;
 
     /** The namespace-attribute for the xs:any element */
-    public const XS_ANY_ELT_NAMESPACE = NS::OTHER;
+    public const XS_ANY_ELT_NAMESPACE = NamespaceEnum::Other;
 
 
     /**

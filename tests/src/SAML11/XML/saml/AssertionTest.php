@@ -4,39 +4,52 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
-use DateTimeImmutable;
 use DOMDocument;
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\{CoversClass, Group};
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Compat\AbstractContainer;
-use SimpleSAML\SAML11\Compat\ContainerSingleton;
+use SimpleSAML\SAML11\Compat\{AbstractContainer, ContainerSingleton};
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\XML\saml\AbstractAssertionType;
-use SimpleSAML\SAML11\XML\saml\AbstractAttributeStatementType;
-use SimpleSAML\SAML11\XML\saml\AbstractAuthenticationStatementType;
-use SimpleSAML\SAML11\XML\saml\AbstractAuthorizationDecisionStatementType;
-use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
-use SimpleSAML\SAML11\XML\saml\AbstractStatement;
-use SimpleSAML\SAML11\XML\saml\AbstractStatementType;
-use SimpleSAML\SAML11\XML\saml\AbstractSubjectStatement;
-use SimpleSAML\SAML11\XML\saml\AbstractSubjectStatementType;
-use SimpleSAML\SAML11\XML\saml\Advice;
-use SimpleSAML\SAML11\XML\saml\Assertion;
-use SimpleSAML\SAML11\XML\saml\AssertionIDReference;
-use SimpleSAML\SAML11\XML\saml\{Attribute, AttributeStatement, AttributeValue};
-use SimpleSAML\SAML11\XML\saml\Audience;
-use SimpleSAML\SAML11\XML\saml\AuthenticationStatement;
-use SimpleSAML\SAML11\XML\saml\AuthorityBinding;
-use SimpleSAML\SAML11\XML\saml\AuthorizationDecisionStatement;
-use SimpleSAML\SAML11\XML\saml\Conditions;
-use SimpleSAML\SAML11\XML\saml\ConfirmationMethod;
-use SimpleSAML\SAML11\XML\saml\NameIdentifier;
-use SimpleSAML\SAML11\XML\saml\{Subject, SubjectConfirmation, SubjectConfirmationData};
-use SimpleSAML\SAML11\XML\saml\SubjectLocality;
+use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLDateTimeValue, SAMLStringValue};
+use SimpleSAML\SAML11\XML\saml\{
+    AbstractAssertionType,
+    AbstractAttributeStatementType,
+    AbstractAuthenticationStatementType,
+    AbstractAuthorizationDecisionStatementType,
+    AbstractSamlElement,
+    AbstractStatement,
+    AbstractStatementType,
+    AbstractSubjectStatement,
+    AbstractSubjectStatementType,
+    Advice,
+    Assertion,
+    AssertionIDReference,
+    Attribute,
+    AttributeStatement,
+    AttributeValue,
+    Audience,
+    AuthenticationStatement,
+    AuthorityBinding,
+    AuthorizationDecisionStatement,
+    Conditions,
+    ConfirmationMethod,
+    NameIdentifier,
+    Subject,
+    SubjectConfirmation,
+    SubjectConfirmationData,
+    SubjectLocality,
+};
 use SimpleSAML\Test\SAML11\{CustomCondition, CustomStatement, CustomSubjectStatement};
-use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\{Chunk, DOMDocumentFactory};
 use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
+use SimpleSAML\XMLSchema\Type\{
+    Base64BinaryValue,
+    IDValue,
+    IntegerValue,
+    NCNameValue,
+    NonNegativeIntegerValue,
+    QNameValue,
+    StringValue,
+};
 use SimpleSAML\XMLSecurity\TestUtils\PEMCertificatesMock;
 use SimpleSAML\XMLSecurity\XML\ds\{KeyInfo, KeyName};
 use SimpleSAML\XMLSecurity\XML\ds\{X509Certificate, X509CertificateName, X509Data, X509SubjectName};
@@ -49,6 +62,7 @@ use function strval;
  *
  * @package simplesamlphp/saml11
  */
+#[Group('saml')]
 #[CoversClass(Assertion::class)]
 #[CoversClass(AbstractAssertionType::class)]
 #[CoversClass(AbstractSamlElement::class)]
@@ -193,9 +207,11 @@ final class AssertionTest extends TestCase
 
         // Create inner assertion
         $assertion = new Assertion(
-            'AdviceAssertionID_2',
-            'urn:x-simplesamlphp:phpunit',
-            new DateTimeImmutable('2023-01-24T09:42:26Z'),
+            NonNegativeIntegerValue::fromString('1'),
+            NonNegativeIntegerValue::fromString('1'),
+            IDValue::fromString('AdviceAssertionID_2'),
+            SAMLStringValue::fromString('urn:x-simplesamlphp:phpunit'),
+            SAMLDateTimeValue::fromString('2023-01-24T09:42:26Z'),
             Conditions::fromXML(self::$conditions->documentElement),
             null, // advice
             [
@@ -208,7 +224,9 @@ final class AssertionTest extends TestCase
         );
 
         // Create middle assertion
-        $assertionIDReference = new AssertionIDReference('_Test');
+        $assertionIDReference = new AssertionIDReference(
+            NCNameValue::fromString('_Test'),
+        );
         $advice = new Advice(
             [$assertionIDReference],
             [$assertion],
@@ -225,9 +243,11 @@ final class AssertionTest extends TestCase
         $attributeStatement = $this->createAttributeStatement('AdviceAttributeStatementID');
 
         $assertion = new Assertion(
-            'AdviceAssertionID',
-            'urn:x-simplesamlphp:phpunit',
-            new DateTimeImmutable('2023-01-24T09:42:26Z'),
+            NonNegativeIntegerValue::fromString('1'),
+            NonNegativeIntegerValue::fromString('1'),
+            IDValue::fromString('AdviceAssertionID'),
+            SAMLStringValue::fromString('urn:x-simplesamlphp:phpunit'),
+            SAMLDateTimeValue::fromString('2023-01-24T09:42:26Z'),
             Conditions::fromXML(self::$conditions->documentElement),
             $advice,
             [
@@ -247,9 +267,11 @@ final class AssertionTest extends TestCase
         );
 
         $assertion = new Assertion(
-            'AssertionID',
-            'urn:x-simplesamlphp:phpunit',
-            new DateTimeImmutable('2023-01-24T09:42:26Z'),
+            NonNegativeIntegerValue::fromString('1'),
+            NonNegativeIntegerValue::fromString('1'),
+            IDValue::fromString('AssertionID'),
+            SAMLStringValue::fromString('urn:x-simplesamlphp:phpunit'),
+            SAMLDateTimeValue::fromString('2023-01-24T09:42:26Z'),
             Conditions::fromXML(self::$conditions->documentElement),
             $advice,
             [
@@ -307,38 +329,56 @@ final class AssertionTest extends TestCase
     private function createSubjectStatement(string $id): CustomSubjectStatement
     {
         // Create SubjectStatement
-        $scd = new SubjectConfirmationData(2);
+        $scd = new SubjectConfirmationData(
+            IntegerValue::fromString('2'),
+        );
 
         $keyInfo = new KeyInfo(
             [
-                new KeyName('testkey'),
+                new KeyName(
+                    StringValue::fromString('testkey'),
+                ),
                 new X509Data(
                     [
-                        new X509Certificate(self::$certificate),
-                        new X509SubjectName(self::$certData['name']),
+                        new X509Certificate(
+                            Base64BinaryValue::fromString(self::$certificate),
+                        ),
+                        new X509SubjectName(
+                            StringValue::fromString(self::$certData['name']),
+                        ),
                     ],
                 ),
                 new Chunk(DOMDocumentFactory::fromString(
                     '<ssp:Chunk xmlns:ssp="urn:x-simplesamlphp:namespace">some</ssp:Chunk>',
                 )->documentElement),
             ],
-            $id,
+            IDValue::fromString($id),
         );
 
         $sc = new SubjectConfirmation(
-            [new ConfirmationMethod('_Test1'), new ConfirmationMethod('_Test2')],
+            [
+                new ConfirmationMethod(
+                    SAMLAnyURIValue::fromString('_Test1'),
+                ),
+                new ConfirmationMethod(
+                    SAMLAnyURIValue::fromString('_Test2'),
+                ),
+            ],
             $scd,
             $keyInfo,
         );
 
         $nameIdentifier = new NameIdentifier(
-            'TheNameIDValue',
-            'TheNameQualifier',
-            'urn:the:format',
+            SAMLStringValue::fromString('TheNameIDValue'),
+            SAMLStringValue::fromString('TheNameQualifier'),
+            SAMLAnyURIValue::fromString('urn:the:format'),
         );
 
         $subject = new Subject($sc, $nameIdentifier);
-        $audience = new Audience('urn:x-simplesamlphp:audience');
+        $audience = new Audience(
+            SAMLAnyURIValue::fromString('urn:x-simplesamlphp:audience'),
+        );
+
         return new CustomSubjectStatement($subject, [$audience]);
     }
 
@@ -349,49 +389,68 @@ final class AssertionTest extends TestCase
      */
     private function createAuthenticationStatement(string $id): AuthenticationStatement
     {
-        $scd = new SubjectConfirmationData(2);
+        $scd = new SubjectConfirmationData(
+            IntegerValue::fromString('2'),
+        );
 
         $keyInfo = new KeyInfo(
             [
-                new KeyName('testkey'),
+                new KeyName(
+                    StringValue::fromString('testkey'),
+                ),
                 new X509Data(
                     [
-                        new X509Certificate(self::$certificate),
-                        new X509SubjectName(self::$certData['name']),
+                        new X509Certificate(
+                            Base64BinaryValue::fromString(self::$certificate),
+                        ),
+                        new X509SubjectName(
+                            StringValue::fromString(self::$certData['name']),
+                        ),
                     ],
                 ),
                 new Chunk(DOMDocumentFactory::fromString(
                     '<ssp:Chunk xmlns:ssp="urn:x-simplesamlphp:namespace">some</ssp:Chunk>',
                 )->documentElement),
             ],
-            $id,
+            IDValue::fromString($id),
         );
 
         $sc = new SubjectConfirmation(
-            [new ConfirmationMethod('_Test1'), new ConfirmationMethod('_Test2')],
+            [
+                new ConfirmationMethod(
+                    SAMLAnyURIValue::fromString('_Test1'),
+                ),
+                new ConfirmationMethod(
+                    SAMLAnyURIValue::fromString('_Test2'),
+                ),
+            ],
             $scd,
             $keyInfo,
         );
 
         $nameIdentifier = new NameIdentifier(
-            'TheNameIDValue',
-            'TheNameQualifier',
-            'urn:the:format',
+            SAMLStringValue::fromString('TheNameIDValue'),
+            SAMLStringValue::fromString('TheNameQualifier'),
+            SAMLAnyURIValue::fromString('urn:the:format'),
         );
 
         $subject = new Subject($sc, $nameIdentifier);
 
-        $subjectLocality = new SubjectLocality('127.0.0.1', 'simplesamlphp.org');
+        $subjectLocality = new SubjectLocality(
+            SAMLStringValue::fromString('127.0.0.1'),
+            SAMLStringValue::fromString('simplesamlphp.org'),
+        );
+
         $authorityBinding = new AuthorityBinding(
-            'samlp:AttributeQuery',
-            'urn:x-simplesamlphp:location',
-            'urn:x-simplesamlphp:binding',
+            QNameValue::fromString('{' . C::NS_SAMLP . '}samlp:AttributeQuery'),
+            SAMLAnyURIValue::fromString('urn:x-simplesamlphp:location'),
+            SAMLAnyURIValue::fromString('urn:x-simplesamlphp:binding'),
         );
 
         return new AuthenticationStatement(
             $subject,
-            C::AC_PASSWORD,
-            new DateTimeImmutable('2023-01-24T09:42:26Z'),
+            SAMLAnyURIValue::fromString(C::AC_PASSWORD),
+            SAMLDateTimeValue::fromString('2023-01-24T09:42:26Z'),
             $subjectLocality,
             [$authorityBinding],
         );
@@ -404,42 +463,64 @@ final class AssertionTest extends TestCase
      */
     private function createAttributeStatement(string $id): AttributeStatement
     {
-        $scd = new SubjectConfirmationData(2);
+        $scd = new SubjectConfirmationData(
+            IntegerValue::fromString('2'),
+        );
 
         $keyInfo = new KeyInfo(
             [
-                new KeyName('testkey'),
+                new KeyName(
+                    StringValue::fromString('testkey'),
+                ),
                 new X509Data(
                     [
-                        new X509Certificate(self::$certificate),
-                        new X509SubjectName(self::$certData['name']),
+                        new X509Certificate(
+                            Base64BinaryValue::fromString(self::$certificate),
+                        ),
+                        new X509SubjectName(
+                            StringValue::fromString(self::$certData['name']),
+                        ),
                     ],
                 ),
                 new Chunk(DOMDocumentFactory::fromString(
                     '<ssp:Chunk xmlns:ssp="urn:x-simplesamlphp:namespace">some</ssp:Chunk>',
                 )->documentElement),
             ],
-            $id,
+            IDValue::fromString($id),
         );
 
         $sc = new SubjectConfirmation(
-            [new ConfirmationMethod('_Test1'), new ConfirmationMethod('_Test2')],
+            [
+                new ConfirmationMethod(
+                    SAMLAnyURIValue::fromString('_Test1'),
+                ),
+                new ConfirmationMethod(
+                    SAMLAnyURIValue::fromString('_Test2'),
+                ),
+            ],
             $scd,
             $keyInfo,
         );
 
         $nameIdentifier = new NameIdentifier(
-            'TheNameIDValue',
-            'TheNameQualifier',
-            'urn:the:format',
+            SAMLStringValue::fromString('TheNameIDValue'),
+            SAMLStringValue::fromString('TheNameQualifier'),
+            SAMLAnyURIValue::fromString('urn:the:format'),
         );
 
         $subject = new Subject($sc, $nameIdentifier);
 
         $attribute = new Attribute(
-            'TheName',
-            'https://example.org/',
-            [new AttributeValue('FirstValue'), new AttributeValue('SecondValue')],
+            SAMLStringValue::fromString('TheName'),
+            SAMLAnyURIValue::fromString('https://example.org/'),
+            [
+                new AttributeValue(
+                    SAMLStringValue::fromString('FirstValue'),
+                ),
+                new AttributeValue(
+                    SAMLStringValue::fromString('SecondValue'),
+                ),
+            ],
         );
 
         return new AttributeStatement(

@@ -7,6 +7,7 @@ namespace SimpleSAML\SAML11\XML\samlp;
 use DOMElement;
 use SimpleSAML\SAML11\XML\saml\Subject;
 use SimpleSAML\XML\Chunk;
+use SimpleSAML\XMLSchema\Type\QNameValue;
 
 /**
  * Class for unknown subject queries.
@@ -17,11 +18,11 @@ final class UnknownSubjectQuery extends AbstractSubjectQuery
 {
     /**
      * @param \SimpleSAML\XML\Chunk $chunk The whole SubjectQuery element as a chunk object.
-     * @param string $type The xsi:type of this condition.
+     * @param \SimpleSAML\XMLSchema\Type\QNameValue $type The xsi:type of this condition.
      */
     public function __construct(
         protected Chunk $chunk,
-        string $type,
+        QNameValue $type,
         Subject $subject,
     ) {
         parent::__construct($type, $subject);

@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\saml;
 
-use DateTimeImmutable;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Assert\Assert as SAMLAssert;
-use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Exception\ProtocolViolationException;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Exception\MissingElementException;
-use SimpleSAML\XML\Exception\SchemaViolationException;
-use SimpleSAML\XML\Exception\TooManyElementsException;
+use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLDateTimeValue};
+use SimpleSAML\XMLSchema\Exception\{
+    InvalidDOMElementException,
+    MissingElementException,
+    SchemaViolationException,
+    TooManyElementsException,
+};
 
 /**
  * SAML AuthenticationStatementType abstract data type.
@@ -26,19 +25,18 @@ abstract class AbstractAuthenticationStatementType extends AbstractSubjectStatem
      * Initialize a saml:AuthenticationStatementType from scratch
      *
      * @param \SimpleSAML\SAML11\XML\saml\Subject $subject
-     * @param string $authenticationMethod
-     * @param \DateTimeImmutable $authenticationInstant
+     * @param \SimpleSAML\SAML11\Type\SAMLAnyURIValue $authenticationMethod
+     * @param \SimpleSAML\SAML11\Type\SAMLDateTimeValue $authenticationInstant
      * @param \SimpleSAML\SAML11\XML\saml\SubjectLocality|null $subjectLocality
      * @param array<\SimpleSAML\SAML11\XML\saml\AuthorityBinding> $authorityBinding
      */
     final public function __construct(
         Subject $subject,
-        protected string $authenticationMethod,
-        protected DateTimeImmutable $authenticationInstant,
+        protected SAMLAnyURIValue $authenticationMethod,
+        protected SAMLDateTimeValue $authenticationInstant,
         protected ?SubjectLocality $subjectLocality = null,
         protected array $authorityBinding = [],
     ) {
-        SAMLAssert::validURI($authenticationMethod);
         Assert::allIsInstanceOf($authorityBinding, AuthorityBinding::class, SchemaViolationException::class);
 
         parent::__construct($subject);
@@ -70,9 +68,9 @@ abstract class AbstractAuthenticationStatementType extends AbstractSubjectStatem
     /**
      * Collect the value of the authenticationMethod-property
      *
-     * @return string
+     * @return \SimpleSAML\SAML11\Type\SAMLAnyURIValue
      */
-    public function getAuthenticationMethod(): string
+    public function getAuthenticationMethod(): SAMLAnyURIValue
     {
         return $this->authenticationMethod;
     }
@@ -81,9 +79,9 @@ abstract class AbstractAuthenticationStatementType extends AbstractSubjectStatem
     /**
      * Collect the value of the authenticationInstant-property
      *
-     * @return \DateTimeImmutable
+     * @return \SimpleSAML\SAML11\Type\SAMLDateTimeValue
      */
-    public function getAuthenticationInstant(): DateTimeImmutable
+    public function getAuthenticationInstant(): SAMLDateTimeValue
     {
         return $this->authenticationInstant;
     }
@@ -103,13 +101,6 @@ abstract class AbstractAuthenticationStatementType extends AbstractSubjectStatem
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
 
-        $authenticationInstant = self::getAttribute($xml, 'AuthenticationInstant');
-        // Strip sub-seconds - See paragraph 1.2.2 of SAML core specifications
-        $authenticationInstant = preg_replace('/([.][0-9]+Z)$/', 'Z', $authenticationInstant, 1);
-
-        SAMLAssert::validDateTime($authenticationInstant, ProtocolViolationException::class);
-        $authenticationInstant = new DateTimeImmutable($authenticationInstant);
-
         $authorityBinding = AuthorityBinding::getChildrenOfClass($xml);
         $subjectLocality = SubjectLocality::getChildrenOfClass($xml);
         Assert::maxCount($subjectLocality, 1, TooManyElementsException::class);
@@ -120,8 +111,8 @@ abstract class AbstractAuthenticationStatementType extends AbstractSubjectStatem
 
         return new static(
             array_pop($subject),
-            self::getAttribute($xml, 'AuthenticationMethod'),
-            $authenticationInstant,
+            self::getAttribute($xml, 'AuthenticationMethod', SAMLAnyURIValue::class),
+            self::getAttribute($xml, 'AuthenticationInstant', SAMLDateTimeValue::class),
             array_pop($subjectLocality),
             $authorityBinding,
         );
@@ -138,8 +129,8 @@ abstract class AbstractAuthenticationStatementType extends AbstractSubjectStatem
     {
         $e = parent::toXML($parent);
 
-        $e->setAttribute('AuthenticationMethod', $this->getAuthenticationMethod());
-        $e->setAttribute('AuthenticationInstant', $this->getAuthenticationInstant()->format(C::DATETIME_FORMAT));
+        $e->setAttribute('AuthenticationMethod', strval($this->getAuthenticationMethod()));
+        $e->setAttribute('AuthenticationInstant', strval($this->getAuthenticationInstant()));
 
         $this->getSubjectLocality()?->toXML($e);
 

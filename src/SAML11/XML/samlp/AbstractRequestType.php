@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\samlp;
 
-use DateTimeImmutable;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
+use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
 use SimpleSAML\SAML11\XML\saml\AssertionIDReference;
-use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
+use SimpleSAML\XMLSchema\Type\{IDValue, NonNegativeIntegerValue};
 
 use function array_pop;
 use function is_array;
@@ -28,20 +29,20 @@ abstract class AbstractRequestType extends AbstractRequestAbstractType
      *   array<\SimpleSAML\SAML11\XML\saml\AssertionIDReference>|
      *   array<\SimpleSAML\SAML11\XML\samlp\AssertionArtifact>
      * ) $request
-     * @param string $id
-     * @param int $majorVersion
-     * @param int $minorVersion
-     * @param \DateTimeImmutable $issueInstant
+     * @param \SimpleSAML\XMLSchema\Type\IDValue $id
+     * @param \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue $majorVersion
+     * @param \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue $minorVersion
+     * @param \SimpleSAML\SAML11\Type\SAMLDateTimeValue $issueInstant
      * @param array<\SimpleSAML\SAML11\XML\samlp\RespondWith> $respondWith
      *
      * @throws \Exception
      */
     protected function __construct(
         protected AbstractQueryAbstractType|array $request,
-        string $id,
-        int $majorVersion,
-        int $minorVersion,
-        DateTimeImmutable $issueInstant,
+        IDValue $id,
+        NonNegativeIntegerValue $majorVersion,
+        NonNegativeIntegerValue $minorVersion,
+        SAMLDateTimeValue $issueInstant,
         array $respondWith = [],
     ) {
         if (is_array($request)) {

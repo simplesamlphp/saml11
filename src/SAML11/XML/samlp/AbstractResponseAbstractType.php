@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\samlp;
 
-use DateTimeImmutable;
 use DOMElement;
+use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
+use SimpleSAML\XMLSchema\Type\{IDValue, NonNegativeIntegerValue};
+
+use function strval;
 
 /**
  * Base class for all SAML 1.1 responses.
@@ -20,18 +23,18 @@ abstract class AbstractResponseAbstractType extends AbstractMessage
     /**
      * Initialize a response.
      *
-     * @param string $id
-     * @param int $majorVersion
-     * @param int $minorVersion
-     * @param \DateTimeImmutable|null $issueInstant
+     * @param \SimpleSAML\XMLSchema\Type\IDValue $id
+     * @param \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue $majorVersion
+     * @param \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue $minorVersion
+     * @param \SimpleSAML\SAML11\Type\SAMLDateTimeValue|null $issueInstant
      *
      * @throws \Exception
      */
     protected function __construct(
-        protected string $id,
-        int $majorVersion = 1,
-        int $minorVersion = 1,
-        ?DateTimeImmutable $issueInstant = null,
+        protected IDValue $id,
+        NonNegativeIntegerValue $majorVersion,
+        NonNegativeIntegerValue $minorVersion,
+        SAMLDateTimeValue $issueInstant,
     ) {
         parent::__construct($majorVersion, $minorVersion, $issueInstant);
     }
@@ -40,9 +43,9 @@ abstract class AbstractResponseAbstractType extends AbstractMessage
     /**
      * Retrieve the identifier of this message.
      *
-     * @return string The identifier of this message
+     * @return \SimpleSAML\XMLSchema\Type\IDValue The identifier of this message
      */
-    public function getID(): string
+    public function getID(): IDValue
     {
         return $this->id;
     }
@@ -57,7 +60,7 @@ abstract class AbstractResponseAbstractType extends AbstractMessage
     protected function toUnsignedXML(?DOMElement $parent = null): DOMElement
     {
         $e = parent::toUnsignedXML($parent);
-        $e->setAttribute('ResponseID', $this->getId());
+        $e->setAttribute('ResponseID', strval($this->getId()));
 
         return $e;
     }

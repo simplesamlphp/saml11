@@ -6,13 +6,12 @@ namespace SimpleSAML\Test\SAML11;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\XML\saml\Subject;
-use SimpleSAML\SAML11\XML\samlp\AbstractSubjectQuery;
-use SimpleSAML\SAML11\XML\samlp\StatusMessage;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Exception\MissingElementException;
-use SimpleSAML\XML\Exception\TooManyElementsException;
+use SimpleSAML\SAML11\XML\samlp\{AbstractSubjectQuery, StatusMessage};
+use SimpleSAML\XML\Attribute as XMLAttribute;
+use SimpleSAML\XMLSchema\Constants as C_XSI;
+use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, MissingElementException, TooManyElementsException};
+use SimpleSAML\XMLSchema\Type\QNameValue;
 
 use function array_pop;
 
@@ -44,7 +43,12 @@ final class CustomSubjectQuery extends AbstractSubjectQuery
     ) {
         Assert::allIsInstanceOf($statusMessage, StatusMessage::class);
 
-        parent::__construct(self::XSI_TYPE_PREFIX . ':' . self::XSI_TYPE_NAME, $subject);
+        parent::__construct(
+            QNameValue::fromString(
+                '{' . self::XSI_TYPE_NAMESPACE . '}' . self::XSI_TYPE_PREFIX . ':' . self::XSI_TYPE_NAME,
+            ),
+            $subject,
+        );
     }
 
 
@@ -65,7 +69,7 @@ final class CustomSubjectQuery extends AbstractSubjectQuery
      * @param \DOMElement $xml The XML element we should load
      * @return static
      *
-     * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
+     * @throws \SimpleSAML\XMLSchema\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
     public static function fromXML(DOMElement $xml): static
@@ -74,13 +78,13 @@ final class CustomSubjectQuery extends AbstractSubjectQuery
         Assert::notNull($xml->namespaceURI, InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, AbstractSubjectQuery::NS, InvalidDOMElementException::class);
         Assert::true(
-            $xml->hasAttributeNS(C::NS_XSI, 'type'),
+            $xml->hasAttributeNS(C_XSI::NS_XSI, 'type'),
             'Missing required xsi:type in <samlp:SubjectQuery> element.',
             InvalidDOMElementException::class,
         );
 
-        $type = $xml->getAttributeNS(C::NS_XSI, 'type');
-        Assert::same($type, self::XSI_TYPE_PREFIX . ':' . self::XSI_TYPE_NAME);
+        $type = QNameValue::fromDocument($xml->getAttributeNS(C_XSI::NS_XSI, 'type'), $xml);
+        Assert::same($type->getValue(), self::XSI_TYPE_PREFIX . ':' . self::XSI_TYPE_NAME);
 
         $statusMessage = StatusMessage::getChildrenOfClass($xml);
 
@@ -100,7 +104,24 @@ final class CustomSubjectQuery extends AbstractSubjectQuery
      */
     public function toXML(?DOMElement $parent = null): DOMElement
     {
-        $e = parent::toXML($parent);
+        $e = $this->instantiateParentElement($parent);
+
+        if (!$e->lookupPrefix($this->getXsiType()->getNamespaceURI()->getValue())) {
+            $namespace = new XMLAttribute(
+                'http://www.w3.org/2000/xmlns/',
+                'xmlns',
+                $this->getXsiType()->getNamespacePrefix()->getValue(),
+                $this->getXsiType()->getNamespaceURI(),
+            );
+            $namespace->toXML($e);
+        }
+
+        if (!$e->lookupPrefix('xsi')) {
+            $type = new XMLAttribute(C_XSI::NS_XSI, 'xsi', 'type', $this->getXsiType());
+            $type->toXML($e);
+        }
+
+        $this->getSubject()->toXML($e);
 
         foreach ($this->getStatusMessage() as $statusMessage) {
             $statusMessage->toXML($e);

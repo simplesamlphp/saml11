@@ -6,10 +6,12 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Exception\MissingElementException;
-use SimpleSAML\XML\Exception\SchemaViolationException;
-use SimpleSAML\XML\Exception\TooManyElementsException;
+use SimpleSAML\XMLSchema\Exception\{
+    InvalidDOMElementException,
+    MissingElementException,
+    SchemaViolationException,
+    TooManyElementsException,
+};
 use SimpleSAML\XMLSecurity\XML\ds\KeyInfo;
 
 /**

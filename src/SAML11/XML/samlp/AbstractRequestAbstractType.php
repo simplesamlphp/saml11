@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\samlp;
 
-use DateTimeImmutable;
 use DOMElement;
 use SimpleSAML\SAML11\Assert\Assert;
+use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
 use SimpleSAML\SAML11\Utils\XPath;
-use SimpleSAML\XML\Exception\SchemaViolationException;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
+use SimpleSAML\XMLSchema\Type\{IDValue, NonNegativeIntegerValue};
 
 use function array_pop;
+use function strval;
 
 /**
  * Base class for all SAML 1.1 requests.
@@ -22,22 +24,21 @@ abstract class AbstractRequestAbstractType extends AbstractMessage
     /**
      * Initialize a request.
      *
-     * @param string $id
-     * @param int $majorVersion
-     * @param int $minorVersion
-     * @param \DateTimeImmutable $issueInstant
+     * @param \SimpleSAML\XMLSchema\Type\IDValue $id
+     * @param \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue $majorVersion
+     * @param \SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue $minorVersion
+     * @param \SimpleSAML\SAML11\Type\SAMLDateTimeValue $issueInstant
      * @param array<\SimpleSAML\SAML11\XML\samlp\RespondWith>
      *
      * @throws \Exception
      */
     protected function __construct(
-        protected string $id,
-        int $majorVersion,
-        int $minorVersion,
-        DateTimeImmutable $issueInstant,
+        protected IDValue $id,
+        protected NonNegativeIntegerValue $majorVersion,
+        protected NonNegativeIntegerValue $minorVersion,
+        protected SAMLDateTimeValue $issueInstant,
         protected array $respondWith = [],
     ) {
-        Assert::validNCName($id, SchemaViolationException::class);
         Assert::allIsInstanceOf($respondWith, RespondWith::class, SchemaViolationException::class);
 
         parent::__construct($majorVersion, $minorVersion, $issueInstant);
@@ -47,9 +48,9 @@ abstract class AbstractRequestAbstractType extends AbstractMessage
     /**
      * Retrieve the ID of this request.
      *
-     * @return string The ID of this request
+     * @return \SimpleSAML\XMLSchema\Type\IDValue The ID of this request
      */
-    public function getID(): string
+    public function getID(): IDValue
     {
         return $this->id;
     }
@@ -73,7 +74,7 @@ abstract class AbstractRequestAbstractType extends AbstractMessage
     protected function toUnsignedXML(?DOMElement $parent = null): DOMElement
     {
         $e = parent::toUnsignedXML($parent);
-        $e->setAttribute('RequestID', $this->getID());
+        $e->setAttribute('RequestID', strval($this->getID()));
 
         foreach ($this->getRespondWith() as $respondWith) {
             $respondWith->toXML($e);

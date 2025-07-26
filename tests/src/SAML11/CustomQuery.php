@@ -6,10 +6,10 @@ namespace SimpleSAML\Test\SAML11;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\XML\samlp\AbstractQuery;
-use SimpleSAML\SAML11\XML\samlp\StatusMessage;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
+use SimpleSAML\SAML11\XML\samlp\{AbstractQuery, StatusMessage};
+use SimpleSAML\XMLSchema\Constants as C_XSI;
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Type\QNameValue;
 
 /**
  * Example class to demonstrate how Query can be extended.
@@ -38,7 +38,11 @@ final class CustomQuery extends AbstractQuery
     ) {
         Assert::allIsInstanceOf($statusMessage, StatusMessage::class);
 
-        parent::__construct(self::XSI_TYPE_PREFIX . ':' . self::XSI_TYPE_NAME);
+        parent::__construct(
+            QNameValue::fromString(
+                '{' . self::XSI_TYPE_NAMESPACE . '}' . self::XSI_TYPE_PREFIX . ':' . self::XSI_TYPE_NAME,
+            ),
+        );
     }
 
 
@@ -59,7 +63,7 @@ final class CustomQuery extends AbstractQuery
      * @param \DOMElement $xml The XML element we should load
      * @return static
      *
-     * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
+     * @throws \SimpleSAML\XMLSchema\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
     public static function fromXML(DOMElement $xml): static
@@ -68,12 +72,12 @@ final class CustomQuery extends AbstractQuery
         Assert::notNull($xml->namespaceURI, InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, AbstractQuery::NS, InvalidDOMElementException::class);
         Assert::true(
-            $xml->hasAttributeNS(C::NS_XSI, 'type'),
+            $xml->hasAttributeNS(C_XSI::NS_XSI, 'type'),
             'Missing required xsi:type in <samlp:Query> element.',
             InvalidDOMElementException::class,
         );
 
-        $type = $xml->getAttributeNS(C::NS_XSI, 'type');
+        $type = $xml->getAttributeNS(C_XSI::NS_XSI, 'type');
         Assert::same($type, self::XSI_TYPE_PREFIX . ':' . self::XSI_TYPE_NAME);
 
         $statusMessage = StatusMessage::getChildrenOfClass($xml);

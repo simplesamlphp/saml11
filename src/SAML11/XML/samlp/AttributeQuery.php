@@ -6,13 +6,10 @@ namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\XML\saml\AttributeDesignator;
-use SimpleSAML\SAML11\XML\saml\Subject;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
-use SimpleSAML\XML\Exception\MissingElementException;
-use SimpleSAML\XML\Exception\TooManyElementsException;
-use SimpleSAML\XML\SchemaValidatableElementInterface;
-use SimpleSAML\XML\SchemaValidatableElementTrait;
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
+use SimpleSAML\SAML11\XML\saml\{AttributeDesignator, Subject};
+use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
+use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, MissingElementException, TooManyElementsException};
 
 use function array_pop;
 
@@ -39,7 +36,7 @@ final class AttributeQuery extends AbstractAttributeQueryType implements SchemaV
         Assert::same($xml->localName, 'AttributeQuery', InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, AttributeQuery::NS, InvalidDOMElementException::class);
 
-        $resource = self::getOptionalAttribute($xml, 'Resource', null);
+        $resource = self::getOptionalAttribute($xml, 'Resource', SAMLAnyURIValue::class, null);
 
         $subject = Subject::getChildrenOfClass($xml);
         Assert::minCount($subject, 1, MissingElementException::class);

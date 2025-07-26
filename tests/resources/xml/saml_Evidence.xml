@@ -1,5 +1,5 @@
 <saml:Evidence xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion">
-  <saml:AssertionIDReference xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion">_Test</saml:AssertionIDReference>
+  <saml:AssertionIDReference>_Test</saml:AssertionIDReference>
   <saml:Assertion MajorVersion="1" MinorVersion="1" AssertionID="EvidenceAssertionID" Issuer="urn:x-simplesamlphp:phpunit" IssueInstant="2023-01-24T09:42:26Z">
     <saml:Conditions NotBefore="2023-01-24T09:42:26Z" NotOnOrAfter="2023-01-24T09:47:26Z">
       <saml:AudienceRestrictionCondition>

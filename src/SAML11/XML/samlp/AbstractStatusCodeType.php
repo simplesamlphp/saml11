@@ -7,7 +7,10 @@ namespace SimpleSAML\SAML11\XML\samlp;
 use DOMElement;
 use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\XML\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Type\QNameValue;
+
+use function strval;
 
 /**
  * SAML StatusCode data type.
@@ -19,14 +22,14 @@ abstract class AbstractStatusCodeType extends AbstractSamlpElement
     /**
      * Initialize a samlp:StatusCode
      *
-     * @param string $Value
+     * @param \SimpleSAML\XMLSchema\Type\QNameValue $Value
      * @param \SimpleSAML\SAML11\XML\samlp\StatusCode[] $subCodes
      */
     final public function __construct(
-        protected string $Value = C::STATUS_SUCCESS,
+        protected QNameValue $Value,
         protected array $subCodes = [],
     ) {
-        Assert::validQName($Value);
+        Assert::notNull($Value->getNamespacePrefix(), "A namespace prefix MUST be provided.");
         Assert::maxCount($subCodes, C::UNBOUNDED_LIMIT);
         Assert::allIsInstanceOf($subCodes, StatusCode::class);
     }
@@ -35,9 +38,9 @@ abstract class AbstractStatusCodeType extends AbstractSamlpElement
     /**
      * Collect the Value
      *
-     * @return string
+     * @return \SimpleSAML\XMLSchema\Type\QNameValue
      */
-    public function getValue(): string
+    public function getValue(): QNameValue
     {
         return $this->Value;
     }
@@ -70,7 +73,7 @@ abstract class AbstractStatusCodeType extends AbstractSamlpElement
         Assert::same($xml->localName, 'StatusCode', InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, StatusCode::NS, InvalidDOMElementException::class);
 
-        $Value = self::getAttribute($xml, 'Value');
+        $Value = self::getAttribute($xml, 'Value', QNameValue::class);
         $subCodes = StatusCode::getChildrenOfClass($xml);
 
         return new static(
@@ -89,7 +92,7 @@ abstract class AbstractStatusCodeType extends AbstractSamlpElement
     public function toXML(?DOMElement $parent = null): DOMElement
     {
         $e = $this->instantiateParentElement($parent);
-        $e->setAttribute('Value', $this->getValue());
+        $e->setAttribute('Value', strval($this->getValue()));
 
         foreach ($this->getSubCodes() as $subCode) {
             $subCode->toXML($e);
