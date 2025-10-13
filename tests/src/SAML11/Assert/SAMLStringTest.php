@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\Test\Assert;
 
-use PHPUnit\Framework\Attributes\{CoversClass, DataProvider, Group};
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Exception\ProtocolViolationException;

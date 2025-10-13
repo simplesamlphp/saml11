@@ -8,16 +8,15 @@ use DOMElement;
 use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\Utils;
-use SimpleSAML\SAML11\XML\{ExtensionPointInterface, ExtensionPointTrait};
+use SimpleSAML\SAML11\XML\ExtensionPointInterface;
+use SimpleSAML\SAML11\XML\ExtensionPointTrait;
 use SimpleSAML\XML\Attribute as XMLAttribute;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XMLSchema\Constants as C_XSI;
-use SimpleSAML\XMLSchema\Exception\{
-    InvalidDOMElementException,
-    MissingElementException,
-    SchemaViolationException,
-    TooManyElementsException,
-};
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Exception\MissingElementException;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
+use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 use SimpleSAML\XMLSchema\Type\QNameValue;
 
 /**
@@ -28,6 +27,7 @@ use SimpleSAML\XMLSchema\Type\QNameValue;
 abstract class AbstractSubjectStatement extends AbstractSubjectStatementType implements ExtensionPointInterface
 {
     use ExtensionPointTrait;
+
 
     /** @var string */
     public const LOCALNAME = 'SubjectStatement';

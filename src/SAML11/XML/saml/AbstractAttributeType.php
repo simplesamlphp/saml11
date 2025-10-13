@@ -6,8 +6,10 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLStringValue};
-use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, SchemaViolationException};
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 
 /**
  * SAML AttributeType abstract data type.

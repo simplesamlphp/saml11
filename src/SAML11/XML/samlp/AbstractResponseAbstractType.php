@@ -6,7 +6,8 @@ namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
 use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
-use SimpleSAML\XMLSchema\Type\{IDValue, NonNegativeIntegerValue};
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue;
 
 use function strval;
 

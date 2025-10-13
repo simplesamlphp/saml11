@@ -6,8 +6,10 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLStringValue};
-use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 
 /**
@@ -18,6 +20,7 @@ use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 final class AttributeDesignator extends AbstractAttributeDesignatorType implements SchemaValidatableElementInterface
 {
     use SchemaValidatableElementTrait;
+
 
     /**
      * Convert XML into an AttributeDesignatorType

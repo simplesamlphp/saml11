@@ -4,21 +4,22 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\samlp;
 
-use PHPUnit\Framework\Attributes\{CoversClass, Group};
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Compat\{AbstractContainer, ContainerSingleton};
+use SimpleSAML\SAML11\Compat\AbstractContainer;
+use SimpleSAML\SAML11\Compat\ContainerSingleton;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\Type\SAMLStringValue;
-use SimpleSAML\SAML11\XML\samlp\{
-    AbstractQuery,
-    AbstractQueryAbstractType,
-    AbstractSamlpElement,
-    StatusMessage,
-    UnknownQuery,
-};
+use SimpleSAML\SAML11\XML\samlp\AbstractQuery;
+use SimpleSAML\SAML11\XML\samlp\AbstractQueryAbstractType;
+use SimpleSAML\SAML11\XML\samlp\AbstractSamlpElement;
+use SimpleSAML\SAML11\XML\samlp\StatusMessage;
+use SimpleSAML\SAML11\XML\samlp\UnknownQuery;
 use SimpleSAML\Test\SAML11\CustomQuery;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
+use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
+use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 use SimpleSAML\XMLSchema\Constants as C_XSI;
 
 use function dirname;

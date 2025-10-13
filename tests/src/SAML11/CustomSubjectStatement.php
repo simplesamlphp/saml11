@@ -6,9 +6,13 @@ namespace SimpleSAML\Test\SAML11;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\XML\saml\{AbstractSubjectStatement, Audience, Subject};
+use SimpleSAML\SAML11\XML\saml\AbstractSubjectStatement;
+use SimpleSAML\SAML11\XML\saml\Audience;
+use SimpleSAML\SAML11\XML\saml\Subject;
 use SimpleSAML\XMLSchema\Constants as C_XSI;
-use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, MissingElementException, TooManyElementsException};
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Exception\MissingElementException;
+use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 use SimpleSAML\XMLSchema\Type\QNameValue;
 
 /**

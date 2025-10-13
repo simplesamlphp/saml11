@@ -5,31 +5,33 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\SAML11\XML\samlp;
 
 use DOMDocument;
-use PHPUnit\Framework\Attributes\{CoversClass, Group};
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLDateTimeValue, SAMLStringValue};
-use SimpleSAML\SAML11\XML\saml\{
-    Assertion,
-    //AttributeStatement,
-    Audience,
-    AudienceRestrictionCondition,
-    AuthenticationStatement,
-    Conditions,
-    DoNotCacheCondition,
-};
-use SimpleSAML\SAML11\XML\samlp\{
-    AbstractResponseAbstractType,
-    AbstractSamlpElement,
-    Response,
-    Status,
-    StatusCode,
-    //StatusDetail,
-    StatusMessage,
-};
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
+use SimpleSAML\SAML11\XML\saml\Assertion;
+//use SimpleSAML\SAML11\XML\saml\AttributeStatement;
+use SimpleSAML\SAML11\XML\saml\Audience;
+use SimpleSAML\SAML11\XML\saml\AudienceRestrictionCondition;
+use SimpleSAML\SAML11\XML\saml\AuthenticationStatement;
+use SimpleSAML\SAML11\XML\saml\Conditions;
+use SimpleSAML\SAML11\XML\saml\DoNotCacheCondition;
+use SimpleSAML\SAML11\XML\samlp\AbstractResponseAbstractType;
+use SimpleSAML\SAML11\XML\samlp\AbstractSamlpElement;
+use SimpleSAML\SAML11\XML\samlp\Response;
+use SimpleSAML\SAML11\XML\samlp\Status;
+use SimpleSAML\SAML11\XML\samlp\StatusCode;
+//use SimpleSAML\SAML11\XML\samlp\StatusDetail;
+use SimpleSAML\SAML11\XML\samlp\StatusMessage;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XMLSchema\Type\{IDValue, NonNegativeIntegerValue, QNameValue};
+use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
+use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
 
 use function dirname;
 use function strval;
@@ -48,8 +50,10 @@ final class ResponseTest extends TestCase
     use SchemaValidationTestTrait;
     use SerializableElementTestTrait;
 
+
     /** @var \DOMDocument $authnStatement */
     private static DOMDocument $authnStatement;
+
 
     /**
      */

@@ -5,54 +5,56 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
 use DOMDocument;
-use PHPUnit\Framework\Attributes\{CoversClass, Group};
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Compat\{AbstractContainer, ContainerSingleton};
+use SimpleSAML\SAML11\Compat\AbstractContainer;
+use SimpleSAML\SAML11\Compat\ContainerSingleton;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLDateTimeValue, SAMLStringValue};
-use SimpleSAML\SAML11\XML\saml\{
-    AbstractAdviceType,
-    AbstractSamlElement,
-    AbstractStatement,
-    AbstractSubjectStatement,
-    Advice,
-    Assertion,
-    AssertionIDReference,
-    Attribute,
-    AttributeStatement,
-    AttributeValue,
-    Audience,
-    AuthenticationStatement,
-    AuthorityBinding,
-    //AuthorizationDecisionStatement,
-    Conditions,
-    ConfirmationMethod,
-    NameIdentifier,
-    Subject,
-    SubjectConfirmation,
-    SubjectConfirmationData,
-    SubjectLocality,
-};
-use SimpleSAML\Test\SAML11\{CustomCondition, CustomStatement, CustomSubjectStatement};
-use SimpleSAML\XML\{Chunk, DOMDocumentFactory};
-use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XMLSchema\Type\{
-    Base64BinaryValue,
-    IDValue,
-    IntegerValue,
-    NCNameValue,
-    NonNegativeIntegerValue,
-    QNameValue,
-    StringValue
-};
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
+use SimpleSAML\SAML11\XML\saml\AbstractAdviceType;
+use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
+use SimpleSAML\SAML11\XML\saml\AbstractStatement;
+use SimpleSAML\SAML11\XML\saml\AbstractSubjectStatement;
+use SimpleSAML\SAML11\XML\saml\Advice;
+use SimpleSAML\SAML11\XML\saml\Assertion;
+use SimpleSAML\SAML11\XML\saml\AssertionIDReference;
+use SimpleSAML\SAML11\XML\saml\Attribute;
+use SimpleSAML\SAML11\XML\saml\AttributeStatement;
+use SimpleSAML\SAML11\XML\saml\AttributeValue;
+use SimpleSAML\SAML11\XML\saml\Audience;
+use SimpleSAML\SAML11\XML\saml\AuthenticationStatement;
+use SimpleSAML\SAML11\XML\saml\AuthorityBinding;
+//use SimpleSAML\SAML11\XML\saml\AuthorizationDecisionStatement;
+use SimpleSAML\SAML11\XML\saml\Conditions;
+use SimpleSAML\SAML11\XML\saml\ConfirmationMethod;
+use SimpleSAML\SAML11\XML\saml\NameIdentifier;
+use SimpleSAML\SAML11\XML\saml\Subject;
+use SimpleSAML\SAML11\XML\saml\SubjectConfirmation;
+use SimpleSAML\SAML11\XML\saml\SubjectConfirmationData;
+use SimpleSAML\SAML11\XML\saml\SubjectLocality;
+use SimpleSAML\Test\SAML11\CustomCondition;
+use SimpleSAML\Test\SAML11\CustomStatement;
+use SimpleSAML\Test\SAML11\CustomSubjectStatement;
+use SimpleSAML\XML\Chunk;
+use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
+use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XMLSchema\Type\Base64BinaryValue;
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\IntegerValue;
+use SimpleSAML\XMLSchema\Type\NCNameValue;
+use SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
+use SimpleSAML\XMLSchema\Type\StringValue;
 use SimpleSAML\XMLSecurity\TestUtils\PEMCertificatesMock;
-use SimpleSAML\XMLSecurity\XML\ds\{
-    KeyInfo,
-    KeyName,
-    X509Certificate,
-    X509Data,
-    X509SubjectName,
-};
+use SimpleSAML\XMLSecurity\XML\ds\KeyInfo;
+use SimpleSAML\XMLSecurity\XML\ds\KeyName;
+use SimpleSAML\XMLSecurity\XML\ds\X509Certificate;
+use SimpleSAML\XMLSecurity\XML\ds\X509Data;
+use SimpleSAML\XMLSecurity\XML\ds\X509SubjectName;
 
 use function dirname;
 use function strval;
@@ -70,6 +72,7 @@ final class AdviceTest extends TestCase
 {
     use SchemaValidationTestTrait;
     use SerializableElementTestTrait;
+
 
     /** @var string */
     private static string $certificate;
@@ -409,6 +412,7 @@ final class AdviceTest extends TestCase
             strval($advice),
         );
     }
+
 
     /**
      */

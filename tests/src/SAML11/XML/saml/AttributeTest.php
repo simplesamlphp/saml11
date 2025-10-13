@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
-use PHPUnit\Framework\Attributes\{CoversClass, Group};
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLDateTimeValue, SAMLStringValue};
-use SimpleSAML\SAML11\XML\saml\{
-    AbstractAttributeDesignatorType,
-    AbstractAttributeType,
-    AbstractSamlElement,
-    Attribute,
-    AttributeValue,
-};
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
+use SimpleSAML\SAML11\XML\saml\AbstractAttributeDesignatorType;
+use SimpleSAML\SAML11\XML\saml\AbstractAttributeType;
+use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
+use SimpleSAML\SAML11\XML\saml\Attribute;
+use SimpleSAML\SAML11\XML\saml\AttributeValue;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
+use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
+use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 use SimpleSAML\XMLSchema\Type\IntegerValue;
 
 use function dirname;

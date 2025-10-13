@@ -9,7 +9,8 @@ use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\XML\AbstractElement;
 use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
 use SimpleSAML\XMLSchema\Constants as C_XSI;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 use SimpleSAML\XMLSchema\Type\IntegerValue;
@@ -29,6 +30,7 @@ use function strval;
 class SubjectConfirmationData extends AbstractSamlElement implements SchemaValidatableElementInterface
 {
     use SchemaValidatableElementTrait;
+
 
     /**
      * Create an SubjectConfirmationData.

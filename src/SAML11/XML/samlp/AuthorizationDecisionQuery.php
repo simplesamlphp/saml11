@@ -7,9 +7,14 @@ namespace SimpleSAML\SAML11\XML\samlp;
 use DOMElement;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
-use SimpleSAML\SAML11\XML\saml\{Action, Evidence, Subject};
-use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
-use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, MissingElementException, TooManyElementsException};
+use SimpleSAML\SAML11\XML\saml\Action;
+use SimpleSAML\SAML11\XML\saml\Evidence;
+use SimpleSAML\SAML11\XML\saml\Subject;
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Exception\MissingElementException;
+use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 
 use function array_pop;
 
@@ -22,6 +27,7 @@ final class AuthorizationDecisionQuery extends AbstractAuthorizationDecisionQuer
     SchemaValidatableElementInterface
 {
     use SchemaValidatableElementTrait;
+
 
     /**
      * Convert XML into a AuthorizationDecisionQuery

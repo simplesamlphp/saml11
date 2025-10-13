@@ -9,18 +9,20 @@ use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Compat\ContainerSingleton;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\Exception\VersionMismatchException;
+use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\SAML11\Utils\XPath;
-use SimpleSAML\SAML11\Type\{SAMLDateTimeValue, SAMLStringValue};
-use SimpleSAML\XMLSchema\Exception\{
-    InvalidDOMElementException,
-    MissingElementException,
-    SchemaViolationException,
-    TooManyElementsException,
-};
-use SimpleSAML\XMLSchema\Type\{IDValue, NonNegativeIntegerValue};
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Exception\MissingElementException;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
+use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue;
 use SimpleSAML\XMLSecurity\XML\ds\Signature;
-use SimpleSAML\XMLSecurity\XML\{SignableElementInterface, SignableElementTrait};
-use SimpleSAML\XMLSecurity\XML\{SignedElementInterface, SignedElementTrait};
+use SimpleSAML\XMLSecurity\XML\SignableElementInterface;
+use SimpleSAML\XMLSecurity\XML\SignableElementTrait;
+use SimpleSAML\XMLSecurity\XML\SignedElementInterface;
+use SimpleSAML\XMLSecurity\XML\SignedElementTrait;
 
 use function array_filter;
 use function array_merge;

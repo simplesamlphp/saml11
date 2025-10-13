@@ -4,35 +4,35 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\samlp;
 
-use PHPUnit\Framework\Attributes\{CoversClass, Group};
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLStringValue};
-use SimpleSAML\SAML11\XML\saml\{
-    AttributeDesignator,
-    ConfirmationMethod,
-    NameIdentifier,
-    Subject,
-    SubjectConfirmation,
-    SubjectConfirmationData,
-};
-use SimpleSAML\SAML11\XML\samlp\{
-    AbstractAttributeQueryType,
-    AbstractQueryAbstractType,
-    AbstractSamlpElement,
-    AbstractSubjectQueryAbstractType,
-    AttributeQuery,
-};
-use SimpleSAML\XML\{Chunk, DOMDocumentFactory};
-use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XMLSchema\Type\{Base64BinaryValue, IDValue, StringValue};
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
+use SimpleSAML\SAML11\XML\saml\AttributeDesignator;
+use SimpleSAML\SAML11\XML\saml\ConfirmationMethod;
+use SimpleSAML\SAML11\XML\saml\NameIdentifier;
+use SimpleSAML\SAML11\XML\saml\Subject;
+use SimpleSAML\SAML11\XML\saml\SubjectConfirmation;
+use SimpleSAML\SAML11\XML\saml\SubjectConfirmationData;
+use SimpleSAML\SAML11\XML\samlp\AbstractAttributeQueryType;
+use SimpleSAML\SAML11\XML\samlp\AbstractQueryAbstractType;
+use SimpleSAML\SAML11\XML\samlp\AbstractSamlpElement;
+use SimpleSAML\SAML11\XML\samlp\AbstractSubjectQueryAbstractType;
+use SimpleSAML\SAML11\XML\samlp\AttributeQuery;
+use SimpleSAML\XML\Chunk;
+use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
+use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XMLSchema\Type\Base64BinaryValue;
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\StringValue;
 use SimpleSAML\XMLSecurity\TestUtils\PEMCertificatesMock;
-use SimpleSAML\XMLSecurity\XML\ds\{
-    KeyInfo,
-    KeyName,
-    X509Certificate,
-    X509Data,
-    X509SubjectName,
-};
+use SimpleSAML\XMLSecurity\XML\ds\KeyInfo;
+use SimpleSAML\XMLSecurity\XML\ds\KeyName;
+use SimpleSAML\XMLSecurity\XML\ds\X509Certificate;
+use SimpleSAML\XMLSecurity\XML\ds\X509Data;
+use SimpleSAML\XMLSecurity\XML\ds\X509SubjectName;
 
 use function dirname;
 use function strval;
@@ -53,11 +53,13 @@ final class AttributeQueryTest extends TestCase
     use SchemaValidationTestTrait;
     use SerializableElementTestTrait;
 
+
     /** @var string */
     private static string $certificate;
 
     /** @var string[] */
     private static array $certData;
+
 
     /**
      */

@@ -6,13 +6,19 @@ namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
 use SimpleSAML\SAML11\Assert\Assert;
-use SimpleSAML\SAML11\Exception\{ProtocolViolationException, VersionMismatchException};
-use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLDateTimeValue};
+use SimpleSAML\SAML11\Exception\VersionMismatchException;
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
 use SimpleSAML\SAML11\XML\saml\Assertion;
 use SimpleSAML\SAML11\XML\samlp\Status;
-use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
-use SimpleSAML\XMLSchema\Exception\{InvalidDOMElementException, MissingElementException, TooManyElementsException};
-use SimpleSAML\XMLSchema\Type\{IDValue, NCNameValue, NonNegativeIntegerValue};
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Exception\MissingElementException;
+use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\NCNameValue;
+use SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue;
 
 use function array_pop;
 
@@ -24,6 +30,7 @@ use function array_pop;
 final class Response extends AbstractResponseType implements SchemaValidatableElementInterface
 {
     use SchemaValidatableElementTrait;
+
 
     /**
      * Convert XML into Response

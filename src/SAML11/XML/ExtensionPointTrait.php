@@ -6,7 +6,9 @@ namespace SimpleSAML\SAML11\XML;
 
 use RuntimeException;
 use SimpleSAML\SAML11\Assert\Assert;
-use SimpleSAML\XMLSchema\Type\{AnyURIValue, NCNameValue, QNameValue};
+use SimpleSAML\XMLSchema\Type\AnyURIValue;
+use SimpleSAML\XMLSchema\Type\NCNameValue;
+use SimpleSAML\XMLSchema\Type\QNameValue;
 
 use function constant;
 use function defined;

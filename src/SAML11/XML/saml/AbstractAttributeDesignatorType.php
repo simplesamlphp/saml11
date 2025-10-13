@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace SimpleSAML\SAML11\XML\saml;
 
 use DOMElement;
-use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLStringValue};
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
 
 use function strval;
 

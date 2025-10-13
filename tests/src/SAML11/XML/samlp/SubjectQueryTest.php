@@ -4,38 +4,39 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\samlp;
 
-use PHPUnit\Framework\Attributes\{CoversClass, Group};
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Compat\{AbstractContainer, ContainerSingleton};
+use SimpleSAML\SAML11\Compat\AbstractContainer;
+use SimpleSAML\SAML11\Compat\ContainerSingleton;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLStringValue};
-use SimpleSAML\SAML11\XML\saml\{
-    ConfirmationMethod,
-    NameIdentifier,
-    Subject,
-    SubjectConfirmation,
-    SubjectConfirmationData,
-};
-use SimpleSAML\SAML11\XML\samlp\{
-    AbstractSamlpElement,
-    AbstractSubjectQuery,
-    AbstractSubjectQueryAbstractType,
-    StatusMessage,
-    UnknownSubjectQuery,
-};
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
+use SimpleSAML\SAML11\XML\saml\ConfirmationMethod;
+use SimpleSAML\SAML11\XML\saml\NameIdentifier;
+use SimpleSAML\SAML11\XML\saml\Subject;
+use SimpleSAML\SAML11\XML\saml\SubjectConfirmation;
+use SimpleSAML\SAML11\XML\saml\SubjectConfirmationData;
+use SimpleSAML\SAML11\XML\samlp\AbstractSamlpElement;
+use SimpleSAML\SAML11\XML\samlp\AbstractSubjectQuery;
+use SimpleSAML\SAML11\XML\samlp\AbstractSubjectQueryAbstractType;
+use SimpleSAML\SAML11\XML\samlp\StatusMessage;
+use SimpleSAML\SAML11\XML\samlp\UnknownSubjectQuery;
 use SimpleSAML\Test\SAML11\CustomSubjectQuery;
-use SimpleSAML\XML\{Chunk, DOMDocumentFactory};
-use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
+use SimpleSAML\XML\Chunk;
+use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
+use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 use SimpleSAML\XMLSchema\Constants as C_XSI;
-use SimpleSAML\XMLSchema\Type\{Base64BinaryValue, IDValue, StringValue};
+use SimpleSAML\XMLSchema\Type\Base64BinaryValue;
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\StringValue;
 use SimpleSAML\XMLSecurity\TestUtils\PEMCertificatesMock;
-use SimpleSAML\XMLSecurity\XML\ds\{
-    KeyInfo,
-    KeyName,
-    X509Certificate,
-    X509Data,
-    X509SubjectName,
-};
+use SimpleSAML\XMLSecurity\XML\ds\KeyInfo;
+use SimpleSAML\XMLSecurity\XML\ds\KeyName;
+use SimpleSAML\XMLSecurity\XML\ds\X509Certificate;
+use SimpleSAML\XMLSecurity\XML\ds\X509Data;
+use SimpleSAML\XMLSecurity\XML\ds\X509SubjectName;
 
 use function dirname;
 use function strval;
@@ -54,6 +55,7 @@ final class SubjectQueryTest extends TestCase
     use SchemaValidationTestTrait;
     use SerializableElementTestTrait;
 
+
     /** @var string */
     private static string $certificate;
 
@@ -62,6 +64,7 @@ final class SubjectQueryTest extends TestCase
 
     /** @var \SimpleSAML\SAML11\Compat\AbstractContainer */
     private static AbstractContainer $containerBackup;
+
 
     /**
      */

@@ -4,16 +4,21 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
-use PHPUnit\Framework\Attributes\{CoversClass, Group};
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\Exception\ProtocolViolationException;
-use SimpleSAML\SAML11\Type\{SAMLDateTimeValue, SAMLStringValue};
-use SimpleSAML\SAML11\XML\saml\{AbstractSamlElement, AttributeValue, NameIdentifier};
+use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
+use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
+use SimpleSAML\SAML11\XML\saml\AttributeValue;
+use SimpleSAML\SAML11\XML\saml\NameIdentifier;
 use SimpleSAML\XML\DOMDocumentFactory;
-use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XMLSchema\Type\IntegerValue;
+use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
+use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
 use SimpleSAML\XMLSchema\Constants as C_XSI;
+use SimpleSAML\XMLSchema\Type\IntegerValue;
 use TypeError;
 
 use function dirname;
@@ -31,6 +36,7 @@ final class AttributeValueTest extends TestCase
 {
     use SchemaValidationTestTrait;
     use SerializableElementTestTrait;
+
 
     /**
      */

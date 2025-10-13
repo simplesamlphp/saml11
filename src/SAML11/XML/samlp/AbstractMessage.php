@@ -6,9 +6,11 @@ namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
 use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
-use SimpleSAML\SAML11\XML\{SignableElementTrait, SignedElementTrait};
+use SimpleSAML\SAML11\XML\SignableElementTrait;
+use SimpleSAML\SAML11\XML\SignedElementTrait;
 use SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue;
-use SimpleSAML\XMLSecurity\XML\{SignableElementInterface, SignedElementInterface};
+use SimpleSAML\XMLSecurity\XML\SignableElementInterface;
+use SimpleSAML\XMLSecurity\XML\SignedElementInterface;
 
 use function strval;
 
@@ -26,6 +28,7 @@ abstract class AbstractMessage extends AbstractSamlpElement implements SignableE
     use SignedElementTrait {
         SignedElementTrait::getBlacklistedAlgorithms insteadof SignableElementTrait;
     }
+
 
     /** @var bool */
     protected bool $messageContainedSignatureUponConstruction = false;

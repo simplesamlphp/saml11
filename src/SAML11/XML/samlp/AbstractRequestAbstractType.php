@@ -9,7 +9,8 @@ use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
 use SimpleSAML\SAML11\Utils\XPath;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
-use SimpleSAML\XMLSchema\Type\{IDValue, NonNegativeIntegerValue};
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue;
 
 use function array_pop;
 use function strval;

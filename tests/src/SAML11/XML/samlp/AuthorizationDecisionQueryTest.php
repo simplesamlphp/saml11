@@ -5,50 +5,47 @@ declare(strict_types=1);
 namespace SimpleSAML\Test\SAML11\XML\samlp;
 
 use DOMDocument;
-use PHPUnit\Framework\Attributes\{CoversClass, Group};
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLDateTimeValue, SAMLStringValue};
-use SimpleSAML\SAML11\XML\saml\{
-    Action,
-    Assertion,
-    AssertionIDReference,
-    AttributeStatement,
-    Audience,
-    AudienceRestrictionCondition,
-    AuthenticationStatement,
-    Conditions,
-    ConfirmationMethod,
-    DoNotCacheCondition,
-    Evidence,
-    NameIdentifier,
-    Subject,
-    SubjectConfirmation,
-    SubjectConfirmationData,
-};
-use SimpleSAML\SAML11\XML\samlp\{
-    AbstractAuthorizationDecisionQueryType,
-    AbstractQueryAbstractType,
-    AbstractSamlpElement,
-    AbstractSubjectQueryAbstractType,
-    AuthorizationDecisionQuery,
-};
-use SimpleSAML\XML\{Chunk, DOMDocumentFactory};
-use SimpleSAML\XML\TestUtils\{SchemaValidationTestTrait, SerializableElementTestTrait};
-use SimpleSAML\XMLSchema\Type\{
-    Base64BinaryValue,
-    IDValue,
-    NCNameValue,
-    NonNegativeIntegerValue,
-    StringValue,
-};
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
+use SimpleSAML\SAML11\Type\SAMLStringValue;
+use SimpleSAML\SAML11\XML\saml\Action;
+use SimpleSAML\SAML11\XML\saml\Assertion;
+use SimpleSAML\SAML11\XML\saml\AssertionIDReference;
+use SimpleSAML\SAML11\XML\saml\AttributeStatement;
+use SimpleSAML\SAML11\XML\saml\Audience;
+use SimpleSAML\SAML11\XML\saml\AudienceRestrictionCondition;
+use SimpleSAML\SAML11\XML\saml\AuthenticationStatement;
+use SimpleSAML\SAML11\XML\saml\Conditions;
+use SimpleSAML\SAML11\XML\saml\ConfirmationMethod;
+use SimpleSAML\SAML11\XML\saml\DoNotCacheCondition;
+use SimpleSAML\SAML11\XML\saml\Evidence;
+use SimpleSAML\SAML11\XML\saml\NameIdentifier;
+use SimpleSAML\SAML11\XML\saml\Subject;
+use SimpleSAML\SAML11\XML\saml\SubjectConfirmation;
+use SimpleSAML\SAML11\XML\saml\SubjectConfirmationData;
+use SimpleSAML\SAML11\XML\samlp\AbstractAuthorizationDecisionQueryType;
+use SimpleSAML\SAML11\XML\samlp\AbstractQueryAbstractType;
+use SimpleSAML\SAML11\XML\samlp\AbstractSamlpElement;
+use SimpleSAML\SAML11\XML\samlp\AbstractSubjectQueryAbstractType;
+use SimpleSAML\SAML11\XML\samlp\AuthorizationDecisionQuery;
+use SimpleSAML\XML\Chunk;
+use SimpleSAML\XML\DOMDocumentFactory;
+use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
+use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
+use SimpleSAML\XMLSchema\Type\Base64BinaryValue;
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\NCNameValue;
+use SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue;
+use SimpleSAML\XMLSchema\Type\StringValue;
 use SimpleSAML\XMLSecurity\TestUtils\PEMCertificatesMock;
-use SimpleSAML\XMLSecurity\XML\ds\{
-    KeyInfo,
-    KeyName,
-    X509Certificate,
-    X509Data,
-    X509SubjectName,
-};
+use SimpleSAML\XMLSecurity\XML\ds\KeyInfo;
+use SimpleSAML\XMLSecurity\XML\ds\KeyName;
+use SimpleSAML\XMLSecurity\XML\ds\X509Certificate;
+use SimpleSAML\XMLSecurity\XML\ds\X509Data;
+use SimpleSAML\XMLSecurity\XML\ds\X509SubjectName;
 
 use function dirname;
 use function strval;
@@ -68,6 +65,7 @@ final class AuthorizationDecisionQueryTest extends TestCase
 {
     use SchemaValidationTestTrait;
     use SerializableElementTestTrait;
+
 
     /** @var string */
     private static string $certificate;
@@ -92,6 +90,7 @@ final class AuthorizationDecisionQueryTest extends TestCase
 
     /** @var \DOMDocument $attributeStatement */
     private static DOMDocument $attributeStatement;
+
 
     /**
      */

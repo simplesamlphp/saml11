@@ -6,11 +6,14 @@ namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
 use SimpleSAML\SAML11\Assert\Assert;
-use SimpleSAML\SAML11\Type\{SAMLAnyURIValue, SAMLDateTimeValue};
+use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
+use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
 use SimpleSAML\SAML11\XML\saml\Assertion;
 use SimpleSAML\SAML11\XML\samlp\Status;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
-use SimpleSAML\XMLSchema\Type\{IDValue, NCNameValue, NonNegativeIntegerValue};
+use SimpleSAML\XMLSchema\Type\IDValue;
+use SimpleSAML\XMLSchema\Type\NCNameValue;
+use SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue;
 
 use function strval;
 

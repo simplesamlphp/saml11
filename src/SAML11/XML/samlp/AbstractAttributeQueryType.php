@@ -6,7 +6,8 @@ namespace SimpleSAML\SAML11\XML\samlp;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\XML\saml\{AttributeDesignator, Subject};
+use SimpleSAML\SAML11\XML\saml\AttributeDesignator;
+use SimpleSAML\SAML11\XML\saml\Subject;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Type\AnyURIValue;
 

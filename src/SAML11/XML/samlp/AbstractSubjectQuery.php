@@ -8,17 +8,17 @@ use DOMElement;
 use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\Utils;
-use SimpleSAML\SAML11\XML\{ExtensionPointInterface, ExtensionPointTrait};
+use SimpleSAML\SAML11\XML\ExtensionPointInterface;
+use SimpleSAML\SAML11\XML\ExtensionPointTrait;
 use SimpleSAML\SAML11\XML\saml\Subject;
 use SimpleSAML\XML\Chunk;
-use SimpleSAML\XML\{SchemaValidatableElementInterface, SchemaValidatableElementTrait};
+use SimpleSAML\XML\SchemaValidatableElementInterface;
+use SimpleSAML\XML\SchemaValidatableElementTrait;
 use SimpleSAML\XMLSchema\Constants as C_XSI;
-use SimpleSAML\XMLSchema\Exception\{
-    InvalidDOMElementException,
-    MissingElementException,
-    SchemaViolationException,
-    TooManyElementsException,
-};
+use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Exception\MissingElementException;
+use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
+use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 use SimpleSAML\XMLSchema\Type\QNameValue;
 
 use function array_pop;
@@ -34,6 +34,7 @@ abstract class AbstractSubjectQuery extends AbstractSubjectQueryAbstractType imp
 {
     use ExtensionPointTrait;
     use SchemaValidatableElementTrait;
+
 
     /** @var string */
     public const LOCALNAME = 'SubjectQuery';

@@ -6,7 +6,8 @@ namespace SimpleSAML\Test\SAML11;
 
 use DOMElement;
 use SimpleSAML\Assert\Assert;
-use SimpleSAML\SAML11\XML\samlp\{AbstractQuery, StatusMessage};
+use SimpleSAML\SAML11\XML\samlp\AbstractQuery;
+use SimpleSAML\SAML11\XML\samlp\StatusMessage;
 use SimpleSAML\XMLSchema\Constants as C_XSI;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 use SimpleSAML\XMLSchema\Type\QNameValue;

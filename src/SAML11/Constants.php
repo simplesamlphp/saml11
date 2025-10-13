@@ -178,6 +178,7 @@ class Constants extends \SimpleSAML\XMLSecurity\Constants
      */
     public const STATUS_VERSION_MISMATCH = 'samlp:VersionMismatch';
 
+
     /** @var string[] */
     public static array $STATUS_CODES = [
         self::STATUS_REQUEST_DENIED,
