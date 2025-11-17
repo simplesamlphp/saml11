@@ -15,4 +15,11 @@ use SimpleSAML\XML\SchemaValidatableElementTrait;
 final class Conditions extends AbstractConditionsType implements SchemaValidatableElementInterface
 {
     use SchemaValidatableElementTrait;
+
+
+    /**
+     * This element doesn't allow arbitrary namespace-declarations and therefore cannot be normalized
+     * @var bool
+     */
+    final public const NORMALIZATION = false;
 }
