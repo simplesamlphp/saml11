@@ -105,13 +105,13 @@ abstract class AbstractCondition extends AbstractConditionType implements
     {
         $e = $this->instantiateParentElement($parent);
         if (!$e->lookupPrefix($this->getXsiType()->getNamespaceURI()->getValue())) {
-//            $e->setAttributeNS(
-//                'http://www.w3.org/2000/xmlns/',
- //               'xmlns:' . static::getXsiTypePrefix(),
-  //              strval(static::getXsiTypeNamespaceURI()),
-   //         );
-        $xmlns = new XMLAttribute('http://www.w3.org/2000/xmlns/', 'xmlns', strval(static::getXsiTypePrefix()), static::getXsiTypeNamespaceURI());
-        $xmlns->toXML($e);
+            $xmlns = new XMLAttribute(
+                'http://www.w3.org/2000/xmlns/',
+                'xmlns',
+                strval(static::getXsiTypePrefix()),
+                static::getXsiTypeNamespaceURI(),
+            );
+            $xmlns->toXML($e);
         }
 
         $type = new XMLAttribute(C_XSI::NS_XSI, 'xsi', 'type', $this->getXsiType());
