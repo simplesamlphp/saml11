@@ -189,7 +189,6 @@ final class SubjectStatementTest extends TestCase
     public function testUnmarshalling(): void
     {
         $subjectStatement = CustomSubjectStatement::fromXML(self::$xmlRepresentation->documentElement);
-        $this->assertInstanceOf(CustomSubjectStatement::class, $subjectStatement);
 
         $this->assertEquals('ssp:CustomSubjectStatementType', $subjectStatement->getXsiType());
         $audience = $subjectStatement->getAudience();

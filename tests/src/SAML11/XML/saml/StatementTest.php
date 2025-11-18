@@ -104,7 +104,6 @@ final class StatementTest extends TestCase
     public function testUnmarshalling(): void
     {
         $statement = CustomStatement::fromXML(self::$xmlRepresentation->documentElement);
-        $this->assertInstanceOf(CustomStatement::class, $statement);
 
         $this->assertEquals('ssp:CustomStatementType', $statement->getXsiType());
         $audience = $statement->getAudience();
