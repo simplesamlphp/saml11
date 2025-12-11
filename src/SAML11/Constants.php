@@ -67,6 +67,11 @@ class Constants extends \SimpleSAML\XMLSecurity\Constants
     public const AC_UNSPECIFIED = 'urn:oasis:names:tc:SAML:1.0:am:unspecified';
 
     /**
+     * Artifact subject confirmation method.
+     */
+    public const CM_ARTIFACT = 'urn:oasis:names:tc:SAML:1.0:cm:artifact';
+
+    /**
      * Bearer subject confirmation method.
      */
     public const CM_BEARER = 'urn:oasis:names:tc:SAML:1.0:cm:bearer';
