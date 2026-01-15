@@ -41,9 +41,6 @@ final class UnknownSubjectStatement extends AbstractSubjectStatement
 
     /**
      * Convert this unknown SubjectStatement to XML.
-     *
-     * @param \DOMElement|null $parent The element we are converting to XML.
-     * @return \DOMElement The XML element after adding the data corresponding to this unknown SubjectStatement.
      */
     public function toXML(?DOMElement $parent = null): DOMElement
     {

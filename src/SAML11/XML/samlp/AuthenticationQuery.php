@@ -29,9 +29,6 @@ final class AuthenticationQuery extends AbstractAuthenticationQueryType implemen
     /**
      * Convert XML into a AuthenticationQuery
      *
-     * @param \DOMElement $xml The XML element we should load
-     * @return static
-     *
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */

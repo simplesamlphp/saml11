@@ -22,7 +22,7 @@ abstract class AbstractStatusDetailType extends AbstractSamlpElement
 
 
     /** The namespace-attribute for the xs:any element */
-    public const XS_ANY_ELT_NAMESPACE = NS::ANY;
+    public const string XS_ANY_ELT_NAMESPACE = NS::ANY;
 
 
     /**
@@ -38,8 +38,6 @@ abstract class AbstractStatusDetailType extends AbstractSamlpElement
 
     /**
      * Test if an object, at the state it's in, would produce an empty XML-element
-     *
-     * @return bool
      */
     public function isEmptyElement(): bool
     {
@@ -49,9 +47,6 @@ abstract class AbstractStatusDetailType extends AbstractSamlpElement
 
     /**
      * Convert XML into a StatusDetail
-     *
-     * @param \DOMElement $xml The XML element we should load
-     * @return static
      *
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
@@ -76,9 +71,6 @@ abstract class AbstractStatusDetailType extends AbstractSamlpElement
 
     /**
      * Convert this StatusDetail to XML.
-     *
-     * @param \DOMElement|null $parent The element we are converting to XML.
-     * @return \DOMElement The XML element after adding the data corresponding to this StatusDetail.
      */
     public function toXML(?DOMElement $parent = null): DOMElement
     {

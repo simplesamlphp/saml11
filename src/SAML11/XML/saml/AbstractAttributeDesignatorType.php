@@ -54,9 +54,6 @@ abstract class AbstractAttributeDesignatorType extends AbstractSamlElement
 
     /**
      * Convert this AttributeDesignatorType to XML.
-     *
-     * @param \DOMElement $parent The element we are converting to XML.
-     * @return \DOMElement The XML element after adding the data corresponding to this AttributeDesignatorType.
      */
     public function toXML(?DOMElement $parent = null): DOMElement
     {

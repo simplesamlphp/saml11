@@ -13,8 +13,6 @@ use SimpleSAML\SAML11\Exception\ProtocolViolationException;
 trait SAMLDateTimeTrait
 {
     /**
-     * @param string $value
-     * @param string $message
      */
     protected static function validSAMLDateTime(string $value, string $message = ''): void
     {

@@ -32,9 +32,6 @@ final class AuthorizationDecisionQuery extends AbstractAuthorizationDecisionQuer
     /**
      * Convert XML into a AuthorizationDecisionQuery
      *
-     * @param \DOMElement $xml The XML element we should load
-     * @return static
-     *
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */

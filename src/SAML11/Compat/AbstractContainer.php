@@ -49,8 +49,7 @@ abstract class AbstractContainer
     /**
      * Register a class that can handle a given element.
      *
-     * @param string $class The class name of a class extending AbstractElement
-     * @psalm-param class-string $class
+     * @param class-string $class The class name of a class extending AbstractElement
      */
     public function registerElementHandler(string $class): void
     {
@@ -63,8 +62,8 @@ abstract class AbstractContainer
     /**
      * Register a class that can handle given extension points of the standard.
      *
-     * @param string $class The class name of a class extending AbstractElement or implementing ExtensionPointInterface.
-     * @psalm-param class-string $class
+     * @param class-string $class
+     *   The class name of a class extending AbstractElement or implementing ExtensionPointInterface.
      */
     public function registerExtensionHandler(string $class): void
     {
@@ -82,9 +81,8 @@ abstract class AbstractContainer
      *
      * @param \SimpleSAML\XMLSchema\Type\QNameValue|null $qName The qualified name of the element.
      *
-     * @return string|null The fully-qualified name of a class extending \SimpleSAML\XML\AbstractElement and
+     * @return class-string|null The fully-qualified name of a class extending \SimpleSAML\XML\AbstractElement and
      * implementing support for the given element, or null if no such class has been registered before.
-     * @psalm-return class-string|null
      */
     public function getElementHandler(QNameValue $qName): ?string
     {
@@ -105,9 +103,8 @@ abstract class AbstractContainer
      * implement \SimpleSAML\SAML11\XML\saml\ExtensionPointInterface.
      *
      * @param \SimpleSAML\XMLSchema\Type\QNameValue $qName The qualified name of the extension.
-     * @return string|null The fully-qualified name of a class implementing
+     * @return class-string|null The fully-qualified name of a class implementing
      *  \SimpleSAML\SAML11\XML\saml\ExtensionPointInterface or null if no such class has been registered before.
-     * @psalm-return class-string|null
      */
     public function getExtensionHandler(QNameValue $qName): ?string
     {
@@ -123,6 +120,7 @@ abstract class AbstractContainer
 
     /**
      * Get a PSR-3 compatible logger.
+     *
      * @return \Psr\Log\LoggerInterface
      */
     abstract public function getLogger(): LoggerInterface;

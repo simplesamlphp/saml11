@@ -35,9 +35,6 @@ abstract class AbstractSubjectStatementType extends AbstractStatementType
 
     /**
      * Convert this SubjectStatement to XML.
-     *
-     * @param \DOMElement $parent The element we are converting to XML.
-     * @return \DOMElement The XML element after adding the data corresponding to this SubjectStatement.
      */
     public function toXML(?DOMElement $parent = null): DOMElement
     {

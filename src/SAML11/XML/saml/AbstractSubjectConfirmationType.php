@@ -72,9 +72,6 @@ abstract class AbstractSubjectConfirmationType extends AbstractSamlElement
     /**
      * Convert XML into an SubjectConfirmationType
      *
-     * @param \DOMElement $xml The XML element we should load
-     * @return static
-     *
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
@@ -99,9 +96,6 @@ abstract class AbstractSubjectConfirmationType extends AbstractSamlElement
 
     /**
      * Convert this SubjectConfirmationType to XML.
-     *
-     * @param \DOMElement $parent The element we are converting to XML.
-     * @return \DOMElement The XML element after adding the data corresponding to this SubjectConfirmationType.
      */
     public function toXML(?DOMElement $parent = null): DOMElement
     {

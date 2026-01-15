@@ -31,7 +31,6 @@ class MockContainer extends AbstractContainer
      * Set the system clock
      *
      * @param \Psr\Clock\ClockInterface $clock
-     * @return void
      */
     public function setClock(ClockInterface $clock): void
     {

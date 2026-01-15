@@ -28,9 +28,6 @@ final class Request extends AbstractRequestType
     /**
      * Convert XML into Request
      *
-     * @param \DOMElement $xml The XML element we should load
-     * @return static
-     *
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      * @throws \SimpleSAML\XML\Exception\TooManyElementsException

@@ -22,14 +22,11 @@ use SimpleSAML\XMLSchema\Type\QNameValue;
  */
 final class CustomSubjectStatement extends AbstractSubjectStatement
 {
-    /** @var string */
-    protected const XSI_TYPE_NAME = 'CustomSubjectStatementType';
+    protected const string XSI_TYPE_NAME = 'CustomSubjectStatementType';
 
-    /** @var string */
-    protected const XSI_TYPE_NAMESPACE = 'urn:x-simplesamlphp:namespace';
+    protected const string XSI_TYPE_NAMESPACE = 'urn:x-simplesamlphp:namespace';
 
-    /** @var string */
-    protected const XSI_TYPE_PREFIX = 'ssp';
+    protected const string XSI_TYPE_PREFIX = 'ssp';
 
 
     /**
@@ -67,9 +64,6 @@ final class CustomSubjectStatement extends AbstractSubjectStatement
     /**
      * Convert XML into an SubjectStatement
      *
-     * @param \DOMElement $xml The XML element we should load
-     * @return static
-     *
      * @throws \SimpleSAML\XMLSchema\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
@@ -99,9 +93,6 @@ final class CustomSubjectStatement extends AbstractSubjectStatement
 
     /**
      * Convert this SubjectStatement to XML.
-     *
-     * @param \DOMElement $parent The element we are converting to XML.
-     * @return \DOMElement The XML element after adding the data corresponding to this SubjectStatement.
      */
     public function toXML(?DOMElement $parent = null): DOMElement
     {

@@ -12,7 +12,6 @@ namespace SimpleSAML\SAML11\Exception;
 class VersionMismatchException extends RuntimeException
 {
     /**
-     * @param string $message
      */
     public function __construct(string $message = '')
     {

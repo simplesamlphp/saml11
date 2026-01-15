@@ -58,9 +58,6 @@ abstract class AbstractAttributeQueryType extends AbstractSubjectQueryAbstractTy
 
     /**
      * Convert this AttributeQuery to XML.
-     *
-     * @param \DOMElement $parent The element we are converting to XML.
-     * @return \DOMElement The XML element after adding the data corresponding to this AttributeQuery.
      */
     public function toXML(?DOMElement $parent = null): DOMElement
     {

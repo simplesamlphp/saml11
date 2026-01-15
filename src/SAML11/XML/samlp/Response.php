@@ -35,9 +35,6 @@ final class Response extends AbstractResponseType implements SchemaValidatableEl
     /**
      * Convert XML into Response
      *
-     * @param \DOMElement $xml The XML element we should load
-     * @return static
-     *
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      * @throws \SimpleSAML\XML\Exception\TooManyElementsException

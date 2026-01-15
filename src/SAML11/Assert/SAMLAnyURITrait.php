@@ -13,8 +13,6 @@ use SimpleSAML\SAML11\Exception\ProtocolViolationException;
 trait SAMLAnyURITrait
 {
     /**
-     * @param string $value
-     * @param string $message
      */
     protected static function validSAMLAnyURI(string $value, string $message = ''): void
     {

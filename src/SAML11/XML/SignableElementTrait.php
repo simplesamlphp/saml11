@@ -138,7 +138,6 @@ trait SignableElementTrait
 
 
     /**
-     * @return array|null
      */
     public function getBlacklistedAlgorithms(): ?array
     {

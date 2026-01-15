@@ -29,8 +29,7 @@ abstract class AbstractSubjectStatement extends AbstractSubjectStatementType imp
     use ExtensionPointTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'SubjectStatement';
+    public const string LOCALNAME = 'SubjectStatement';
 
 
     /**
@@ -57,9 +56,6 @@ abstract class AbstractSubjectStatement extends AbstractSubjectStatementType imp
 
     /**
      * Convert an XML element into a SubjectStatement.
-     *
-     * @param \DOMElement $xml The root XML element
-     * @return static
      *
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
@@ -98,9 +94,6 @@ abstract class AbstractSubjectStatement extends AbstractSubjectStatementType imp
 
     /**
      * Convert this SubjectStatement to XML.
-     *
-     * @param \DOMElement $parent The element we are converting to XML.
-     * @return \DOMElement The XML element after adding the data corresponding to this SubjectStatement.
      */
     public function toXML(?DOMElement $parent = null): DOMElement
     {

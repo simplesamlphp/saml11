@@ -69,8 +69,6 @@ abstract class AbstractRequestAbstractType extends AbstractMessage
     /**
      * Convert this message to an unsigned XML document.
      * This method does not sign the resulting XML document.
-     *
-     * @return \DOMElement The root element of the DOM tree
      */
     protected function toUnsignedXML(?DOMElement $parent = null): DOMElement
     {
@@ -87,9 +85,6 @@ abstract class AbstractRequestAbstractType extends AbstractMessage
 
     /**
      * Create XML from this class
-     *
-     * @param \DOMElement|null $parent
-     * @return \DOMElement
      */
     public function toXML(?DOMElement $parent = null): DOMElement
     {

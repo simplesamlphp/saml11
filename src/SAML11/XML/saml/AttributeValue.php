@@ -47,8 +47,6 @@ class AttributeValue extends AbstractSamlElement implements SchemaValidatableEle
 
     /**
      * Get the XSI type of this attribute value.
-     *
-     * @return string
      */
     public function getXsiType(): string
     {
@@ -87,9 +85,6 @@ class AttributeValue extends AbstractSamlElement implements SchemaValidatableEle
 
     /**
      * Convert XML into a AttributeValue
-     *
-     * @param \DOMElement $xml The XML element we should load
-     * @return static
      *
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
@@ -143,10 +138,6 @@ class AttributeValue extends AbstractSamlElement implements SchemaValidatableEle
 
     /**
      * Append this attribute value to an element.
-     *
-     * @param \DOMElement|null $parent The element we should append this attribute value to.
-     *
-     * @return \DOMElement The generated AttributeValue element.
      */
     public function toXML(?DOMElement $parent = null): DOMElement
     {

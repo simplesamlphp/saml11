@@ -36,8 +36,7 @@ abstract class AbstractSubjectQuery extends AbstractSubjectQueryAbstractType imp
     use SchemaValidatableElementTrait;
 
 
-    /** @var string */
-    public const LOCALNAME = 'SubjectQuery';
+    public const string LOCALNAME = 'SubjectQuery';
 
 
     /**
@@ -55,9 +54,6 @@ abstract class AbstractSubjectQuery extends AbstractSubjectQueryAbstractType imp
 
     /**
      * Convert an XML element into a SubjectQuery.
-     *
-     * @param \DOMElement $xml The root XML element
-     * @return static
      *
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong

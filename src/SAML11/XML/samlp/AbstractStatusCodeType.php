@@ -60,9 +60,6 @@ abstract class AbstractStatusCodeType extends AbstractSamlpElement
     /**
      * Convert XML into a StatusCode
      *
-     * @param \DOMElement $xml The XML element we should load
-     * @return static
-     *
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      * @throws \SimpleSAML\XML\Exception\MissingAttributeException
@@ -85,9 +82,6 @@ abstract class AbstractStatusCodeType extends AbstractSamlpElement
 
     /**
      * Convert this StatusCode to XML.
-     *
-     * @param \DOMElement|null $parent The element we should append this StatusCode to.
-     * @return \DOMElement
      */
     public function toXML(?DOMElement $parent = null): DOMElement
     {

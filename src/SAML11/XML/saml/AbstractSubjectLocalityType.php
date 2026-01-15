@@ -55,8 +55,6 @@ abstract class AbstractSubjectLocalityType extends AbstractSamlElement
 
     /**
      * Test if an object, at the state it's in, would produce an empty XML-element
-     *
-     * @return bool
      */
     public function isEmptyElement(): bool
     {
@@ -67,9 +65,6 @@ abstract class AbstractSubjectLocalityType extends AbstractSamlElement
 
     /**
      * Convert XML into an SubjectLocalityType
-     *
-     * @param \DOMElement $xml The XML element we should load
-     * @return static
      *
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
@@ -88,9 +83,6 @@ abstract class AbstractSubjectLocalityType extends AbstractSamlElement
 
     /**
      * Convert this SubjectLocalityType to XML.
-     *
-     * @param \DOMElement $parent The element we are converting to XML.
-     * @return \DOMElement The XML element after adding the data corresponding to this SubjectLocalityType.
      */
     public function toXML(?DOMElement $parent = null): DOMElement
     {

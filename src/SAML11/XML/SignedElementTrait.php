@@ -32,7 +32,6 @@ trait SignedElementTrait
          * attribute value of the root element of the assertion or protocol message being signed. For example, if the
          * ID attribute value is "foo", then the URI attribute in the <ds:Reference> element MUST be "#foo".
          */
-
         $references = $signature->getSignedInfo()->getReferences();
         Assert::count($references, 1, "A signature needs to have exactly one Reference, %d found.");
 

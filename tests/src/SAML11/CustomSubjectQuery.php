@@ -25,14 +25,11 @@ use function array_pop;
  */
 final class CustomSubjectQuery extends AbstractSubjectQuery
 {
-    /** @var string */
-    protected const XSI_TYPE_NAME = 'CustomSubjectQueryType';
+    protected const string XSI_TYPE_NAME = 'CustomSubjectQueryType';
 
-    /** @var string */
-    protected const XSI_TYPE_NAMESPACE = 'urn:x-simplesamlphp:namespace';
+    protected const string XSI_TYPE_NAMESPACE = 'urn:x-simplesamlphp:namespace';
 
-    /** @var string */
-    protected const XSI_TYPE_PREFIX = 'ssp';
+    protected const string XSI_TYPE_PREFIX = 'ssp';
 
 
     /**
@@ -69,9 +66,6 @@ final class CustomSubjectQuery extends AbstractSubjectQuery
     /**
      * Convert XML into a Query
      *
-     * @param \DOMElement $xml The XML element we should load
-     * @return static
-     *
      * @throws \SimpleSAML\XMLSchema\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
@@ -101,9 +95,6 @@ final class CustomSubjectQuery extends AbstractSubjectQuery
 
     /**
      * Convert this SubjectQuery to XML.
-     *
-     * @param \DOMElement $parent The element we are converting to XML.
-     * @return \DOMElement The XML element after adding the data corresponding to this SubjectQuery.
      */
     public function toXML(?DOMElement $parent = null): DOMElement
     {

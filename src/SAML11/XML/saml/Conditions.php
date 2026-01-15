@@ -19,7 +19,6 @@ final class Conditions extends AbstractConditionsType implements SchemaValidatab
 
     /**
      * This element doesn't allow arbitrary namespace-declarations and therefore cannot be normalized
-     * @var bool
      */
-    final public const NORMALIZATION = false;
+    final public const bool NORMALIZATION = false;
 }

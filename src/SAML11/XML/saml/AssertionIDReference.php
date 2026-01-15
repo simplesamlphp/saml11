@@ -20,6 +20,5 @@ final class AssertionIDReference extends AbstractSamlElement implements SchemaVa
     use TypedTextContentTrait;
 
 
-    /** @var string */
-    public const TEXTCONTENT_TYPE = NCNameValue::class;
+    public const string TEXTCONTENT_TYPE = NCNameValue::class;
 }

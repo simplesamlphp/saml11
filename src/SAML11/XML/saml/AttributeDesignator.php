@@ -25,9 +25,6 @@ final class AttributeDesignator extends AbstractAttributeDesignatorType implemen
     /**
      * Convert XML into an AttributeDesignatorType
      *
-     * @param \DOMElement $xml The XML element we should load
-     * @return static
-     *
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */

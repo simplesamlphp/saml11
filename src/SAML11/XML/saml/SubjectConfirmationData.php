@@ -51,8 +51,6 @@ class SubjectConfirmationData extends AbstractSamlElement implements SchemaValid
 
     /**
      * Get the XSI type of this attribute value.
-     *
-     * @return string
      */
     public function getXsiType(): string
     {
@@ -90,9 +88,6 @@ class SubjectConfirmationData extends AbstractSamlElement implements SchemaValid
 
     /**
      * Convert XML into a SubjectConfirmationData
-     *
-     * @param \DOMElement $xml The XML element we should load
-     * @return static
      *
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
@@ -140,10 +135,6 @@ class SubjectConfirmationData extends AbstractSamlElement implements SchemaValid
 
     /**
      * Append this attribute value to an element.
-     *
-     * @param \DOMElement|null $parent The element we should append this attribute value to.
-     *
-     * @return \DOMElement The generated SubjectConfirmationData element.
      */
     public function toXML(?DOMElement $parent = null): DOMElement
     {

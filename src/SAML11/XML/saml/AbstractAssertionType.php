@@ -45,8 +45,6 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
 
     /**
      * The original signed XML
-     *
-     * @var \DOMElement
      */
     protected DOMElement $xml;
 
@@ -228,8 +226,6 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
 
     /**
      * Set the XML element.
-     *
-     * @param \DOMElement $xml
      */
     private function setOriginalXML(DOMElement $xml): void
     {
@@ -238,7 +234,6 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
 
 
     /**
-     * @return \DOMElement
      */
     protected function getOriginalXML(): DOMElement
     {
@@ -255,9 +250,6 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
 
     /**
      * Convert XML into an AssertionType
-     *
-     * @param \DOMElement $xml The XML element we should load
-     * @return static
      *
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
@@ -315,8 +307,6 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
     /**
      * Convert this assertion to an unsigned XML document.
      * This method does not sign the resulting XML document.
-     *
-     * @return \DOMElement The root element of the DOM tree
      */
     protected function toUnsignedXML(?DOMElement $parent = null): DOMElement
     {
@@ -342,9 +332,6 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
     /**
      * Convert this assertion to a signed XML element, if a signer was set.
      *
-     * @param \DOMElement|null $parent The DOM node the assertion should be created in.
-     *
-     * @return \DOMElement This assertion.
      * @throws \Exception
      */
     public function toXML(?DOMElement $parent = null): DOMElement

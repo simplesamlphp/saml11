@@ -14,8 +14,6 @@ use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 trait SAMLStringTrait
 {
     /**
-     * @param string $value
-     * @param string $message
      */
     protected static function validSAMLString(string $value, string $message = ''): void
     {
