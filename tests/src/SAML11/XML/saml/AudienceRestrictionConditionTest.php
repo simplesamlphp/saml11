@@ -7,7 +7,6 @@ namespace SimpleSAML\Test\SAML11\XML\saml;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\SAML11\XML\saml\AbstractAudienceRestrictionConditionType;
 use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
 use SimpleSAML\SAML11\XML\saml\Audience;
@@ -54,9 +53,7 @@ final class AudienceRestrictionConditionTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $audience = new Audience(
-            SAMLAnyURIValue::fromString('urn:x-simplesamlphp:audience'),
-        );
+        $audience = Audience::fromString('urn:x-simplesamlphp:audience');
         $audienceRestrictionCondition = new AudienceRestrictionCondition([$audience]);
 
         $this->assertEquals(

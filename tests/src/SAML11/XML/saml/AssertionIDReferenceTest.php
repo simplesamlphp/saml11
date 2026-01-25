@@ -12,7 +12,6 @@ use SimpleSAML\SAML11\XML\saml\AssertionIDReference;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
-use SimpleSAML\XMLSchema\Type\IDValue;
 
 use function dirname;
 use function strval;
@@ -47,9 +46,7 @@ final class AssertionIDReferenceTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $assertionIDReference = new AssertionIDReference(
-            IDValue::fromString('_Test'),
-        );
+        $assertionIDReference = AssertionIDReference::fromString('_Test');
 
         $this->assertEquals(
             self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),

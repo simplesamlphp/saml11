@@ -9,7 +9,6 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
 use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\SAML11\XML\saml\Assertion;
@@ -79,9 +78,7 @@ final class ResponseTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $audience = new Audience(
-            SAMLAnyURIValue::fromString('urn:x-simplesamlphp:audience'),
-        );
+        $audience = Audience::fromString('urn:x-simplesamlphp:audience');
         $audienceRestrictionCondition = new AudienceRestrictionCondition([$audience]);
 
         $doNotCacheCondition = new DoNotCacheCondition();
@@ -116,9 +113,7 @@ final class ResponseTest extends TestCase
                     ),
                 ],
             ),
-            new StatusMessage(
-                SAMLStringValue::fromString('Something went wrong'),
-            ),
+            StatusMessage::fromString('Something went wrong'),
         );
 
         $response = new Response(

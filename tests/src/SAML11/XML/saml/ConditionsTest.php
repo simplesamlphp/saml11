@@ -70,9 +70,7 @@ final class ConditionsTest extends TestCase
 
         $condition = new CustomCondition(
             [
-                new Audience(
-                    SAMLAnyURIValue::fromString('urn:some:audience'),
-                ),
+                Audience::fromString('urn:some:audience'),
             ],
         );
 

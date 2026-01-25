@@ -7,7 +7,6 @@ namespace SimpleSAML\Test\SAML11\XML\saml;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\SAML11\XML\saml\AbstractSamlElement;
 use SimpleSAML\SAML11\XML\saml\AbstractSubjectConfirmationType;
 use SimpleSAML\SAML11\XML\saml\ConfirmationMethod;
@@ -17,10 +16,8 @@ use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\DOMDocumentFactory;
 use SimpleSAML\XML\TestUtils\SchemaValidationTestTrait;
 use SimpleSAML\XML\TestUtils\SerializableElementTestTrait;
-use SimpleSAML\XMLSchema\Type\Base64BinaryValue;
 use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\IntegerValue;
-use SimpleSAML\XMLSchema\Type\StringValue;
 use SimpleSAML\XMLSecurity\TestUtils\PEMCertificatesMock;
 use SimpleSAML\XMLSecurity\XML\ds\KeyInfo;
 use SimpleSAML\XMLSecurity\XML\ds\KeyName;
@@ -103,17 +100,11 @@ final class SubjectConfirmationTest extends TestCase
 
         $keyInfo = new KeyInfo(
             [
-                new KeyName(
-                    StringValue::fromString('testkey'),
-                ),
+                KeyName::fromString('testkey'),
                 new X509Data(
                     [
-                        new X509Certificate(
-                            Base64BinaryValue::fromString(self::$certificate),
-                        ),
-                        new X509SubjectName(
-                            StringValue::fromString(self::$certData['name']),
-                        ),
+                        X509Certificate::fromString(self::$certificate),
+                        X509SubjectName::fromString(self::$certData['name']),
                     ],
                 ),
                 new Chunk(DOMDocumentFactory::fromString(
@@ -125,12 +116,8 @@ final class SubjectConfirmationTest extends TestCase
 
         $sc = new SubjectConfirmation(
             [
-                new ConfirmationMethod(
-                    SAMLAnyURIValue::fromString('_Test1'),
-                ),
-                new ConfirmationMethod(
-                    SAMLAnyURIValue::fromString('_Test2'),
-                ),
+                ConfirmationMethod::fromString('_Test1'),
+                ConfirmationMethod::fromString('_Test2'),
             ],
             $scd,
             $keyInfo,

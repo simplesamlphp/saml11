@@ -58,6 +58,7 @@ final class SubjectConfirmationDataTest extends TestCase
         $scd = new SubjectConfirmationData(
             IntegerValue::fromString('2'),
         );
+
         $this->assertInstanceOf(IntegerValue::class, $scd->getValue());
         $this->assertEquals('2', strval($scd->getValue()));
         $this->assertEquals('xs:integer', $scd->getXsiType());

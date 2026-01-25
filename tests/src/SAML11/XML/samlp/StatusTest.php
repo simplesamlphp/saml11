@@ -9,7 +9,6 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\SAML11\Utils\XPath;
 use SimpleSAML\SAML11\XML\samlp\AbstractSamlpElement;
 use SimpleSAML\SAML11\XML\samlp\Status;
@@ -72,9 +71,7 @@ final class StatusTest extends TestCase
                     ),
                 ],
             ),
-            new StatusMessage(
-                SAMLStringValue::fromString('Something went wrong'),
-            ),
+            StatusMessage::fromString('Something went wrong'),
             StatusDetail::fromXML(
                 DOMDocumentFactory::fromFile(
                     dirname(__FILE__, 5) . '/resources/xml/samlp_StatusDetail.xml',
@@ -102,9 +99,7 @@ final class StatusTest extends TestCase
                     ),
                 ],
             ),
-            new StatusMessage(
-                SAMLStringValue::fromString('Something went wrong'),
-            ),
+            StatusMessage::fromString('Something went wrong'),
             new StatusDetail([new Chunk(self::$detail->documentElement)]),
         );
 
@@ -116,7 +111,7 @@ final class StatusTest extends TestCase
         $this->assertCount(1, $statusElements);
 
         // Test ordering of Status contents
-        /** @psalm-var \DOMElement[] $statusElements */
+        /** @var \DOMElement[] $statusElements */
         $statusElements = XPath::xpQuery($statusElement, './saml_protocol:StatusCode/following-sibling::*', $xpCache);
         $this->assertCount(2, $statusElements);
         $this->assertEquals('samlp:StatusMessage', $statusElements[0]->tagName);

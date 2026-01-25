@@ -7,7 +7,6 @@ namespace Simplesamlp\Test\SAML11\XML\samlp;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\SAML11\XML\samlp\AbstractSamlpElement;
 use SimpleSAML\SAML11\XML\samlp\AssertionArtifact;
 use SimpleSAML\XML\DOMDocumentFactory;
@@ -51,9 +50,7 @@ final class AssertionArtifactTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $assertionArtifact = new AssertionArtifact(
-            SAMLStringValue::fromString('AAEbuqrPjR1XORIHk5YAV8I4sM0nKP2CLV+h1CMiWbnkaWvvlJ0g4Ess'),
-        );
+        $assertionArtifact = AssertionArtifact::fromString('AAEbuqrPjR1XORIHk5YAV8I4sM0nKP2CLV+h1CMiWbnkaWvvlJ0g4Ess');
 
         $this->assertEquals(
             self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),

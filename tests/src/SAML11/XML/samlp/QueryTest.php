@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 use SimpleSAML\SAML11\Compat\AbstractContainer;
 use SimpleSAML\SAML11\Compat\ContainerSingleton;
 use SimpleSAML\SAML11\Constants as C;
-use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\SAML11\XML\samlp\AbstractQuery;
 use SimpleSAML\SAML11\XML\samlp\AbstractQueryAbstractType;
 use SimpleSAML\SAML11\XML\samlp\AbstractSamlpElement;
@@ -82,9 +81,7 @@ final class QueryTest extends TestCase
     {
         $query = new CustomQuery(
             [
-                new StatusMessage(
-                    SAMLStringValue::fromString('urn:some:audience'),
-                ),
+                StatusMessage::fromString('urn:some:audience'),
             ],
         );
 
