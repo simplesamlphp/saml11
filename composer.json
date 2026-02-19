@@ -17,9 +17,9 @@
 
         "psr/clock": "~1.0",
         "psr/log": "~3.0",
-        "simplesamlphp/assert": "~1.9",
-        "simplesamlphp/xml-common": "~2.5",
-        "simplesamlphp/xml-security": "~2.1"
+        "simplesamlphp/assert": "~2.0",
+        "simplesamlphp/xml-common": "~2.7",
+        "simplesamlphp/xml-security": "~2.3"
     },
     "require-dev": {
         "beste/clock": "~3.0",
