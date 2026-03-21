@@ -12,12 +12,14 @@ use SimpleSAML\SAML11\Exception\VersionMismatchException;
 use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
 use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\SAML11\Utils\XPath;
+use SimpleSAML\SAML11\XML\CanonicalizableElementTrait;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 use SimpleSAML\XMLSchema\Exception\MissingElementException;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue;
+use SimpleSAML\XMLSecurity\XML\CanonicalizableElementInterface;
 use SimpleSAML\XMLSecurity\XML\ds\Signature;
 use SimpleSAML\XMLSecurity\XML\SignableElementInterface;
 use SimpleSAML\XMLSecurity\XML\SignableElementTrait;
@@ -36,9 +38,11 @@ use function strval;
  * @package simplesamlphp/saml11
  */
 abstract class AbstractAssertionType extends AbstractSamlElement implements
+    CanonicalizableElementInterface,
     SignableElementInterface,
     SignedElementInterface
 {
+    use CanonicalizableElementTrait;
     use SignableElementTrait;
     use SignedElementTrait;
 
