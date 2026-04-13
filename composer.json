@@ -18,7 +18,7 @@
         "psr/clock": "~1.0",
         "psr/log": "~3.0",
         "simplesamlphp/assert": "~2.0",
-        "simplesamlphp/xml-common": "~2.7",
+        "simplesamlphp/xml-common": "~2.8",
         "simplesamlphp/xml-security": "~2.3"
     },
     "require-dev": {
