@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\saml;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\XML\AbstractElement;
@@ -41,7 +41,7 @@ class SubjectConfirmationData extends AbstractSamlElement implements SchemaValid
      *  - null
      *  - \SimpleSAML\XML\AbstractElement
      *
-     * @throws \SimpleSAML\Assert\AssertionFailedException if the supplied value is neither a string or a DOMElement
+     * @throws \SimpleSAML\Assert\AssertionFailedException if the supplied value is neither a string or a Dom\Element
      */
     final public function __construct(
         protected SAMLStringValue|IntegerValue|null|AbstractElement $value,
@@ -92,7 +92,7 @@ class SubjectConfirmationData extends AbstractSamlElement implements SchemaValid
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
@@ -136,7 +136,7 @@ class SubjectConfirmationData extends AbstractSamlElement implements SchemaValid
     /**
      * Append this attribute value to an element.
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = parent::instantiateParentElement($parent);
 

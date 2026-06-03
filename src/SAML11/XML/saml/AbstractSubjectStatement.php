@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\saml;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\Utils;
@@ -60,7 +60,7 @@ abstract class AbstractSubjectStatement extends AbstractSubjectStatementType imp
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, 'SubjectStatement', InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, C::NS_SAML, InvalidDOMElementException::class);
@@ -95,7 +95,7 @@ abstract class AbstractSubjectStatement extends AbstractSubjectStatementType imp
     /**
      * Convert this SubjectStatement to XML.
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = parent::toXML($parent);
 

@@ -52,11 +52,12 @@ final class DoNotCacheConditionTest extends TestCase
      */
     public function testMarshalling(): void
     {
-        $DoNotCacheCondition = new DoNotCacheCondition();
+        $doNotCacheCondition = new DoNotCacheCondition();
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($DoNotCacheCondition),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($doNotCacheCondition);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

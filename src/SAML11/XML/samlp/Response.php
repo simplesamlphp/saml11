@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\samlp;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Exception\VersionMismatchException;
 use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
@@ -42,7 +42,7 @@ final class Response extends AbstractResponseType implements SchemaValidatableEl
      * @throws \SimpleSAML\XML\Exception\MissingElementException
      *   if one of the mandatory child-elements is missing
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, 'Response', InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, Response::NS, InvalidDOMElementException::class);

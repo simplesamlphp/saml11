@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\samlp;
 
-use DOMDocument;
+use Dom;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -70,23 +70,23 @@ final class AuthorizationDecisionQueryTest extends TestCase
     /** @var string[] */
     private static array $certData;
 
-    /** @var \DOMDocument $advice */
-    //private static DOMDocument $advice;
+    /** @var \Dom\XMLDocument $advice */
+    //private static Dom\XMLDocument $advice;
 
-    /** @var \DOMDocument $statement */
-    //private static DOMDocument $statement;
+    /** @var \Dom\XMLDocument $statement */
+    //private static Dom\XMLDocument $statement;
 
-    /** @var \DOMDocument $subjectStatement */
-    //private static DOMDocument $subjectStatement;
+    /** @var \Dom\XMLDocument $subjectStatement */
+    //private static Dom\XMLDocument $subjectStatement;
 
-    /** @var \DOMDocument $authnStatement */
-    private static DOMDocument $authnStatement;
+    /** @var \Dom\XMLDocument $authnStatement */
+    private static Dom\XMLDocument $authnStatement;
 
-    /** @var \DOMDocument $authzDecisionStatement */
-    //private static DOMDocument $authzDecisionStatement;
+    /** @var \Dom\XMLDocument $authzDecisionStatement */
+    //private static \Dom\XMLDocument $authzDecisionStatement;
 
-    /** @var \DOMDocument $attributeStatement */
-    private static DOMDocument $attributeStatement;
+    /** @var \Dom\XMLDocument $attributeStatement */
+    private static Dom\XMLDocument $attributeStatement;
 
 
     /**
@@ -237,9 +237,10 @@ final class AuthorizationDecisionQueryTest extends TestCase
             ],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($authorizationDecisionQuery),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($authorizationDecisionQuery);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

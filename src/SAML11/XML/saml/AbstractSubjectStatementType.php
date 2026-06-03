@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\saml;
 
-use DOMElement;
+use Dom;
 
 /**
  * @package simplesamlphp\saml11
@@ -36,7 +36,7 @@ abstract class AbstractSubjectStatementType extends AbstractStatementType
     /**
      * Convert this SubjectStatement to XML.
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = $this->instantiateParentElement($parent);
 

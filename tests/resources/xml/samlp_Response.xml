@@ -1,4 +1,4 @@
-<samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol" xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ssp="urn:x-simplesamlphp:namespace" MajorVersion="1" MinorVersion="1" IssueInstant="2023-01-24T09:42:26Z" ResponseID="def456">
+<samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol" xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ssp="urn:x-simplesamlphp:namespace" MajorVersion="1" MinorVersion="1" IssueInstant="2023-01-24T09:42:26Z" ResponseID="def456">
   <samlp:Status>
     <samlp:StatusCode Value="samlp:Responder">
       <samlp:StatusCode Value="samlp:RequestDenied"/>
@@ -18,7 +18,7 @@
         <saml:SubjectConfirmation>
           <saml:ConfirmationMethod>_Test1</saml:ConfirmationMethod>
           <saml:ConfirmationMethod>_Test2</saml:ConfirmationMethod>
-          <saml:SubjectConfirmationData xsi:type="xs:integer">2</saml:SubjectConfirmationData>
+          <saml:SubjectConfirmationData xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:integer">2</saml:SubjectConfirmationData>
           <ds:KeyInfo Id="AuthenticationStatementID">
             <ds:KeyName>testkey</ds:KeyName>
             <ds:X509Data>

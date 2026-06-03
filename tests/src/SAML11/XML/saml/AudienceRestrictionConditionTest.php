@@ -56,9 +56,10 @@ final class AudienceRestrictionConditionTest extends TestCase
         $audience = Audience::fromString('urn:x-simplesamlphp:audience');
         $audienceRestrictionCondition = new AudienceRestrictionCondition([$audience]);
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($audienceRestrictionCondition),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($audienceRestrictionCondition);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

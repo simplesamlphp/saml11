@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\samlp;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Exception\VersionMismatchException;
 use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
@@ -35,7 +35,7 @@ final class Request extends AbstractRequestType
      * @throws \SimpleSAML\XML\Exception\MissingElementException
      *   if one of the mandatory child-elements is missing
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, 'Request', InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, Request::NS, InvalidDOMElementException::class);

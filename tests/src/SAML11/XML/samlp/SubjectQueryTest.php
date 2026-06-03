@@ -167,10 +167,11 @@ final class SubjectQueryTest extends TestCase
             ],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($subjectQuery),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($subjectQuery);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 
 
@@ -187,7 +188,7 @@ final class SubjectQueryTest extends TestCase
 
         // Normalize the DOMElement by importing it into a clean empty document
         $newDoc = DOMDocumentFactory::create();
-        /** @var \DOMElement $element */
+        /** @var \Dom\Element $element */
         $element = $newDoc->appendChild($newDoc->importNode($element, true));
 
         $subjectQuery = AbstractSubjectQuery::fromXML($element);

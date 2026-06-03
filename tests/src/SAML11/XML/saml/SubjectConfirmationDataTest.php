@@ -63,10 +63,11 @@ final class SubjectConfirmationDataTest extends TestCase
         $this->assertEquals('2', strval($scd->getValue()));
         $this->assertEquals('xs:integer', $scd->getXsiType());
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($scd),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($scd);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 
 
@@ -95,7 +96,7 @@ final class SubjectConfirmationDataTest extends TestCase
         $nssaml = C::NS_SAML;
         $nsxsi = C_XSI::NS_XSI;
         $xml = <<<XML
-<saml:SubjectConfirmationData xmlns:saml="{$nssaml}" xmlns:xsi="{$nsxsi}" xsi:nil="1"/>
+<saml:SubjectConfirmationData xmlns:xsi="{$nsxsi}" xsi:nil="1" xmlns:saml="{$nssaml}"/>
 XML;
         $this->assertEquals(
             $xml,
@@ -125,6 +126,9 @@ XML;
 
         $this->assertEquals('abcd-some-value-xyz', $value->getValue());
         $this->assertEquals('urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified', $value->getFormat());
-        $this->assertXmlStringEqualsXmlString($document->saveXML(), $scd->toXML()->ownerDocument?->saveXML());
+
+        /** @var \Dom\XMLDocument $ownerDocument */
+        $ownerDocument = $scd->toXML()->ownerDocument;
+        $this->assertXmlStringEqualsXmlString($document->saveXML($document), $ownerDocument->saveXML($ownerDocument));
     }
 }

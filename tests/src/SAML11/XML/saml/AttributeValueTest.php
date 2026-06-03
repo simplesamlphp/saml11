@@ -64,10 +64,11 @@ final class AttributeValueTest extends TestCase
         $this->assertEquals('2', $av->getValue());
         $this->assertEquals('xs:integer', $av->getXsiType());
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($av),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($av);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 
 
@@ -127,7 +128,7 @@ XML;
         $nsxs = C_XSI::NS_XS;
         $nsxsi = C_XSI::NS_XSI;
         $xml = <<<XML
-<saml:AttributeValue xmlns:saml="{$nssaml}" xmlns:xsi="{$nsxsi}" xmlns:xs="{$nsxs}" xsi:type="xs:dateTime">2024-04-04T04:44:44Z</saml:AttributeValue>
+<saml:AttributeValue xmlns:xsi="{$nsxsi}" xmlns:xs="{$nsxs}" xmlns:saml="{$nssaml}" xsi:type="xs:dateTime">2024-04-04T04:44:44Z</saml:AttributeValue>
 XML;
         $this->assertEquals(
             $xml,
@@ -167,12 +168,15 @@ XML;
 
         $this->assertEquals('abcd-some-value-xyz', $value->getValue());
         $this->assertEquals('urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified', $value->getFormat());
-        $this->assertXmlStringEqualsXmlString($document->saveXML(), $av->toXML()->ownerDocument?->saveXML());
+
+        /** @var \Dom\XMLDocument $ownerDocument */
+        $ownerDocument = $av->toXML()->ownerDocument;
+        $this->assertXmlStringEqualsXmlString($document->saveXML(), $ownerDocument->saveXML());
     }
 
 
     /**
-     * Verifies that we cannot create an AttributeValue that is nullable, like SAML2 allows, but SAML1.1 does not.
+     * Verifies that we cannot create an AttributeValue that is nullable, like SAML 2.0 allows, but SAML1.1 does not.
      *
      * @return void
      */

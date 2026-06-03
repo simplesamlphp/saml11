@@ -66,9 +66,10 @@ final class AuthorityBindingTest extends TestCase
             SAMLAnyURIValue::fromString('urn:x-simplesamlphp:binding'),
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($ab),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($ab);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\samlp;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\SAML11\XML\saml\Subject;
@@ -32,7 +32,7 @@ final class AuthenticationQuery extends AbstractAuthenticationQueryType implemen
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, 'AuthenticationQuery', InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, AuthenticationQuery::NS, InvalidDOMElementException::class);

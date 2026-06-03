@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Compat\ContainerSingleton;
 use SimpleSAML\XML\DOMDocumentFactory;
@@ -72,9 +72,9 @@ trait SignableElementTrait
     /**
      * Do the actual signing of the document.
      *
-     * Note that this method does not insert the signature in the returned \DOMElement. The signature will be available
+     * Note that this method does not insert the signature in the returned \Dom\Element. The signature will be available
      * in $this->signature as a \SimpleSAML\XMLSecurity\XML\ds\Signature object, which can then be converted to XML
-     * calling toXML() on it, passing the \DOMElement value returned here as a parameter. The resulting \DOMElement
+     * calling toXML() on it, passing the \Dom\Element value returned here as a parameter. The resulting \Dom\Element
      * can then be inserted in the position desired.
      *
      * E.g.:
@@ -82,10 +82,10 @@ trait SignableElementTrait
      *     $signedXML = $this->doSign($xml);
      *     $signedXML->appendChild($this->signature->toXML($signedXML));
      *
-     * @param \DOMElement $xml The element to sign.
-     * @return \DOMElement The signed element, without the signature attached to it just yet.
+     * @param \Dom\Element $xml The element to sign.
+     * @return \Dom\Element The signed element, without the signature attached to it just yet.
      */
-    protected function doSign(DOMElement $xml): DOMElement
+    protected function doSign(Dom\Element $xml): Dom\Element
     {
         Assert::notNull(
             $this->signer,

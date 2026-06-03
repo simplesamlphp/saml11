@@ -107,10 +107,11 @@ final class StatementTest extends TestCase
         $this->assertCount(1, $audience);
         $this->assertEquals('urn:some:audience', $audience[0]->getContent());
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($statement),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($statement);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 
 
@@ -134,6 +135,8 @@ final class StatementTest extends TestCase
         $this->assertEquals('Statement', $chunk->getLocalName());
         $this->assertEquals(C::NS_SAML, $chunk->getNamespaceURI());
 
-        $this->assertEquals($element->ownerDocument?->saveXML($element), strval($statement));
+        /** @var \Dom\XMLDocument $ownerDocument */
+        $ownerDocument = $element->ownerDocument;
+        $this->assertEquals($ownerDocument->saveXML($element), strval($statement));
     }
 }
