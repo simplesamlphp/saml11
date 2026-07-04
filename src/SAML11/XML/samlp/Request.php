@@ -15,8 +15,8 @@ use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue;
 
+use function array_last;
 use function array_merge;
-use function array_pop;
 
 /**
  * Class representing a samlp:Request element.
@@ -85,7 +85,7 @@ final class Request extends AbstractRequestType
         $issueInstant = self::getAttribute($xml, 'IssueInstant', SAMLDateTimeValue::class);
 
         return new static(
-            $assertionIdReference ?: $assertionArtifact ?: array_pop($query),
+            $assertionIdReference ?: $assertionArtifact ?: array_last($query),
             self::getAttribute($xml, 'RequestID', IDValue::class),
             $majorVersion,
             $minorVersion,

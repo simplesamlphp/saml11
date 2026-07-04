@@ -12,6 +12,8 @@ use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 use SimpleSAML\XMLSecurity\XML\ds\KeyInfo;
 
+use function array_last;
+
 /**
  * SAML SubjectConfirmationType abstract data type.
  *
@@ -88,8 +90,8 @@ abstract class AbstractSubjectConfirmationType extends AbstractSamlElement
 
         return new static(
             ConfirmationMethod::getChildrenOfClass($xml),
-            array_pop($subjectConfirmationData),
-            array_pop($keyInfo),
+            array_last($subjectConfirmationData),
+            array_last($keyInfo),
         );
     }
 

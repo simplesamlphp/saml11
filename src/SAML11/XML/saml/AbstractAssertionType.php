@@ -27,8 +27,8 @@ use SimpleSAML\XMLSecurity\XML\SignedElementInterface;
 use SimpleSAML\XMLSecurity\XML\SignedElementTrait;
 
 use function array_filter;
+use function array_last;
 use function array_merge;
-use function array_pop;
 use function array_values;
 use function strval;
 
@@ -294,8 +294,8 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
             self::getAttribute($xml, 'AssertionID', IDValue::class),
             self::getAttribute($xml, 'Issuer', SAMLStringValue::class),
             self::getAttribute($xml, 'IssueInstant', SAMLDateTimeValue::class),
-            array_pop($conditions),
-            array_pop($advice),
+            array_last($conditions),
+            array_last($advice),
             array_merge($statements, $subjectStatement, $authnStatement, $authzDecisionStatement, $attrStatement),
         );
 
@@ -362,7 +362,7 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
                 './saml_assertion/following-sibling::*[position() = last()]',
                 XPath::getXPath($signedXML),
             );
-            $last = array_pop($assertionElements);
+            $last = array_last($assertionElements);
 
             if ($last !== null) {
                 $signedXML->insertBefore($this->signature?->toXML($signedXML), $last->nextSibling);

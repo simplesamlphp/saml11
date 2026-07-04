@@ -15,7 +15,7 @@ use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 use SimpleSAML\XMLSchema\Exception\MissingElementException;
 use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 
-use function array_pop;
+use function array_last;
 
 /**
  * Class representing a samlp:AttributeQuery element.
@@ -46,6 +46,6 @@ final class AttributeQuery extends AbstractAttributeQueryType implements SchemaV
 
         $attributeDesignator = AttributeDesignator::getChildrenOfClass($xml);
 
-        return new static(array_pop($subject), $resource, $attributeDesignator);
+        return new static(array_last($subject), $resource, $attributeDesignator);
     }
 }

@@ -11,6 +11,8 @@ use SimpleSAML\XMLSchema\Exception\MissingElementException;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 
+use function array_last;
+
 /**
  * SAML AttributeStatementType abstract data type.
  *
@@ -61,7 +63,7 @@ abstract class AbstractAttributeStatementType extends AbstractSubjectStatementTy
         Assert::maxCount($subject, 1, TooManyElementsException::class);
 
         return new static(
-            array_pop($subject),
+            array_last($subject),
             Attribute::getChildrenOfClass($xml),
         );
     }

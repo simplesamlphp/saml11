@@ -10,6 +10,8 @@ use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 use SimpleSAML\XMLSchema\Exception\MissingElementException;
 use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 
+use function array_last;
+
 /**
  * SAML SubjectType abstract data type.
  *
@@ -73,8 +75,8 @@ abstract class AbstractSubjectType extends AbstractSamlElement
         Assert::maxCount($nameIdentifier, 1, TooManyElementsException::class);
 
         return new static(
-            array_pop($subjectConfirmation),
-            array_pop($nameIdentifier),
+            array_last($subjectConfirmation),
+            array_last($nameIdentifier),
         );
     }
 
