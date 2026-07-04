@@ -16,7 +16,7 @@ use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 use SimpleSAML\XMLSchema\Exception\MissingElementException;
 use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 
-use function array_pop;
+use function array_last;
 
 /**
  * Class representing a samlp:AuthorizationDecisionQuery element.
@@ -52,6 +52,6 @@ final class AuthorizationDecisionQuery extends AbstractAuthorizationDecisionQuer
         $evidence = Evidence::getChildrenOfClass($xml);
         Assert::maxCount($evidence, 1, TooManyElementsException::class);
 
-        return new static(array_pop($subject), $resource, array_pop($evidence), $action);
+        return new static(array_last($subject), $resource, array_last($evidence), $action);
     }
 }

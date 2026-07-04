@@ -19,6 +19,8 @@ use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 use SimpleSAML\XMLSchema\Type\QNameValue;
 
+use function array_last;
+
 /**
  * Class implementing the <saml:SubjectStatement> extension point.
  *
@@ -80,7 +82,7 @@ abstract class AbstractSubjectStatement extends AbstractSubjectStatementType imp
             Assert::maxCount($subject, 1, TooManyElementsException::class);
 
             // we don't have a handler, proceed with unknown SubjectStatement
-            return new UnknownSubjectStatement(new Chunk($xml), $type, array_pop($subject));
+            return new UnknownSubjectStatement(new Chunk($xml), $type, array_last($subject));
         }
 
         Assert::subclassOf(

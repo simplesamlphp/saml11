@@ -21,7 +21,7 @@ use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 use SimpleSAML\XMLSchema\Type\QNameValue;
 
-use function array_pop;
+use function array_last;
 
 /**
  * SAMLP Query data type.
@@ -78,7 +78,7 @@ abstract class AbstractSubjectQuery extends AbstractSubjectQueryAbstractType imp
             Assert::maxCount($subject, 1, TooManyElementsException::class);
 
             // we don't have a handler, proceed with unknown query
-            return new UnknownSubjectQuery(new Chunk($xml), $type, array_pop($subject));
+            return new UnknownSubjectQuery(new Chunk($xml), $type, array_last($subject));
         }
 
         Assert::subclassOf(

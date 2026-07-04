@@ -12,7 +12,7 @@ use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue;
 
-use function array_pop;
+use function array_last;
 use function is_array;
 
 /**
@@ -49,7 +49,7 @@ abstract class AbstractRequestType extends AbstractRequestAbstractType
         if (is_array($request)) {
             Assert::minCount($request, 1, SchemaViolationException::class);
 
-            $req = array_pop($request);
+            $req = array_last($request);
             if ($req instanceof AssertionIDReference) {
                 Assert::allIsInstanceOf($request, AssertionIDReference::class, SchemaViolationException::class);
             } elseif ($req instanceof AssertionArtifact) {

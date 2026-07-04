@@ -20,7 +20,7 @@ use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\NCNameValue;
 use SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue;
 
-use function array_pop;
+use function array_last;
 
 /**
  * Class representing a samlp:Response element.
@@ -61,7 +61,7 @@ final class Response extends AbstractResponseType implements SchemaValidatableEl
             $majorVersion,
             $minorVersion,
             self::getAttribute($xml, 'ResponseID', IDValue::class),
-            array_pop($status),
+            array_last($status),
             self::getAttribute($xml, 'IssueInstant', SAMLDateTimeValue::class),
             Assertion::getChildrenOfClass($xml),
             self::getOptionalAttribute($xml, 'InResponseTo', NCNameValue::class, null),

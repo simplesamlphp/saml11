@@ -16,7 +16,7 @@ use SimpleSAML\XMLSchema\Exception\MissingElementException;
 use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 use SimpleSAML\XMLSchema\Type\QNameValue;
 
-use function array_pop;
+use function array_last;
 
 /**
  * Example class to demonstrate how SubjectQuery can be extended.
@@ -89,7 +89,7 @@ final class CustomSubjectQuery extends AbstractSubjectQuery
         Assert::minCount($subject, 1, MissingElementException::class);
         Assert::maxCount($subject, 1, TooManyElementsException::class);
 
-        return new static(array_pop($subject), $statusMessage);
+        return new static(array_last($subject), $statusMessage);
     }
 
 

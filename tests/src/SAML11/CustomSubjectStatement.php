@@ -87,7 +87,7 @@ final class CustomSubjectStatement extends AbstractSubjectStatement
 
         $audience = Audience::getChildrenOfClass($xml);
 
-        return new static(array_pop($subject), $audience);
+        return new static(array_last($subject), $audience);
     }
 
 

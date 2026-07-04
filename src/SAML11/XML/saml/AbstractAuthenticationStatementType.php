@@ -13,6 +13,8 @@ use SimpleSAML\XMLSchema\Exception\MissingElementException;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 
+use function array_last;
+
 /**
  * SAML AuthenticationStatementType abstract data type.
  *
@@ -106,10 +108,10 @@ abstract class AbstractAuthenticationStatementType extends AbstractSubjectStatem
         Assert::maxCount($subject, 1, TooManyElementsException::class);
 
         return new static(
-            array_pop($subject),
+            array_last($subject),
             self::getAttribute($xml, 'AuthenticationMethod', SAMLAnyURIValue::class),
             self::getAttribute($xml, 'AuthenticationInstant', SAMLDateTimeValue::class),
-            array_pop($subjectLocality),
+            array_last($subjectLocality),
             $authorityBinding,
         );
     }

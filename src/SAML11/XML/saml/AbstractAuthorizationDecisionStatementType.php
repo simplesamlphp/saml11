@@ -13,6 +13,7 @@ use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 use SimpleSAML\XMLSchema\Type\AnyURIValue;
 
+use function array_last;
 use function strval;
 
 /**
@@ -109,11 +110,11 @@ abstract class AbstractAuthorizationDecisionStatementType extends AbstractSubjec
         Assert::maxCount($evidence, 1, TooManyElementsException::class);
 
         return new static(
-            array_pop($subject),
+            array_last($subject),
             self::getAttribute($xml, 'Resource', AnyURIValue::class),
             self::getAttribute($xml, 'Decision', DecisionTypeValue::class),
             Action::getChildrenOfClass($xml),
-            array_pop($evidence),
+            array_last($evidence),
         );
     }
 
