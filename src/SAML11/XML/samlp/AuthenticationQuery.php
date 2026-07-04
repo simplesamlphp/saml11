@@ -14,7 +14,7 @@ use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
 use SimpleSAML\XMLSchema\Exception\MissingElementException;
 use SimpleSAML\XMLSchema\Exception\TooManyElementsException;
 
-use function array_pop;
+use function array_last;
 
 /**
  * Class representing a samlp:AuthenticationQuery element.
@@ -43,6 +43,6 @@ final class AuthenticationQuery extends AbstractAuthenticationQueryType implemen
         Assert::minCount($subject, 1, MissingElementException::class);
         Assert::maxCount($subject, 1, TooManyElementsException::class);
 
-        return new static(array_pop($subject), $authenticationMethod);
+        return new static(array_last($subject), $authenticationMethod);
     }
 }

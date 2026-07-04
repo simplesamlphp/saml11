@@ -12,7 +12,7 @@ use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
 use SimpleSAML\XMLSchema\Type\IDValue;
 use SimpleSAML\XMLSchema\Type\NonNegativeIntegerValue;
 
-use function array_pop;
+use function array_last;
 use function strval;
 
 /**
@@ -107,7 +107,7 @@ abstract class AbstractRequestAbstractType extends AbstractMessage
 
             // Test for an RespondWith
             $messageElements = XPath::xpQuery($signedXML, './saml_protocol:RespondWith', XPath::getXPath($signedXML));
-            $respondWith = array_pop($messageElements);
+            $respondWith = array_last($messageElements);
 
             if ($respondWith === null) {
                 $signedXML->appendChild($this->signature?->toXML($signedXML));
