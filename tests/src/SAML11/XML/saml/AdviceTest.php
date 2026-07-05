@@ -264,7 +264,7 @@ final class AdviceTest extends TestCase
             SAMLStringValue::fromString('simplesamlphp.org'),
         );
         $authorityBinding = new AuthorityBinding(
-            QNameValue::fromString('{' . C::NS_SAMLP . '}samlp:AttributeQuery'),
+            QNameValue::fromString('{' . C::NS_SAMLP . '}samlp:AssertionIdReference'),
             SAMLAnyURIValue::fromString('urn:x-simplesamlphp:location'),
             SAMLAnyURIValue::fromString('urn:x-simplesamlphp:binding'),
         );

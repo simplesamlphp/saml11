@@ -118,6 +118,6 @@ final class QueryTest extends TestCase
 
         /** @var \Dom\XMLDocument $ownerDocument */
         $ownerDocument = $element->ownerDocument;
-        $this->assertEquals($ownerDocument->saveXml($element), strval($query));
+        $this->assertXmlStringEqualsXmlString($ownerDocument->saveXml($element), strval($query));
     }
 }

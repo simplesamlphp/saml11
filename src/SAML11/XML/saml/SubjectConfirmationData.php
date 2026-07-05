@@ -6,13 +6,16 @@ namespace SimpleSAML\SAML11\XML\saml;
 
 use Dom;
 use SimpleSAML\Assert\Assert;
+use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\Type\SAMLStringValue;
 use SimpleSAML\XML\AbstractElement;
+use SimpleSAML\XML\Attribute as XMLAttribute;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\SchemaValidatableElementInterface;
 use SimpleSAML\XML\SchemaValidatableElementTrait;
 use SimpleSAML\XMLSchema\Constants as C_XSI;
 use SimpleSAML\XMLSchema\Exception\InvalidDOMElementException;
+use SimpleSAML\XMLSchema\Type\AnyURIValue;
 use SimpleSAML\XMLSchema\Type\IntegerValue;
 use SimpleSAML\XMLSchema\Type\Interface\ValueTypeInterface;
 
@@ -146,21 +149,31 @@ class SubjectConfirmationData extends AbstractSamlElement implements SchemaValid
         switch ($type) {
             case "integer":
                 // make sure that the xs namespace is available in the SubjectConfirmationData
-                $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', C_XSI::NS_XSI);
-                $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xs', C_XSI::NS_XS);
+                $xsi_attr = new XMLAttribute(C::NS_XMLNS, 'xmlns', 'xsi', AnyURIValue::fromString(C_XSI::NS_XSI));
+                $xsi_attr->toXML($e);
+
+                $xs_attr = new XMLAttribute(C::NS_XMLNS, 'xmlns', 'xs', AnyURIValue::fromString(C_XSI::NS_XS));
+                $xs_attr->toXML($e);
+
                 $e->setAttributeNS(C_XSI::NS_XSI, 'xsi:type', 'xs:integer');
                 $e->textContent = strval($value);
                 break;
             case "NULL":
-                $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', C_XSI::NS_XSI);
+                $xs_attr = new XMLAttribute(C::NS_XMLNS, 'xmlns', 'xs', AnyURIValue::fromString(C_XSI::NS_XS));
+                $xs_attr->toXML($e);
+
                 $e->setAttributeNS(C_XSI::NS_XSI, 'xsi:nil', '1');
                 $e->textContent = '';
                 break;
             case "object":
                 if ($value instanceof ValueTypeInterface) {
                     if ($this->value instanceof IntegerValue) {
-                        $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', C_XSI::NS_XSI);
-                        $e->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xs', C_XSI::NS_XS);
+                        $xsi_attr = new XMLAttribute(C::NS_XMLNS, 'xmlns', 'xsi', AnyURIValue::fromString(C_XSI::NS_XSI));
+                        $xsi_attr->toXML($e);
+
+                        $xs_attr = new XMLAttribute(C::NS_XMLNS, 'xmlns', 'xs', AnyURIValue::fromString(C_XSI::NS_XS));
+                        $xs_attr->toXML($e);
+
                         $e->setAttributeNS(C_XSI::NS_XSI, 'xsi:type', 'xs:integer');
                     }
                     $e->textContent = strval($value);

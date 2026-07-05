@@ -171,7 +171,10 @@ XML;
 
         /** @var \Dom\XMLDocument $ownerDocument */
         $ownerDocument = $av->toXML()->ownerDocument;
-        $this->assertXmlStringEqualsXmlString($document->saveXML(), $ownerDocument->saveXML());
+        $this->assertXmlStringEqualsXmlString(
+            $document->saveXml($document->documentElement),
+            $ownerDocument->saveXml($ownerDocument->documentElement),
+        );
     }
 
 

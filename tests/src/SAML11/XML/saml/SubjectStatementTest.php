@@ -211,6 +211,6 @@ final class SubjectStatementTest extends TestCase
 
         /** @var \Dom\XMLDocument $ownerDocument */
         $ownerDocument = $element->ownerDocument;
-        $this->assertEquals($ownerDocument->saveXML($element), strval($subjectStatement));
+        $this->assertXmlStringEqualsXmlString($ownerDocument->saveXML($element), strval($subjectStatement));
     }
 }

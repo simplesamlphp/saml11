@@ -58,7 +58,7 @@ final class AuthorityBindingTest extends TestCase
     {
         $ab = new AuthorityBinding(
             QNameValue::fromParts(
-                NCNameValue::fromString('AttributeQuery'),
+                NCNameValue::fromString('AssertionIdReference'),
                 SAMLAnyURIValue::fromString(C::NS_SAMLP),
                 NCNameValue::fromString('samlp'),
             ),

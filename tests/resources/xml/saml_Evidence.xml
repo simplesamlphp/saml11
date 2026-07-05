@@ -1,4 +1,4 @@
-<saml:Evidence xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" xmlns:ssp="urn:x-simplesamlphp:namespace" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol">
+<saml:Evidence xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ssp="urn:x-simplesamlphp:namespace" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol">
   <saml:AssertionIDReference>_Test</saml:AssertionIDReference>
   <saml:Assertion MajorVersion="1" MinorVersion="1" AssertionID="EvidenceAssertionID" Issuer="urn:x-simplesamlphp:phpunit" IssueInstant="2023-01-24T09:42:26Z">
     <saml:Conditions NotBefore="2023-01-24T09:42:26Z" NotOnOrAfter="2023-01-24T09:47:26Z">
@@ -50,7 +50,7 @@
         </saml:SubjectConfirmation>
       </saml:Subject>
       <saml:SubjectLocality IPAddress="127.0.0.1" DNSAddress="simplesamlphp.org" />
-      <saml:AuthorityBinding AuthorityKind="samlp:AttributeQuery" Location="urn:x-simplesamlphp:location" Binding="urn:x-simplesamlphp:binding" />
+      <saml:AuthorityBinding AuthorityKind="samlp:AssertionIdReference" Location="urn:x-simplesamlphp:location" Binding="urn:x-simplesamlphp:binding" />
     </saml:AuthenticationStatement>
     <saml:AttributeStatement>
       <saml:Subject>

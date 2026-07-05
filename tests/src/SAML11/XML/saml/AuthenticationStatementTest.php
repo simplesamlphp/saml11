@@ -148,7 +148,7 @@ final class AuthenticationStatementTest extends TestCase
         );
 
         $authorityBinding = new AuthorityBinding(
-            QNameValue::fromString('{' . C::NS_SAMLP . '}samlp:AttributeQuery'),
+            QNameValue::fromString('{' . C::NS_SAMLP . '}samlp:AssertionIdReference'),
             SAMLAnyURIValue::fromString('urn:x-simplesamlphp:location'),
             SAMLAnyURIValue::fromString('urn:x-simplesamlphp:binding'),
         );

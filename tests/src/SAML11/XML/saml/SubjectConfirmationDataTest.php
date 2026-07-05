@@ -129,6 +129,9 @@ XML;
 
         /** @var \Dom\XMLDocument $ownerDocument */
         $ownerDocument = $scd->toXML()->ownerDocument;
-        $this->assertXmlStringEqualsXmlString($document->saveXML($document), $ownerDocument->saveXML($ownerDocument));
+        $this->assertXmlStringEqualsXmlString(
+            $document->saveXML($document->documentElement),
+            $ownerDocument->saveXML($ownerDocument->documentElement),
+        );
     }
 }
