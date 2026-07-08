@@ -102,7 +102,7 @@ final class AttributeValueTest extends TestCase
         $nsxs = C_XSI::NS_XS;
         $nsxsi = C_XSI::NS_XSI;
         $xml = <<<XML
-<saml:AttributeValue xmlns:saml="{$nssaml}" xmlns:xsi="{$nsxsi}" xmlns:xs="{$nsxs}" xsi:type="xs:integer">3</saml:AttributeValue>
+<saml:AttributeValue xsi:type="xs:integer" xmlns:saml="{$nssaml}" xmlns:xsi="{$nsxsi}" xmlns:xs="{$nsxs}">3</saml:AttributeValue>
 XML;
         $this->assertEquals(
             $xml,
@@ -128,7 +128,7 @@ XML;
         $nsxs = C_XSI::NS_XS;
         $nsxsi = C_XSI::NS_XSI;
         $xml = <<<XML
-<saml:AttributeValue xmlns:xsi="{$nsxsi}" xmlns:xs="{$nsxs}" xmlns:saml="{$nssaml}" xsi:type="xs:dateTime">2024-04-04T04:44:44Z</saml:AttributeValue>
+<saml:AttributeValue xsi:type="xs:dateTime" xmlns:saml="{$nssaml}" xmlns:xsi="{$nsxsi}" xmlns:xs="{$nsxs}">2024-04-04T04:44:44Z</saml:AttributeValue>
 XML;
         $this->assertEquals(
             $xml,

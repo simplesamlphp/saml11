@@ -1,9 +1,9 @@
-<saml:Subject xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ssp="urn:x-simplesamlphp:namespace">
+<saml:Subject xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ssp="urn:x-simplesamlphp:namespace" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <saml:NameIdentifier NameQualifier="TheNameQualifier" Format="urn:the:format">TheNameIDValue</saml:NameIdentifier>
   <saml:SubjectConfirmation>
     <saml:ConfirmationMethod>_Test1</saml:ConfirmationMethod>
     <saml:ConfirmationMethod>_Test2</saml:ConfirmationMethod>
-    <saml:SubjectConfirmationData xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:integer">2</saml:SubjectConfirmationData>
+    <saml:SubjectConfirmationData xsi:type="xs:integer">2</saml:SubjectConfirmationData>
     <ds:KeyInfo Id="fed654">
       <ds:KeyName>testkey</ds:KeyName>
       <ds:X509Data>

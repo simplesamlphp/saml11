@@ -85,7 +85,7 @@ final class StatementTest extends TestCase
             ],
         );
 
-        $this->assertEquals(
+        $this->assertXmlStringEqualsXmlString(
             self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
             strval($statement),
         );
@@ -137,6 +137,6 @@ final class StatementTest extends TestCase
 
         /** @var \Dom\XMLDocument $ownerDocument */
         $ownerDocument = $element->ownerDocument;
-        $this->assertEquals($ownerDocument->saveXML($element), strval($statement));
+        $this->assertXmlStringEqualsXmlString($ownerDocument->saveXML($element), strval($statement));
     }
 }

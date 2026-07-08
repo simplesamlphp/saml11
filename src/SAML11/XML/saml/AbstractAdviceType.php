@@ -94,9 +94,9 @@ abstract class AbstractAdviceType extends AbstractSamlElement
 
         $elements = [];
         foreach ($xml->childNodes as $element) {
-            if ($element->namespaceURI === C::NS_SAML) {
+            if (!($element instanceof Dom\Element)) {
                 continue;
-            } elseif (!($element instanceof Dom\Element)) {
+            } elseif ($element->namespaceURI === C::NS_SAML) {
                 continue;
             }
 

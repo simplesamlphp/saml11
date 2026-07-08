@@ -168,10 +168,20 @@ class SubjectConfirmationData extends AbstractSamlElement implements SchemaValid
             case "object":
                 if ($value instanceof ValueTypeInterface) {
                     if ($this->value instanceof IntegerValue) {
-                        $xsi_attr = new XMLAttribute(C::NS_XMLNS, 'xmlns', 'xsi', AnyURIValue::fromString(C_XSI::NS_XSI));
+                        $xsi_attr = new XMLAttribute(
+                            C::NS_XMLNS,
+                            'xmlns',
+                            'xsi',
+                            AnyURIValue::fromString(C_XSI::NS_XSI),
+                        );
                         $xsi_attr->toXML($e);
 
-                        $xs_attr = new XMLAttribute(C::NS_XMLNS, 'xmlns', 'xs', AnyURIValue::fromString(C_XSI::NS_XS));
+                        $xs_attr = new XMLAttribute(
+                            C::NS_XMLNS,
+                            'xmlns',
+                            'xs',
+                            AnyURIValue::fromString(C_XSI::NS_XS),
+                        );
                         $xs_attr->toXML($e);
 
                         $e->setAttributeNS(C_XSI::NS_XSI, 'xsi:type', 'xs:integer');

@@ -162,7 +162,7 @@ final class SubjectStatementTest extends TestCase
         $audience = Audience::fromString('urn:x-simplesamlphp:audience');
         $subjectStatement = new CustomSubjectStatement($subject, [$audience]);
 
-        $this->assertEquals(
+        $this->assertXmlStringEqualsXmlString(
             self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
             strval($subjectStatement),
         );
