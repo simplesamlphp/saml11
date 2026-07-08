@@ -97,7 +97,7 @@ final class SubjectConfirmationDataTest extends TestCase
         $nsxs = C_XSI::NS_XS;
         $nsxsi = C_XSI::NS_XSI;
         $xml = <<<XML
-<saml:SubjectConfirmationData xsi:nil="1" xmlns:saml="{$nssaml}" xmlns:xs="{$nsxs}" xmlns:xsi="{$nsxsi}"/>
+<saml:SubjectConfirmationData xmlns:saml="{$nssaml}" xmlns:xs="{$nsxs}" xmlns:xsi="{$nsxsi}" xsi:nil="1"/>
 XML;
         $this->assertEquals(
             $xml,
