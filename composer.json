@@ -17,9 +17,9 @@
 
         "psr/clock": "~1.0",
         "psr/log": "~3.0",
-        "simplesamlphp/assert": "~2.0",
-        "simplesamlphp/xml-common": "dev-feature/dom-migration-php84",
-        "simplesamlphp/xml-security": "dev-feature/dom-migration-php84"
+        "simplesamlphp/assert": "~3.0",
+        "simplesamlphp/xml-common": "~3.0",
+        "simplesamlphp/xml-security": "~3.0"
     },
     "require-dev": {
         "beste/clock": "~3.0",
