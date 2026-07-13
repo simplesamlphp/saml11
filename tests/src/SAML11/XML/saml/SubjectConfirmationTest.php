@@ -123,9 +123,10 @@ final class SubjectConfirmationTest extends TestCase
             $keyInfo,
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($sc),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($sc);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

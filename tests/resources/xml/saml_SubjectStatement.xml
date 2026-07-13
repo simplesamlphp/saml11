@@ -1,4 +1,4 @@
-<saml:SubjectStatement xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" xmlns:ssp="urn:x-simplesamlphp:namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="ssp:CustomSubjectStatementType">
+<saml:SubjectStatement xmlns:ssp="urn:x-simplesamlphp:namespace" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ssp:CustomSubjectStatementType" xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
   <saml:Subject>
     <saml:NameIdentifier NameQualifier="TheNameQualifier" Format="urn:the:format">TheNameIDValue</saml:NameIdentifier>
     <saml:SubjectConfirmation>

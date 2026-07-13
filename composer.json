@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "php": "^8.3",
+        "php": "^8.5",
         "ext-date": "*",
         "ext-dom": "*",
         "ext-filter": "*",
@@ -17,9 +17,9 @@
 
         "psr/clock": "~1.0",
         "psr/log": "~3.0",
-        "simplesamlphp/assert": "~2.0",
-        "simplesamlphp/xml-common": "~2.8",
-        "simplesamlphp/xml-security": "~2.3"
+        "simplesamlphp/assert": "~3.0",
+        "simplesamlphp/xml-common": "~3.0",
+        "simplesamlphp/xml-security": "~3.0"
     },
     "require-dev": {
         "beste/clock": "~3.0",
@@ -37,7 +37,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "v1.0.x-dev"
+            "dev-master": "v3.0.x-dev"
         }
     },
     "config": {

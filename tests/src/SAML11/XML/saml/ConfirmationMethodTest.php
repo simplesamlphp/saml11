@@ -51,9 +51,10 @@ final class ConfirmationMethodTest extends TestCase
             SAMLAnyURIValue::fromString('_Test'),
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($confirmationMethod),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($confirmationMethod);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

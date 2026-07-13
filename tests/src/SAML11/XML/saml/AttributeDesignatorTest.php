@@ -58,9 +58,10 @@ final class AttributeDesignatorTest extends TestCase
             SAMLAnyURIValue::fromString('https://example.org/'),
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($attributeDesignator),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($attributeDesignator);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

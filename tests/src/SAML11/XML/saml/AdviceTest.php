@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
-use DOMDocument;
+use Dom;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -83,23 +83,23 @@ final class AdviceTest extends TestCase
     /** @var \SimpleSAML\XML\Chunk $chunk */
     private static Chunk $chunk;
 
-    /** @var \DOMDocument $conditions */
-    private static DOMDocument $conditions;
+    /** @var \Dom\XMLDocument $conditions */
+    private static Dom\XMLDocument $conditions;
 
-    /** @var \DOMDocument $statement */
-    private static DOMDocument $statement;
+    /** @var \Dom\XMLDocument $statement */
+    private static Dom\XMLDocument $statement;
 
-    /** @var \DOMDocument $subjectStatement */
-    private static DOMDocument $subjectStatement;
+    /** @var \Dom\XMLDocument $subjectStatement */
+    private static Dom\XMLDocument $subjectStatement;
 
-    /** @var \DOMDocument $authnStatement */
-    private static DOMDocument $authnStatement;
+    /** @var \Dom\XMLDocument $authnStatement */
+    private static Dom\XMLDocument $authnStatement;
 
-    /** @var \DOMDocument $authzDecisionStatement */
-//    private static DOMDocument $authzDecisionStatement;
+    /** @var \Dom\XMLDocument $authzDecisionStatement */
+//    private static Dom\XMLDocument $authzDecisionStatement;
 
-    /** @var \DOMDocument $attributeStatement */
-    private static DOMDocument $attributeStatement;
+    /** @var \Dom\XMLDocument $attributeStatement */
+    private static Dom\XMLDocument $attributeStatement;
 
 
     /**
@@ -264,7 +264,7 @@ final class AdviceTest extends TestCase
             SAMLStringValue::fromString('simplesamlphp.org'),
         );
         $authorityBinding = new AuthorityBinding(
-            QNameValue::fromString('{' . C::NS_SAMLP . '}samlp:AttributeQuery'),
+            QNameValue::fromString('{' . C::NS_SAMLP . '}samlp:AssertionIdReference'),
             SAMLAnyURIValue::fromString('urn:x-simplesamlphp:location'),
             SAMLAnyURIValue::fromString('urn:x-simplesamlphp:binding'),
         );
@@ -370,10 +370,11 @@ final class AdviceTest extends TestCase
             [self::$chunk],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($advice),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($advice);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 
 

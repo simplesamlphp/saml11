@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\samlp;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\XML\saml\AttributeDesignator;
 use SimpleSAML\SAML11\XML\saml\Subject;
@@ -59,7 +59,7 @@ abstract class AbstractAttributeQueryType extends AbstractSubjectQueryAbstractTy
     /**
      * Convert this AttributeQuery to XML.
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = parent::toXML($parent);
 

@@ -162,7 +162,7 @@ final class SubjectStatementTest extends TestCase
         $audience = Audience::fromString('urn:x-simplesamlphp:audience');
         $subjectStatement = new CustomSubjectStatement($subject, [$audience]);
 
-        $this->assertEquals(
+        $this->assertXmlStringEqualsXmlString(
             self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
             strval($subjectStatement),
         );
@@ -181,10 +181,11 @@ final class SubjectStatementTest extends TestCase
         $this->assertCount(1, $audience);
         $this->assertEquals('urn:x-simplesamlphp:audience', $audience[0]->getContent());
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($subjectStatement),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($subjectStatement);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 
 
@@ -208,6 +209,8 @@ final class SubjectStatementTest extends TestCase
         $this->assertEquals('SubjectStatement', $chunk->getLocalName());
         $this->assertEquals(C::NS_SAML, $chunk->getNamespaceURI());
 
-        $this->assertEquals($element->ownerDocument?->saveXML($element), strval($subjectStatement));
+        /** @var \Dom\XMLDocument $ownerDocument */
+        $ownerDocument = $element->ownerDocument;
+        $this->assertXmlStringEqualsXmlString($ownerDocument->saveXML($element), strval($subjectStatement));
     }
 }

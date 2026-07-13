@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\saml;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Compat\ContainerSingleton;
 use SimpleSAML\SAML11\Constants as C;
@@ -50,7 +50,7 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
     /**
      * The original signed XML
      */
-    protected DOMElement $xml;
+    protected Dom\Element $xml;
 
 
     /**
@@ -231,7 +231,7 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
     /**
      * Set the XML element.
      */
-    private function setOriginalXML(DOMElement $xml): void
+    private function setOriginalXML(Dom\Element $xml): void
     {
         $this->xml = $xml;
     }
@@ -239,7 +239,7 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
 
     /**
      */
-    protected function getOriginalXML(): DOMElement
+    protected function getOriginalXML(): Dom\Element
     {
         return $this->xml ?? $this->toUnsignedXML();
     }
@@ -258,7 +258,7 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
@@ -312,7 +312,7 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
      * Convert this assertion to an unsigned XML document.
      * This method does not sign the resulting XML document.
      */
-    protected function toUnsignedXML(?DOMElement $parent = null): DOMElement
+    protected function toUnsignedXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = $this->instantiateParentElement($parent);
 
@@ -338,7 +338,7 @@ abstract class AbstractAssertionType extends AbstractSamlElement implements
      *
      * @throws \Exception
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         if ($this->isSigned() === true && $this->signer === null) {
             // We already have a signed document and no signer was set to re-sign it

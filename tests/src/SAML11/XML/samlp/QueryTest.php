@@ -85,10 +85,11 @@ final class QueryTest extends TestCase
             ],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($query),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($query);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 
 
@@ -115,6 +116,9 @@ final class QueryTest extends TestCase
         $this->assertEquals('Query', $chunk->getLocalName());
         $this->assertEquals(C::NS_SAMLP, $chunk->getNamespaceURI());
 
-        $this->assertEquals($element->ownerDocument?->saveXML($element), strval($query));
+        /** @var \Dom\XMLDocument $ownerDocument */
+        $ownerDocument = $element->ownerDocument;
+
+        $this->assertXmlStringEqualsXmlString($ownerDocument->saveXml($element), strval($query));
     }
 }

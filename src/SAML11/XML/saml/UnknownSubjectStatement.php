@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\saml;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XMLSchema\Type\QNameValue;
 
@@ -42,7 +42,7 @@ final class UnknownSubjectStatement extends AbstractSubjectStatement
     /**
      * Convert this unknown SubjectStatement to XML.
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         return $this->getRawSubjectStatement()->toXML($parent);
     }

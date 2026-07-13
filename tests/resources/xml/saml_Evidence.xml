@@ -13,13 +13,13 @@
     <saml:Statement xmlns:ssp="urn:x-simplesamlphp:namespace" xsi:type="ssp:CustomStatementType">
       <saml:Audience>urn:some:audience</saml:Audience>
     </saml:Statement>
-    <saml:SubjectStatement xsi:type="ssp:CustomSubjectStatementType">
+    <saml:SubjectStatement xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ssp:CustomSubjectStatementType">
       <saml:Subject>
         <saml:NameIdentifier NameQualifier="TheNameQualifier" Format="urn:the:format">TheNameIDValue</saml:NameIdentifier>
         <saml:SubjectConfirmation>
           <saml:ConfirmationMethod>_Test1</saml:ConfirmationMethod>
           <saml:ConfirmationMethod>_Test2</saml:ConfirmationMethod>
-          <saml:SubjectConfirmationData xsi:type="xs:integer">2</saml:SubjectConfirmationData>
+          <saml:SubjectConfirmationData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:integer">2</saml:SubjectConfirmationData>
           <ds:KeyInfo Id="EvidenceSubjectStatementID">
             <ds:KeyName>testkey</ds:KeyName>
             <ds:X509Data>
@@ -38,7 +38,7 @@
         <saml:SubjectConfirmation>
           <saml:ConfirmationMethod>_Test1</saml:ConfirmationMethod>
           <saml:ConfirmationMethod>_Test2</saml:ConfirmationMethod>
-          <saml:SubjectConfirmationData xsi:type="xs:integer">2</saml:SubjectConfirmationData>
+          <saml:SubjectConfirmationData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:integer">2</saml:SubjectConfirmationData>
           <ds:KeyInfo Id="EvidenceAuthenticationStatementID">
             <ds:KeyName>testkey</ds:KeyName>
             <ds:X509Data>
@@ -50,7 +50,7 @@
         </saml:SubjectConfirmation>
       </saml:Subject>
       <saml:SubjectLocality IPAddress="127.0.0.1" DNSAddress="simplesamlphp.org" />
-      <saml:AuthorityBinding AuthorityKind="samlp:AttributeQuery" Location="urn:x-simplesamlphp:location" Binding="urn:x-simplesamlphp:binding" />
+      <saml:AuthorityBinding AuthorityKind="samlp:AssertionIdReference" Location="urn:x-simplesamlphp:location" Binding="urn:x-simplesamlphp:binding" />
     </saml:AuthenticationStatement>
     <saml:AttributeStatement>
       <saml:Subject>
@@ -58,7 +58,7 @@
         <saml:SubjectConfirmation>
           <saml:ConfirmationMethod>_Test1</saml:ConfirmationMethod>
           <saml:ConfirmationMethod>_Test2</saml:ConfirmationMethod>
-          <saml:SubjectConfirmationData xsi:type="xs:integer">2</saml:SubjectConfirmationData>
+          <saml:SubjectConfirmationData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:integer">2</saml:SubjectConfirmationData>
           <ds:KeyInfo Id="EvidenceAttributeStatementID">
             <ds:KeyName>testkey</ds:KeyName>
             <ds:X509Data>

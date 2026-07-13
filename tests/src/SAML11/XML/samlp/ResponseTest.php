@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\samlp;
 
-use DOMDocument;
+use Dom;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -50,8 +50,8 @@ final class ResponseTest extends TestCase
     use SerializableElementTestTrait;
 
 
-    /** @var \DOMDocument $authnStatement */
-    private static DOMDocument $authnStatement;
+    /** @var \Dom\XMLDocument $authnStatement */
+    private static Dom\XMLDocument $authnStatement;
 
 
     /**
@@ -125,9 +125,10 @@ final class ResponseTest extends TestCase
             [$assertion],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($response),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($response);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

@@ -49,7 +49,7 @@ final class SAMLAnyURIValueTest extends TestCase
             'diacritical' => [true, 'https://aä.com'],
             'spn' => [true, 'spn:a4cf592f-a64c-46ff-a788-b260f474525b'],
             'typos' => [true, 'https//www.uni.l/en/'],
-            'spaces' => [true, 'this is silly'],
+            'spaces' => [false, 'this is silly'],
             'empty' => [false, ''],
             'azure-common' => [true, 'https://sts.windows.net/{tenantid}/'],
         ];

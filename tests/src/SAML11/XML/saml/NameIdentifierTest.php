@@ -59,9 +59,10 @@ final class NameIdentifierTest extends TestCase
             SAMLAnyURIValue::fromString('urn:the:format'),
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($nameIdentifier),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($nameIdentifier);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

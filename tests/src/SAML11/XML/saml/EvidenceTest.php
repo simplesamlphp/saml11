@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
-use DOMDocument;
+use Dom;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -80,17 +80,17 @@ final class EvidenceTest extends TestCase
     /** @var \SimpleSAML\SAML11\Compat\AbstractContainer */
     private static AbstractContainer $containerBackup;
 
-    /** @var \DOMDocument $conditions */
-    private static DOMDocument $conditions;
+    /** @var \Dom\Document $conditions */
+    private static Dom\Document $conditions;
 
-    /** @var \DOMDocument $advice */
-    //private static DOMDocument $advice;
+    /** @var \Dom\Document $advice */
+    //private static Dom\Document $advice;
 
-    /** @var \DOMDocument $authzDecisionStatement */
-    //private static DOMDocument $authzDecisionStatement;
+    /** @var \Dom\Document $authzDecisionStatement */
+    //private static Dom\Document $authzDecisionStatement;
 
-    /** @var \DOMDocument $statement */
-    private static DOMDocument $statement;
+    /** @var \Dom\Document $statement */
+    private static Dom\Document $statement;
 
 
     /**
@@ -201,10 +201,11 @@ final class EvidenceTest extends TestCase
 
         $evidence = new Evidence([$assertionIDReference], [$assertion]);
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($evidence),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($evidence);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 
 
@@ -308,7 +309,7 @@ final class EvidenceTest extends TestCase
         );
 
         $authorityBinding = new AuthorityBinding(
-            QNameValue::fromString('{' . C::NS_SAMLP . '}samlp:AttributeQuery'),
+            QNameValue::fromString('{' . C::NS_SAMLP . '}samlp:AssertionIdReference'),
             SAMLAnyURIValue::fromString('urn:x-simplesamlphp:location'),
             SAMLAnyURIValue::fromString('urn:x-simplesamlphp:binding'),
         );
