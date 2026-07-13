@@ -8,6 +8,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
+use SimpleSAML\Assert\AssertionFailedException;
 use SimpleSAML\SAML11\Exception\ProtocolViolationException;
 use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\XMLSchema\Exception\SchemaViolationException;
@@ -31,7 +32,7 @@ final class SAMLAnyURIValueTest extends TestCase
         try {
             SAMLAnyURIValue::fromString($uri);
             $this->assertTrue($shouldPass);
-        } catch (ProtocolViolationException | SchemaViolationException $e) {
+        } catch (AssertionFailedException | ProtocolViolationException | SchemaViolationException $e) {
             $this->assertFalse($shouldPass);
         }
     }
@@ -49,7 +50,7 @@ final class SAMLAnyURIValueTest extends TestCase
             'diacritical' => [true, 'https://aä.com'],
             'spn' => [true, 'spn:a4cf592f-a64c-46ff-a788-b260f474525b'],
             'typos' => [true, 'https//www.uni.l/en/'],
-            'spaces' => [true, 'this is silly'],
+            'spaces' => [false, 'this is silly'],
             'empty' => [false, ''],
             'azure-common' => [true, 'https://sts.windows.net/{tenantid}/'],
         ];
