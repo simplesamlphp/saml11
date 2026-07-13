@@ -64,10 +64,11 @@ final class AttributeValueTest extends TestCase
         $this->assertEquals('2', $av->getValue());
         $this->assertEquals('xs:integer', $av->getXsiType());
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($av),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($av);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 
 
@@ -167,12 +168,18 @@ XML;
 
         $this->assertEquals('abcd-some-value-xyz', $value->getValue());
         $this->assertEquals('urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified', $value->getFormat());
-        $this->assertXmlStringEqualsXmlString($document->saveXML(), $av->toXML()->ownerDocument?->saveXML());
+
+        /** @var \Dom\XMLDocument $ownerDocument */
+        $ownerDocument = $av->toXML()->ownerDocument;
+        $this->assertXmlStringEqualsXmlString(
+            $document->saveXml($document->documentElement),
+            $ownerDocument->saveXml($ownerDocument->documentElement),
+        );
     }
 
 
     /**
-     * Verifies that we cannot create an AttributeValue that is nullable, like SAML2 allows, but SAML1.1 does not.
+     * Verifies that we cannot create an AttributeValue that is nullable, like SAML 2.0 allows, but SAML1.1 does not.
      *
      * @return void
      */

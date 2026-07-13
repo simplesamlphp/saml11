@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\samlp;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\SAML11\XML\saml\Subject;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XMLSchema\Type\QNameValue;
@@ -43,7 +43,7 @@ final class UnknownSubjectQuery extends AbstractSubjectQuery
     /**
      * Convert this unknown subject query to XML.
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         return $this->getRawSubjectQuery()->toXML($parent);
     }

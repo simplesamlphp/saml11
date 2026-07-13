@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\saml;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\XML\Chunk;
@@ -87,16 +87,16 @@ abstract class AbstractAdviceType extends AbstractSamlElement
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, static::getLocalName(), InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, static::NS, InvalidDOMElementException::class);
 
         $elements = [];
         foreach ($xml->childNodes as $element) {
-            if ($element->namespaceURI === C::NS_SAML) {
+            if (!($element instanceof Dom\Element)) {
                 continue;
-            } elseif (!($element instanceof DOMElement)) {
+            } elseif ($element->namespaceURI === C::NS_SAML) {
                 continue;
             }
 
@@ -114,7 +114,7 @@ abstract class AbstractAdviceType extends AbstractSamlElement
     /**
      * Convert this EvidenceType to XML.
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = $this->instantiateParentElement($parent);
 

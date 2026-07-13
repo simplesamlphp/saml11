@@ -148,7 +148,7 @@ final class AuthenticationStatementTest extends TestCase
         );
 
         $authorityBinding = new AuthorityBinding(
-            QNameValue::fromString('{' . C::NS_SAMLP . '}samlp:AttributeQuery'),
+            QNameValue::fromString('{' . C::NS_SAMLP . '}samlp:AssertionIdReference'),
             SAMLAnyURIValue::fromString('urn:x-simplesamlphp:location'),
             SAMLAnyURIValue::fromString('urn:x-simplesamlphp:binding'),
         );
@@ -161,10 +161,11 @@ final class AuthenticationStatementTest extends TestCase
             [$authorityBinding],
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($authenticationStatement),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($authenticationStatement);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 
 

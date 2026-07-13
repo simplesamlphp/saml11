@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\samlp;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Type\SAMLAnyURIValue;
 use SimpleSAML\SAML11\XML\saml\Action;
@@ -35,7 +35,7 @@ final class AuthorizationDecisionQuery extends AbstractAuthorizationDecisionQuer
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, 'AuthorizationDecisionQuery', InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, AuthorizationDecisionQuery::NS, InvalidDOMElementException::class);

@@ -21,4 +21,8 @@ $signer = (new SignatureAlgorithmFactory())->getAlgorithm(
 
 $unsignedAssertion = Assertion::fromXML($document->documentElement);
 $unsignedAssertion->sign($signer);
-echo $unsignedAssertion->toXML()->ownerDocument->saveXML();
+
+/** @var \Dom\XMLDocument $ownerDocument */
+$ownerDocument = $unsignedAssertion->toXML()->ownerDocument;
+
+echo $ownerDocument->saveXML();

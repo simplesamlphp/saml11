@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\samlp;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\SAML11\Type\SAMLDateTimeValue;
 use SimpleSAML\SAML11\XML\CanonicalizableElementTrait;
 use SimpleSAML\SAML11\XML\SignableElementTrait;
@@ -41,7 +41,7 @@ abstract class AbstractMessage extends AbstractSamlpElement implements
     /**
      * The original signed XML
      */
-    protected DOMElement $xml;
+    protected Dom\Element $xml;
 
 
     /**
@@ -106,7 +106,7 @@ abstract class AbstractMessage extends AbstractSamlpElement implements
     /**
      * Get the XML element.
      */
-    public function getXML(): DOMElement
+    public function getXML(): Dom\Element
     {
         return $this->xml;
     }
@@ -115,7 +115,7 @@ abstract class AbstractMessage extends AbstractSamlpElement implements
     /**
      * Set the XML element.
      */
-    protected function setXML(DOMElement $xml): void
+    protected function setXML(Dom\Element $xml): void
     {
         $this->xml = $xml;
     }
@@ -123,7 +123,7 @@ abstract class AbstractMessage extends AbstractSamlpElement implements
 
     /**
      */
-    protected function getOriginalXML(): DOMElement
+    protected function getOriginalXML(): Dom\Element
     {
         return $this->xml ?? $this->toUnsignedXML();
     }
@@ -133,7 +133,7 @@ abstract class AbstractMessage extends AbstractSamlpElement implements
      * Convert this message to an unsigned XML document.
      * This method does not sign the resulting XML document.
      */
-    protected function toUnsignedXML(?DOMElement $parent = null): DOMElement
+    protected function toUnsignedXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = $this->instantiateParentElement($parent);
 

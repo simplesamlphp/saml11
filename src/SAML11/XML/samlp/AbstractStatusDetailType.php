@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\samlp;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\XML\Chunk;
 use SimpleSAML\XML\ExtendableElementTrait;
@@ -51,14 +51,14 @@ abstract class AbstractStatusDetailType extends AbstractSamlpElement
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, 'StatusDetail', InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, StatusDetail::NS, InvalidDOMElementException::class);
 
         $details = [];
         foreach ($xml->childNodes as $detail) {
-            if (!($detail instanceof DOMElement)) {
+            if (!($detail instanceof Dom\Element)) {
                 continue;
             }
 
@@ -72,7 +72,7 @@ abstract class AbstractStatusDetailType extends AbstractSamlpElement
     /**
      * Convert this StatusDetail to XML.
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = $this->instantiateParentElement($parent);
 

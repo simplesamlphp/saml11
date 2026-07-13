@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\samlp;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\SAML11\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\Utils;
@@ -52,7 +52,7 @@ abstract class AbstractQuery extends AbstractQueryAbstractType implements
      * @throws \SimpleSAML\XML\Exception\InvalidDOMElementException
      *   if the qualified name of the supplied element is wrong
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, 'Query', InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, C::NS_SAMLP, InvalidDOMElementException::class);
@@ -83,7 +83,7 @@ abstract class AbstractQuery extends AbstractQueryAbstractType implements
     /**
      * Convert this Query to XML.
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = $this->instantiateParentElement($parent);
 

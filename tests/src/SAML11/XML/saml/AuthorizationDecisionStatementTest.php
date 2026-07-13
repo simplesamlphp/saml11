@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Test\SAML11\XML\saml;
 
-use DOMDocument;
+use Dom;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -47,17 +47,17 @@ final class AuthorizationDecisionStatementTest extends TestCase
     /** @var \SimpleSAML\SAML11\Compat\AbstractContainer */
     private static AbstractContainer $containerBackup;
 
-    /** @var \DOMDocument $action */
-    private static DOMDocument $action;
+    /** @var \Dom\XMLDocument $action */
+    private static Dom\XMLDocument $action;
 
-    /** @var \DOMDocument $advice */
-//    private static DOMDocument $advice;
+    /** @var \Dom\XMLDocument $advice */
+//    private static Dom\XMLDocument $advice;
 
-    /** @var \DOMDocument $evidence */
-    private static DOMDocument $evidence;
+    /** @var \Dom\XMLDocument $evidence */
+    private static Dom\XMLDocument $evidence;
 
-    /** @var \DOMDocument $subject */
-    private static DOMDocument $subject;
+    /** @var \Dom\XMLDocument $subject */
+    private static Dom\XMLDocument $subject;
 
 
     /**
@@ -126,9 +126,10 @@ final class AuthorizationDecisionStatementTest extends TestCase
             $evidence,
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($authzDecisionStatement),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($authzDecisionStatement);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

@@ -59,9 +59,10 @@ final class ActionTest extends TestCase
             SAMLAnyURIValue::fromString('urn:x-simplesamlphp:namespace'),
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($action),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($action);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimpleSAML\SAML11\XML\samlp;
 
-use DOMElement;
+use Dom;
 use SimpleSAML\Assert\Assert;
 use SimpleSAML\SAML11\Constants as C;
 use SimpleSAML\SAML11\Exception\ProtocolViolationException;
@@ -85,7 +85,7 @@ abstract class AbstractStatusType extends AbstractSamlpElement
      * @throws \SimpleSAML\XML\Exception\MissingElementException
      *   if one of the mandatory child-elements is missing
      */
-    public static function fromXML(DOMElement $xml): static
+    public static function fromXML(Dom\Element $xml): static
     {
         Assert::same($xml->localName, 'Status', InvalidDOMElementException::class);
         Assert::same($xml->namespaceURI, Status::NS, InvalidDOMElementException::class);
@@ -110,7 +110,7 @@ abstract class AbstractStatusType extends AbstractSamlpElement
     /**
      * Convert this Status to XML.
      */
-    public function toXML(?DOMElement $parent = null): DOMElement
+    public function toXML(?Dom\Element $parent = null): Dom\Element
     {
         $e = $this->instantiateParentElement($parent);
 

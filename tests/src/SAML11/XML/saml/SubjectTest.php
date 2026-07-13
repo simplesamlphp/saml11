@@ -135,9 +135,10 @@ final class SubjectTest extends TestCase
 
         $subject = new Subject($sc, $nameIdentifier);
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($subject),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($subject);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

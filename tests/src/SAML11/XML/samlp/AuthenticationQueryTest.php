@@ -144,9 +144,10 @@ final class AuthenticationQueryTest extends TestCase
             SAMLAnyURIValue::fromString(C::AC_PASSWORD),
         );
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($authnQuery),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($authnQuery);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }

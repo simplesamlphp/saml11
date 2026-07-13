@@ -52,9 +52,10 @@ final class AssertionArtifactTest extends TestCase
     {
         $assertionArtifact = AssertionArtifact::fromString('AAEbuqrPjR1XORIHk5YAV8I4sM0nKP2CLV+h1CMiWbnkaWvvlJ0g4Ess');
 
-        $this->assertEquals(
-            self::$xmlRepresentation->saveXML(self::$xmlRepresentation->documentElement),
-            strval($assertionArtifact),
-        );
+        $expectedXml = self::$xmlRepresentation->saveXml(self::$xmlRepresentation->documentElement);
+        $this->assertNotFalse($expectedXml);
+        $actualXml = strval($assertionArtifact);
+
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 }
