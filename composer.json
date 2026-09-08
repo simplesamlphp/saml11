@@ -12,7 +12,6 @@
         "php": "^8.5",
         "ext-date": "*",
         "ext-dom": "*",
-        "ext-filter": "*",
         "ext-pcre": "*",
 
         "psr/clock": "~1.0",
@@ -22,8 +21,12 @@
         "simplesamlphp/xml-security": "~3.0"
     },
     "require-dev": {
+        "ext-filter": "*",
+        "ext-openssl": "*",
+
         "beste/clock": "~3.0",
-        "simplesamlphp/simplesamlphp-test-framework": "~1.11"
+        "phpunit/phpunit": "^13.3",
+        "simplesamlphp/simplesamlphp-test-framework": "~2"
     },
     "autoload": {
         "psr-4": {
